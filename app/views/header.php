@@ -126,7 +126,7 @@
 								else{
 									echo '
 										<li class="nav-item">
-											<a class="nav-link" href="http://localhost/rhusts/auth/login"><i class="fa fa-user"></i> Log in</a>
+											<a class="nav-link" href="http://localhost/rhust/auth/login"><i class="fa fa-user"></i> Log in</a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" href="http://localhost/rhust/auth/register"><i class="fa fa-pencil"></i> Register</a>
