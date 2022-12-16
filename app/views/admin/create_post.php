@@ -10,16 +10,16 @@
     <section class="content-header">
     	<?php
 	    	if($data[2] == 'news_activities') {
-			    echo '<a href="http://localhost/rhu/admin/news_activities" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> BACK</a>';
+			    echo '<a href="'.site_url('admin/news_activities').'" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> BACK</a>';
 			   }
 			   elseif($data[2] == 'health_info') {
-			    echo '<a href="http://localhost/rhu/admin/health_info" class="btn btn-primary btn-sm btn-flat"> <i class="fa fa-arrow-left"></i> BACK</a>';
+			    echo '<a href="'.site_url('admin/health_info').'" class="btn btn-primary btn-sm btn-flat"> <i class="fa fa-arrow-left"></i> BACK</a>';
 			   }
 			   elseif($data[2] == 'health_faqs') {
-			    echo '<a href="http://localhost/rhu/admin/health_faqs" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> BACK</a>';
+			    echo '<a href="'.site_url('admin/health_faqs').'" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> BACK</a>';
 			   }
 			   else{
-			    echo '<a href="http://localhost/rhu/admin/announcements" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> BACK</a>';
+			    echo '<a href="'.site_url('admin/announcements').'" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> BACK</a>';
 			   }
     	?>
       <h1 style="margin-top: 10px;">
