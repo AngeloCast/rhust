@@ -562,9 +562,20 @@ class Admin extends Controller {
                                         ->name('title')->required();
 
                                         if ($this->form_validation->run()){
-                                                if($_FILES['fileToUpload']['name'] == '')
+                                                $category = $this->io->post('category');
+                                                
+                                                if($category == 1){
+                                                        $id = $this->io->post('id');
+                                                        $status = 'publish';
+                                                        if($this->posts_model->update_post($id, $category, $this->io->post('title'), $this->io->post('content'), $status, $this->io->post('photo')))
+                                                        {
+                                                                $this->session->set_flashdata(array('success' => 'Announcement was successfully published!'));
+                                                                redirect('admin/edit_post/' . $id);
+                                                                exit();
+                                                        }
+                                                }
+                                                else if($_FILES['fileToUpload']['name'] == '')
                                                 {
-                                                        
                                                         $id = $this->io->post('id');
                                                         $status = 'publish';
                                                         if($this->posts_model->update_post($this->io->post('id'), $this->io->post('category'), $this->io->post('title'), $this->io->post('content'), $status, $this->io->post('photo')))

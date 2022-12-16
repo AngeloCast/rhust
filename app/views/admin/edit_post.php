@@ -72,7 +72,6 @@
       <?php include 'includes/message.php'; ?>
       	<div class="row">
         	<div class="col-sm-12 mx-auto">
-        			
 						  <?php
 		        				if($data[2]['status'] == 'publish'){
 		        					echo '<h1 class="published">PUBLISHED';
@@ -171,7 +170,7 @@
 		                      <textarea rows="10" class="form-control" id="editor1" name="content" required><?=$data[2]['content'];?></textarea>
 		                    </div>
 		                </div>
-			            <div class="modal-footer">
+			            <div class="box-footer">
 			            	<?php 
 			        				if($data[2]['status'] == 'publish'){
 			        					echo '
