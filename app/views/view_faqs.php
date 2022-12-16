@@ -60,7 +60,7 @@
 				      	# code...
 							echo '<div class="blog-grids row mb-3">
 								<div class="col-sm-12 blog-grid-left">
-									<img width="100%" height="auto" style="border: solid gray 1px;" src="http://localhost/rhu/public/images/'.$data[2]['photo'].'"  alt="post image" >
+									<img width="100%" height="auto" style="border: solid gray 1px;" src="http://localhost/rhust/public/images/'.$data[2]['photo'].'"  alt="post image" >
 									
 
 									<p style="margin-top: 20px;"><b>'.$data[2]['content'].'</b></p>
@@ -77,7 +77,7 @@
 	</section>
 <?php include("includes/footer.php");?>
 <?php include("includes/scripts.php");?>
-<script src="http://localhost/rhu/public/js/jquery-2.2.3.min.js"></script>
-<script src="http://localhost/rhu/public/js/bootstrap.js"></script>
+<script src="http://localhost/rhust/public/js/jquery-2.2.3.min.js"></script>
+<script src="http://localhost/rhust/public/js/bootstrap.js"></script>
 </body>
 </html>

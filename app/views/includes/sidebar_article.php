@@ -24,7 +24,7 @@
 							echo '<div class="blog-grids row">
 							
 								<div class="col-sm-12 blog-grid-right">
-									<h6 style="font-size: 12px;"><i class="fa fa-circle"></i> <a style="color: #007eff; font-size: 12px;" href="http://localhost/rhu/home/view_post/'.$news['id'].'">'.$news['title'].'</a></h6>
+									<h6 style="font-size: 12px;"><i class="fa fa-circle"></i> <a style="color: #007eff; font-size: 12px;" href="'.site_url('home/view_post/'.$news['id']).'">'.$news['title'].'</a></h6>
 									<div class="sub-meta">
 										<span><i class="fa fa-clock"></i> '.$news['date'].'</span>
 									</div>
@@ -33,7 +33,7 @@
 						}
 					?>
 					<div class="text-right mb-2"> 
-						<p style="font-size: 12px; font-family: arial;"><a href="http://localhost/rhu/home/news">View more>></a></p>
+						<p style="font-size: 12px; font-family: arial;"><a href="<?=site_url('home/news');?>">View more>></a></p>
 					</div>
 				</div>
 				<div>
@@ -52,7 +52,7 @@
 
 									echo  '<div class="blog-grids row">
 										<div class="col-md-12">
-											<img src="http://localhost/rhu/public/images/'.$event['photo'].'" class="img-fluid" alt="rhu image">
+											<img src="'.site_url('public/images/'.$event['photo']).'" class="img-fluid" alt="rhu image">
 										</div>
 										<div class="col-md-12 mt-2">
 											<h6 style="font-size: 12px; color: #007eff">'.$event['title'].'</a></h6>
@@ -67,7 +67,7 @@
 					?>
 					<hr style="margin: 0px;">
 					<div class="text-center mt-2 mb-2"> 
-						<p style="font-size: 12px; font-family: arial;"><a href="http://localhost/rhu/home/events">Click here to see more upcoming events</a></p>
+						<p style="font-size: 12px; font-family: arial;"><a href="<?=site_url('home/events');?>">Click here to see more upcoming events</a></p>
 					</div>
 				</div>
 				<br>

@@ -13,7 +13,7 @@
 					foreach ($data[0] as $posts => $articles) {
 					echo '<li class="list-group-item d-flex justify-content-between align-items-center">
 						
-						<p style="font-size: 10px;"><i class="fa fa-circle fa-sm"></i></p><h6 style="font-size: 12px"> <a style="color: #007bff;"href="http://localhost/rhu/home/faqs/'.$articles['id'].'">'.$articles['title'].'</h6> </a>
+						<p style="font-size: 10px;"><i class="fa fa-circle fa-sm"></i></p><h6 style="font-size: 12px"> <a style="color: #007bff;"href="'.site_url('home/view_post/'.$articles['id']).'">'.$articles['title'].'</h6> </a>
 						</li>';
 					}
 				?>

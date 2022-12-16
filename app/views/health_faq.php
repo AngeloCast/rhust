@@ -91,13 +91,13 @@
 								echo '<div class="blog-grids row mb-3">
 								<div class="col-sm-12 blog-grid-left">
 										<div class="imgcard">
-											<a href="http://localhost/rhu/home/faqs/'.$faqs['id'].'"><img class="card_image" src="http://localhost/rhu/public/images/'.$faqs['photo'].'"  alt="health faq image" ></a>
+											<a href="http://localhost/rhust/home/faqs/'.$faqs['id'].'"><img class="card_image" src="http://localhost/rhust/public/images/'.$faqs['photo'].'"  alt="health faq image" ></a>
 											
-											<h5><a href="http://localhost/rhu/home/faqs/'.$faqs['id'].'">'.$faqs['title'].'</a></h5>
+											<h5><a href="http://localhost/rhust/home/faqs/'.$faqs['id'].'">'.$faqs['title'].'</a></h5>
 											<div class="shorten">'.$faqs['content'].'</div>
 											<div class="sub-meta">					
 												<span><i class="fa fa-clock"></i> '.$faqs['date'].'</span>
-												<a href="http://localhost/rhu/home/faqs/'.$faqs['id'].'" style="float: right; font-size: 14px;" href="">Read More >></a>	
+												<a href="http://localhost/rhust/home/faqs/'.$faqs['id'].'" style="float: right; font-size: 14px;" href="">Read More >></a>	
 											</div>
 											</div>
 										</div>
@@ -115,7 +115,7 @@
 	</section>
 <?php include("includes/footer.php");?>
 <?php include("includes/scripts.php");?>
-<script src="http://localhost/rhu/public/js/jquery-2.2.3.min.js"></script>
-<script src="http://localhost/rhu/public/js/bootstrap.js"></script>
+<script src="http://localhost/rhust/public/js/jquery-2.2.3.min.js"></script>
+<script src="http://localhost/rhust/public/js/bootstrap.js"></script>
 </body>
 </html>

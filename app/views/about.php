@@ -113,7 +113,7 @@
 		});
 	</script>
 
-<script src="http://localhost/rhu/public/js/jquery-2.2.3.min.js"></script>
-<script src="http://localhost/rhu/public/js/bootstrap.js"></script>
+<script src="http://localhost/rhust/public/js/jquery-2.2.3.min.js"></script>
+<script src="http://localhost/rhust/public/js/bootstrap.js"></script>
 </body>
 </html>
