@@ -156,7 +156,7 @@ body{
   </section>
 <?php include("includes/footer.php");?>
 <?php include("includes/scripts.php");?>
-<script src="http://localhost/rhust/public/js/jquery-2.2.3.min.js"></script>
-<script src="http://localhost/rhust/public/js/bootstrap.js"></script>
+<script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/jquery-2.2.3.min.js"></script>
+<script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/bootstrap.js"></script>
 </body>
 </html>

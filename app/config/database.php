@@ -60,10 +60,10 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 $database['main'] = array(
     'driver'    => 'mysql',
-    'hostname'  => 'u166719925_rhustdb',
+    'hostname'  => 'localhost',
     'port'      => '3306',
-    'username'  => 'u166719925_rhustdb',
-    'password'  => 'Christian31@!',
+    'username'  => 'root',
+    'password'  => '',
     'database'  => 'rhustdb',
     'charset'   => 'utf8',
     'dbprefix'  => '',

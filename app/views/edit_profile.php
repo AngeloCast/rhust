@@ -241,7 +241,7 @@ $('#newpassword, #confirm_password').on('keyup', function () {
     $('#message').html('<i class="fa fa-times"></i> Not Matching').css('color', 'red');
 });
 </script>
-<script src="http://localhost/rhust/public/js/jquery-2.2.3.min.js"></script>
-<script src="http://localhost/rhust/public/js/bootstrap.js"></script>
+<script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/jquery-2.2.3.min.js"></script>
+<script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/bootstrap.js"></script>
 </body>
 </html>

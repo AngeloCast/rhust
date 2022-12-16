@@ -9,7 +9,7 @@ body
     align-items: center;
 }
 #bodyimg{
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('http://localhost/rhu/public/images/mho.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('http://localhost/rhust/public/images/mho.jpg');
     height: 100vh;
     background-repeat: no-repeat;
     background-size: cover;

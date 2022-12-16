@@ -145,7 +145,7 @@
 
 											<li class="list-group-item d-flex justify-content-between align-items-center">
 											<h6 style="font-size: 12px">'.$events['title'].'</h6>
-											<span class="badge"><a href="#details_'.$events['id'].'" class="btn btn-info btn-sm" data-toggle="modal" href="http://localhost/rhust/home/view_post/'.$events['id'].'">Details <i class="fa fa-info-circle"></i></a></span>
+											<span class="badge"><a href="#details_'.$events['id'].'" class="btn btn-info btn-sm" data-toggle="modal" href="'.site_url('home/view_post/'.$events['id']).'">Details <i class="fa fa-info-circle"></i></a></span>
 											</li>
 
 											';
@@ -165,8 +165,8 @@
 	</section>
 <?php include("includes/footer.php");?>
 <?php include("includes/scripts.php");?>
-<script src="http://localhost/rhust/public/js/jquery-2.2.3.min.js"></script>
-<script src="http://localhost/rhust/public/js/bootstrap.js"></script>
+<script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/jquery-2.2.3.min.js"></script>
+<script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/bootstrap.js"></script>
 <?php 
 
 $schedules = $data[2];

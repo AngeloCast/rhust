@@ -110,7 +110,7 @@
             <div class="team_member">
               <div class="card">
                   <div class="member_img">
-                    <img src="http://localhost/rhu/public/images/'.$staff['photo'].'" class="rounded-circle" alt="our_team">
+                    <img src="'.site_url('public/images/'.$staff['photo']).'" class="rounded-circle" alt="our_team">
                   </div>
                 
                   <h3>'.$staff['firstname'].' '.$staff['lastname'].'</h3>

@@ -86,13 +86,13 @@
 							echo '<div class="blog-grids row mb-3">
 							<div class="col-sm-12 blog-grid-left">
 									<div class="imgcard">
-										<a href="http://localhost/rhust/home/view_post/'.$news['id'].'"><img class="card_image" src="http://localhost/rhust/public/images/'.$news['photo'].'"  alt="news img" ></a>
+										<a href="'.site_url('home/view_post/'.$news['id']).'"><img class="card_image" src="'.site_url('public/images/'.$news['photo']).'"  alt="news img" ></a>
 										
-										<h5><a href="http://localhost/rhust/home/view_post/'.$news['id'].'">'.$news['title'].'</a></h5>
+										<h5><a href="'.site_url('home/view_post/'.$news['id']).'">'.$news['title'].'</a></h5>
 										<div class="shorten">'.$news['content'].'</div>
 										<div class="sub-meta">					
 											<span><i class="fa fa-clock"></i> '. $news['date'].'</span>
-											<a href="http://localhost/rhust/home/view_post/'.$news['id'].'" style="float: right; font-size: 14px;" href="">Read More >></a>	
+											<a href="'.site_url('home/view_post/'.$news['id']).'" style="float: right; font-size: 14px;" href="">Read More >></a>	
 										</div>
 										</div>
 									</div>
@@ -120,8 +120,8 @@
 	</section>
 <?php include("includes/footer.php");?>
 <?php include("includes/scripts.php");?>
-<script src="http://localhost/rhust/public/js/jquery-2.2.3.min.js"></script>
-<script src="http://localhost/rhust/public/js/bootstrap.js"></script>
+<script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/jquery-2.2.3.min.js"></script>
+<script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/bootstrap.js"></script>
 </body>
 
 </html>

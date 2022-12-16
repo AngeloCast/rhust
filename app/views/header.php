@@ -112,24 +112,24 @@
 									'<li class="nav-item dropdown">
 										<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
 										    aria-expanded="false">
-										    <img id="user" src="http://localhost/rhust/public/images/'.$data[3]['photo'].'"> ' . $data[3]['fullname'] . '
+										    <img id="user" src="'.site_url('public/images/'.$data[3]['photo']).'"> ' . $data[3]['fullname'] . '
 										</a>
 										<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-											<a class="dropdown-item" href="http://localhost/rhust/home/profile"><i class="fa fa-user"></i> My Profile</a>
+											<a class="dropdown-item" href="'.site_url('home/profile').'"><i class="fa fa-user"></i> My Profile</a>
 
 											<div class="dropdown-divider"></div>
 											
-											<a class="dropdown-item" href="http://localhost/rhust/home/logout"><i class="fa fa-sign-out"></i> Logout </a>
+											<a class="dropdown-item" href="'.site_url('home/logout').'"><i class="fa fa-sign-out"></i> Logout </a>
 										</div>
 									</li>';
 								}
 								else{
 									echo '
 										<li class="nav-item">
-											<a class="nav-link" href="http://localhost/rhust/auth/login"><i class="fa fa-user"></i> Log in</a>
+											<a class="nav-link" href="'.site_url('auth/login').'"><i class="fa fa-user"></i> Log in</a>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="http://localhost/rhust/auth/register"><i class="fa fa-pencil"></i> Register</a>
+											<a class="nav-link" href="'.site_url('auth/register').'"><i class="fa fa-pencil"></i> Register</a>
 										</li>';
 								}
 							?>
