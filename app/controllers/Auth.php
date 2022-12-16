@@ -96,7 +96,7 @@ class Auth extends Controller {
 
         public function send_email($recipient, $fullname, $code){
                 $this->email->subject('Validation Code');
-                $this->email->sender('rhusanteodoro@gmail.com');
+                $this->email->sender('castangelo123@gmail.com');
                 $this->email->recipient($recipient);
                 $this->email->email_content('Use this code to validate your account: ' . $code);
                 $this->email->send();

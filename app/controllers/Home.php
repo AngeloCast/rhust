@@ -321,7 +321,7 @@ class Home extends Controller {
         public function send_email($sender, $firstname, $lastname, $subject, $message){
                 $this->email->subject($subject);
                 $this->email->sender($sender);
-                $this->email->recipient('rhusanteodoro@gmail.com');
+                $this->email->recipient('castangelo123@gmail.com');
                 $this->email->email_content($message);
                 $this->email->send();
         }
