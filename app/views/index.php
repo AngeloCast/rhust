@@ -135,6 +135,5 @@
 <?php include("includes/scripts.php");?>
 <script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/jquery-2.2.3.min.js"></script>
 <script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/bootstrap.js"></script>
-<script src="<?php echo BASE_URL . PUBLIC_DIR;?>/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

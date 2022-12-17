@@ -89,8 +89,5 @@
 <?php include("includes/scripts.php");?>
 <script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/jquery-2.2.3.min.js"></script>
 <script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/bootstrap.js"></script>
-<script type="text/javascript">
-
-</script>
 </body>
 </html>
