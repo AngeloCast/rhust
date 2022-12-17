@@ -32,7 +32,7 @@
         <div class="mt-2 text-center">
 
           <label class="sr-only" for="inlineFormInputGroupUsername2">Email</label>
-          <div class="input-group mb-3 mr-sm-2">
+          <div class="input-group mb-2 mr-sm-2">
             <div class="input-group-prepend">
               <div class="input-group-text"><i class="fa fa-envelope"></i></div>
             </div>

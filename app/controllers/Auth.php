@@ -47,8 +47,10 @@ class Auth extends Controller {
                                         }
                                                 
                                 }
-                                else{
-                                        redirect('auth/');
+                                else {
+                                        $this->session->set_flashdata(array('error' => validation_errors()));
+                                        redirect('auth/login');
+                                        exit();
                                 }
                         }
                 }
@@ -63,16 +65,19 @@ class Auth extends Controller {
                 {
                         $this->form_validation
                         ->name('fullname')->required()
-                        ->name('email')->valid_email();
+                        ->name('email')->valid_email('Please input a valid email address')
+                        ->name('password')->required()
+                        ->min_length(9, 'Password must be at least 9 characters long!');
 
                         if ($this->form_validation->run()){
 
                                 $fullname = $this->io->post('fullname');
                                 $email = $this->io->post('email');
+                                $password = $this->io->post('password');
                                 $notification = $this->io->post('notification');
                                 $validation_code = mt_rand(11111, 99999);
 
-                                if($this->auth_model->register($fullname, $email, $validation_code, $notification))
+                                if($this->auth_model->register($fullname, $email, $password, $validation_code, $notification))
                                 {
                                         $this->send_email($email, $fullname, $validation_code);
                                         $this->session->set_flashdata(array('success' => 'Validation code was sent to ' . $email));
@@ -92,6 +97,7 @@ class Auth extends Controller {
                                 redirect('auth/register');
                                 exit();
                         }
+
                 }
                 else{
                         $this->call->view('register.php');
@@ -108,6 +114,10 @@ class Auth extends Controller {
 
         public function validate(){
                 $this->check();
+                if(empty($_SESSION['globalemail'])){
+                        redirect('auth/register');
+                }
+                
                 if ($this->form_validation->submitted())
                 {
                         $this->form_validation
@@ -118,8 +128,9 @@ class Auth extends Controller {
                                 $check = $this->auth_model->validate_code($this->io->post('code'), $_SESSION['globalemail']);
 
                                 if($check){
-                                        $this->session->set_flashdata(array('success' => 'Email was successfully validated! Enter New Password'));
-                                        redirect('auth/password');
+                                        $this->session->set_flashdata(array('success' => 'Account was successfully registered! Sign up now'));
+                                        $this->session->unset_userdata(array('globalemail'));
+                                        redirect('auth/login');
                                 }
                                 else{
                                         
@@ -133,35 +144,7 @@ class Auth extends Controller {
 
         }
 
-        public function password(){
-                $this->check();
-                if ($this->form_validation->submitted())
-                {
-                        $this->form_validation
-                        ->name('password')->required();
-                        
-
-                        if ($this->form_validation->run()){
-                                $check = $this->auth_model->create_password($this->io->post('password'), $this->io->post('confirmpass'),  $_SESSION['globalemail']);
-
-                                if($check){
-                                        $this->session->set_flashdata(array('success' => 'Account was successfully registered! Sign up now'));
-                                        $this->session->unset_userdata(array('globalemail'));
-                                        redirect('auth/');
-                                }
-                                else{
-                                        
-                                        redirect('auth/password');
-                                }
-                        }
-                }
-                else{
-                        $this->call->view('password.php');
-                }
-        }
-
         public function show_session(){
-                
                 var_dump($_SESSION);
         }
 

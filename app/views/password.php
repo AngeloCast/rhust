@@ -16,6 +16,7 @@
 <body id="bodyimg">
   <div class="row">
     <div class="col-xs-12">
+
       <?php include 'includes/message.php';?>
 
       <div class="card">
@@ -46,7 +47,7 @@
             <label class="sr-only" for="inlineFormInputGroupUsername2">Confirm Password</label>
             <div class="input-group mb-3 mr-sm-2">
               <div class="input-group-prepend">
-                <div class="input-group-text"><i class="fa fa-key"></i></div>
+                <div class="input-group-text"><i class="fa fa-check"></i></div>
               </div>
               <input style="font-size: 15px;" type="password" name="confirmpass" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Confirm Password" required>
             </div>

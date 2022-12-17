@@ -82,7 +82,6 @@
   <section class="main-content-w3layouts-agileits">
     <div class="container">
 
-
       <div class="row">
         <!--left-->
         <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left" style="border: 1px solid #ced4da">

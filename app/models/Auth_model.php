@@ -36,19 +36,21 @@ class Auth_model extends Model{
 		}
 	}
 	
-	public function register($fullname, $email, $validation_code, $notification)
+	public function register($fullname, $email, $password, $validation_code, $notification)
 	{
 
 		$data = array(
 			'fullname' => $fullname,
 			'email' => $email,
+			'password' => $this->passwordhash($password),
 			'validation_code' => $validation_code,
 			'notification' => $notification
 			);
 
 		$code = array(
 			'validation_code' => $validation_code,
-			'fullname' => $fullname
+			'fullname' => $fullname,
+			'password' => $this->passwordhash($password)
 		);
 		
 		$emailexist = $this->db->table('users')->select_count('*', 'erows')->where('email', $email)->get();
@@ -95,13 +97,16 @@ class Auth_model extends Model{
 
 	public function validate_code($validation_code, $globalemail)
 	{
-		
+		$update = array(
+			'status' => 1
+		);
+
 		$check = $this->db->table('users')->where('email', $globalemail)->get();
 
 
 			if($check['validation_code'] == $validation_code){
+				$this->db->table('users')->where('email', $globalemail)->update($update);
 				return true;
-				
 			}
 			else{
 				$this->session->set_flashdata(array('error' => 'The validation code was incorrect! Try again'));
@@ -110,26 +115,11 @@ class Auth_model extends Model{
 		
 	}
 
-	public function create_password($password, $confirmpass, $globalemail){
-		$update = array(
-			'status' => 1,
-			'password' => $this->passwordhash($password)
-		);
-
-		if($password == $confirmpass){
-			$newpassword = $this->db->table('users')->where('email', $globalemail)->update($update); //update status to 1 
-			if($newpassword){
-				return true;
-			}
-			else{
-				return false;
-			}
+	public function checkreg($email){
+		$check = $this->db->table('users')->select('status')->where('email', $email)->get();
+		if($check == 1){
+			return true;
 		}
-		else{
-			$this->session->set_flashdata(array('error' => 'The password does not match!'));
-			return false;
-		}
-
 	}
 	public function is_loggedin(){
 		if($this->session->userdata('loggedin') === 1){

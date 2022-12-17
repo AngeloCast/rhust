@@ -32,7 +32,7 @@
         <div class="mt-2 text-center">
           <input type="hidden" name="notification" value="0">
           <label class="sr-only" for="inlineFormInputGroupUsername2">Full Name</label>
-          <div class="input-group mb-3 mr-sm-2">
+          <div class="input-group mb-2 mr-sm-2">
             <div class="input-group-prepend">
               <div class="input-group-text"><i class="fa fa-user"></i></div>
             </div>
@@ -40,16 +40,24 @@
           </div>
 
           <label class="sr-only" for="inlineFormInputGroupUsername2">Email</label>
-          <div class="input-group mb-3 mr-sm-2">
+          <div class="input-group mb-2 mr-sm-2">
             <div class="input-group-prepend">
               <div class="input-group-text"><i class="fa fa-envelope"></i></div>
             </div>
             <input style="font-size: 15px;"  type="email" name="email" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Enter Email" required>
           </div>
 
+          <label class="sr-only" for="inlineFormInputGroupUsername2">New Password</label>
+            <div class="input-group mb-2 mr-sm-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fa fa-key"></i></div>
+              </div>
+              <input style="font-size: 15px;" type="password" name="password" class="form-control" id="inlineFormInputGroupUsername2" placeholder="Enter Password" required>
+            </div>
+
           <div class="input-group mb-3 mr-sm-2">
             <label style="font-size:14px;">
-                <input type="checkbox" name="notification" value="1"> Receive email notifications for updates
+                <input type="checkbox" name="notification" value="1"> Receive email notification for updates
             </label> 
           </div>
         </div>
