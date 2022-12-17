@@ -62,8 +62,8 @@ class Auth extends Controller {
                 if ($this->form_validation->submitted())
                 {
                         $this->form_validation
-                        ->name('fullname')->required();
-                        
+                        ->name('fullname')->required()
+                        ->name('email')->valid_email();
 
                         if ($this->form_validation->run()){
 
@@ -87,7 +87,11 @@ class Auth extends Controller {
                                 }
                                 
                         }
-
+                        else {
+                                $this->session->set_flashdata(array('error' => validation_errors()));
+                                redirect('auth/register');
+                                exit();
+                        }
                 }
                 else{
                         $this->call->view('register.php');

@@ -47,7 +47,8 @@ class Auth_model extends Model{
 			);
 
 		$code = array(
-			'validation_code' => $validation_code
+			'validation_code' => $validation_code,
+			'fullname' => $fullname
 		);
 		
 		$emailexist = $this->db->table('users')->select_count('*', 'erows')->where('email', $email)->get();
