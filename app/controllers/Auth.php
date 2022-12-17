@@ -144,10 +144,6 @@ class Auth extends Controller {
 
         }
 
-        public function show_session(){
-                var_dump($_SESSION);
-        }
-
         public function logout(){
                 $this->session->unset_userdata(array('loggedin', 'username', 'usertype'));
                 $this->session->sess_destroy();
