@@ -1,0 +1,158 @@
+*{
+    font-family: Montserrat, sans-serif;
+}
+body
+{
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+#bodyimg{
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://rhust.tech/public/images/mho.jpg');
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.card
+{
+    width: 450px;
+    border: none;
+}
+
+.account
+{
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.contact
+{
+    font-size: 13px;
+}
+
+.form-control
+{
+   text-indent: 14px;
+}
+
+.form-control:focus 
+{
+    color: #495057;
+    background-color: #fff;
+    border-color: #4a148c;
+    outline: 0;
+    box-shadow: none;
+}
+
+.inputbox
+{
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.inputbox i
+{
+    position: absolute;
+    left: 8px;
+    top: 12px;
+    color: #dadada;
+}
+
+.form-check-label
+{
+    font-size: 13px;
+}
+
+.form-check-input 
+{
+    width: 14px;
+    height: 15px;
+    margin-top: 5px;
+}
+
+.forgot 
+{
+    font-size: 14px;
+    text-decoration: none;
+    color: red;
+}
+
+.mail
+{
+    color: #4a148c;
+    text-decoration: none;
+}
+
+.form-check
+{
+    cursor: pointer;
+}
+
+.btn-primary
+{
+    color: #fff;
+    background-color: #4A148C;
+    border-color: #4A148C;
+}
+
+h6.card-header
+{
+    text-align: center;
+    color: white;
+    background-color: #082d40;
+}
+
+.responsive
+{
+    width: auto;
+    height: 100px;
+}
+
+.create
+{
+    font-size: 12px;
+    text-decoration: none;
+    color: #148c28;
+}
+
+h5 {
+  overflow: hidden;
+  text-align: center;
+}
+h5.hr-lines{
+  color: gray;
+  font-size: 18px;
+}
+
+h5:before,
+h5:after {
+  background-color: gray;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+  max-width: 60px;
+}
+
+h5:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+
+h5:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
+
+.returnx{
+    color: red;
+    text-decoration: none;
+}
+.returnx:hover{
+    color: green;
+}
