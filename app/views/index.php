@@ -138,6 +138,7 @@
       </div>
     </div>
   </section>
+<?php include("includes/chat.php");?>
 <?php include("includes/footer.php");?>
 <?php include("includes/scripts.php");?>
 <script src="<?php echo BASE_URL . PUBLIC_DIR;?>/js/jquery-2.2.3.min.js"></script>

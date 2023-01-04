@@ -83,6 +83,7 @@
 			<?php include("includes/team.php"); ?>
 		</div>
 	</section>
+<?php include("includes/chat.php");?>
 <?php include("includes/footer.php");?>
 <?php include("includes/scripts.php");?>
 	<script>
