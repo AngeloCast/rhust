@@ -70,47 +70,32 @@ class Staff extends Controller {
                         if ($this->form_validation->run()){
                                 if($_FILES['fileToUpload']['name'] == '')
                                 {
-                                        $email = $this->io->post('email');
-                                        if($this->staff_model->update_info($this->io->post('id'), $this->io->post('fullname'), $this->io->post('email'), $this->io->post('address'), $this->io->post('cnumber'), $this->io->post('photo'))) 
-                                        {
-                                                if($email == $_SESSION['email']){
-                                                        $this->session->set_flashdata(array('success' => 'Successfully updated admin information!'));
-                                                        redirect('staff/show_profile');
-                                                        exit();
-                                                }
-                                                else{
-                                                        $this->session->set_flashdata(array('success' => 'Successfully updated! Log in with your new credentials'));
-                                                        redirect('staff/relog');
-                                                        exit();
-                                                }
-                                        }
-                                        else{
-                                                $this->session->set_flashdata(array('success' => 'No Changes made!'));
-                                                redirect('staff/show_profile');
-                                                exit();
-                                        }
+                                        
+                                    if($this->staff_model->update_info($this->io->post('id'), $this->io->post('fullname'), $this->io->post('address'), $this->io->post('cnumber'), $this->io->post('photo'))) 
+                                    {
+                                        $this->session->set_flashdata(array('success' => 'Successfully updated admin information!'));
+                                        redirect('staff/show_profile');
+                                        exit();
+                                    }
+                                    else{
+                                        $this->session->set_flashdata(array('success' => 'No Changes made!'));
+                                        redirect('staff/show_profile');
+                                        exit();
+                                    }
                                 }
                                 else{
-                                        $email = $this->io->post('email');
                                         $upresult = $this->staff_model->upload();
                                         $id = $this->io->post('id');
                                         if($upresult){
-                                                if($this->staff_model->update_info($this->io->post('id'), $this->io->post('fullname'), $this->io->post('email'), $this->io->post('address'), $this->io->post('cnumber'), $upresult)) 
+                                                if($this->staff_model->update_info($this->io->post('id'), $this->io->post('fullname'), $this->io->post('address'), $this->io->post('cnumber'), $upresult)) 
                                                 {
-                                                        if($email == $_SESSION['email']){
-                                                                $this->session->set_flashdata(array('success' => 'Successfully updated admin information!'));
-                                                                redirect('staff/show_profile');
-                                                                exit();
-                                                        }
-                                                        else{
-                                                                $this->session->set_flashdata(array('success' => 'Successfully updated! Log in with your new credentials'));
-                                                                redirect('staff/relog');
-                                                                exit();
-                                                        }
+                                                    $this->session->set_flashdata(array('success' => 'Successfully updated admin information!'));
+                                                    redirect('staff/show_profile');
+                                                    exit();
                                                 }
                                                 else{
-                                                        redirect('staff/show_profile');
-                                                        exit();
+                                                    redirect('staff/show_profile');
+                                                    exit();
                                                 }
                                         }
                                 }
@@ -162,6 +147,9 @@ class Staff extends Controller {
         $this->call->view('login');
     }
 
+    public function staff_display(){
+
+    }
 
     public function logout(){
         $this->session->unset_userdata(array('loggedin', 'email', 'usertype'));

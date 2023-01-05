@@ -113,9 +113,17 @@
                     <img src="'.site_url('public/images/'.$staff['photo']).'" class="rounded-circle" alt="our_team">
                   </div>
                 
-                  <h3>'.$staff['firstname'].' '.$staff['lastname'].'</h3>
-                  <span style="font-size: 12px;">'.$staff['position'].'</span>
-                  <p style="font-size: 20px;"><a href="facebook.com"><i class="fa fa-facebook-official"></i></a> <a href="twitter.com"><i class="fa fa-twitter"></i></a> <a href="gmail.com"><i class="fa fa-envelope"></i></a> <a href="twitter.com"><i class="fa fa-instagram"></i></a></p>
+                  <h3>'.$staff['fullname'].'</h3>
+                  <span style="font-size: 12px;"><u>'.$staff['position'].'</u></span>
+
+                  <hr style="margin-bottom: 0px;">
+
+                  <p style="font-size: 12px; color: black;margin-top: 5px;">
+                    <i class="fa fa-envelope"></i> '.$staff['email'].'
+                  </p>
+                  <span style="font-size: 12px;">
+                    <i class="fa fa-phone"></i> '.$staff['cnumber'].'
+                  </span>
                   
               </div>
             </div> ';

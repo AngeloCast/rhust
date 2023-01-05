@@ -54,7 +54,7 @@
 
                       <div class="col-sm-6">
                         <label for="email" class="control-label">Email</label>
-                        <input type="email" class="form-control" name="email" value="<?=$data[0]['email']; ?>"  required>
+                        <input type="email" class="form-control" name="email" value="<?=$data[0]['email']; ?>" readonly required>
                       </div>
 
                     </div>

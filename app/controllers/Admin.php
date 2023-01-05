@@ -833,19 +833,11 @@ class Admin extends Controller {
                                 if ($this->form_validation->run()){
                                         if($_FILES['fileToUpload']['name'] == '')
                                         {
-                                                $email = $this->io->post('email');
-                                                if($this->admin_model->update_info($this->io->post('id'), $this->io->post('fullname'), $this->io->post('email'), $this->io->post('address'), $this->io->post('cnumber'), $this->io->post('photo'))) 
+                                                if($this->admin_model->update_info($this->io->post('id'), $this->io->post('fullname'), $this->io->post('address'), $this->io->post('cnumber'), $this->io->post('photo'))) 
                                                 {
-                                                        if($email == $_SESSION['email']){
-                                                                $this->session->set_flashdata(array('success' => 'Successfully updated admin information!'));
-                                                                redirect('admin/show_profile');
-                                                                exit();
-                                                        }
-                                                        else{
-                                                                $this->session->set_flashdata(array('success' => 'Successfully updated! Log in with your new credentials'));
-                                                                redirect('admin/relog');
-                                                                exit();
-                                                        }
+                                                        $this->session->set_flashdata(array('success' => 'Successfully updated admin information!'));
+                                                        redirect('admin/show_profile');
+                                                        exit();
                                                 }
                                                 else{
                                                         $this->session->set_flashdata(array('success' => 'No Changes made!'));
@@ -854,22 +846,14 @@ class Admin extends Controller {
                                                 }
                                         }
                                         else{
-                                                $email = $this->io->post('email');
                                                 $upresult = $this->admin_model->upload();
                                                 $id = $this->io->post('id');
                                                 if($upresult){
-                                                        if($this->admin_model->update_info($this->io->post('id'), $this->io->post('fullname'), $this->io->post('email'), $this->io->post('address'), $this->io->post('cnumber'), $upresult)) 
+                                                        if($this->admin_model->update_info($this->io->post('id'), $this->io->post('fullname'), $this->io->post('address'), $this->io->post('cnumber'), $upresult)) 
                                                         {
-                                                                if($email == $_SESSION['email']){
-                                                                        $this->session->set_flashdata(array('success' => 'Successfully updated admin information!'));
-                                                                        redirect('admin/show_profile');
-                                                                        exit();
-                                                                }
-                                                                else{
-                                                                        $this->session->set_flashdata(array('success' => 'Successfully updated! Log in with your new credentials'));
-                                                                        redirect('admin/relog');
-                                                                        exit();
-                                                                }
+                                                                $this->session->set_flashdata(array('success' => 'Successfully updated admin information!'));
+                                                                redirect('admin/show_profile');
+                                                                exit();
                                                         }
                                                         else{
                                                                 redirect('admin/show_profile');

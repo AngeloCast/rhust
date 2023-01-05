@@ -110,7 +110,7 @@ class Home_model extends Model{
     }
 
     public function get_staff(){
-        return $this->db->table('tblstaff')
+        return $this->db->table('tblstaff')->select('fullname, position, photo, email, cnumber')
                     ->get_all();
     }
 

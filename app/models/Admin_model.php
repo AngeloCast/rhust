@@ -37,10 +37,9 @@ class Admin_model extends Model{
         return $this->db->table('tblevents')->select_count('*', 'erows')->get();
     }
 
-    public function update_info($id, $fullname, $email, $address, $cnumber, $photo) {
+    public function update_info($id, $fullname, $address, $cnumber, $photo) {
         $data = array(
             'fullname' => ucwords($fullname),
-            'email' => $email,
             'address' => $address,
             'cnumber' => $cnumber,
             'photo' => $photo
