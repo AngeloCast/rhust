@@ -147,10 +147,6 @@ class Staff extends Controller {
         $this->call->view('login');
     }
 
-    public function staff_display(){
-
-    }
-
     public function logout(){
         $this->session->unset_userdata(array('loggedin', 'email', 'usertype'));
         $this->session->sess_destroy();

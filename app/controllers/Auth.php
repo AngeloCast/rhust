@@ -173,7 +173,7 @@ class Auth extends Controller {
                                         redirect('auth/login');
                                 }
                                 else{
-                                        redirect('auth/validate');
+                                        redirect('auth/forgot_password');
                                 }
                         }
                         else {

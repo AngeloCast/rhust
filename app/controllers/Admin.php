@@ -935,6 +935,45 @@ class Admin extends Controller {
                 $this->email->send();
         }
 
+        public function display_staff(){
+                if($this->check()){
+                        if ($this->form_validation->submitted())
+                        {
+                                if ($this->form_validation->run()){
+                                        $id = $this->io->post('id');
+
+                                        if(isset($_POST['display'])){
+                                                $value = 1;
+                                                if($this->staff_model->display_staff($id, $value)){
+                                                        $this->session->set_flashdata(array('success' => 'Staff member is now displayed on the about page!'));
+                                                        redirect('admin/edit_staff/'.$id);
+                                                        exit();
+                                                }
+                                                else{
+                                                        $this->session->set_flashdata(array('error' => 'An error occured while updating staff information, try again!'));
+                                                        redirect('admin/edit_staff/'.$id);
+                                                        exit();
+                                                }
+                                        }
+                                        else{
+                                                $value = 0;
+                                                if($this->staff_model->display_staff($id, $value)){
+                                                        $this->session->set_flashdata(array('success' => 'Staff member was removed on the about page!'));
+                                                        redirect('admin/edit_staff/'.$id);
+                                                        exit();
+                                                }
+                                                else{
+                                                        $this->session->set_flashdata(array('error' => 'An error occured while updating staff information, try again!'));
+                                                        redirect('admin/edit_staff/'.$id);
+                                                        exit();
+                                                }
+                                        }
+                                        
+                                }
+                        }
+                }
+        }
+
         public function relog(){
                 $this->session->unset_userdata(array('loggedin', 'email', 'usertype'));
                 $this->session->sess_destroy();

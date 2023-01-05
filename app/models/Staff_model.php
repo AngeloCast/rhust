@@ -126,6 +126,20 @@ class Staff_model extends Model{
         
     }
 
+    public function display_staff($id, $value){
+        $data = array(
+            'display' => $value
+        );
+        $up = $this->db->table('tblstaff')->where('staff_id', $id)->update($data);
+
+        if($up){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public function change_password($id, $oldpass, $newpass, $confirmpass){
 
         $data = array(

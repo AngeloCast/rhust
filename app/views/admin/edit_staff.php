@@ -11,12 +11,36 @@
     <section class="content-header">
       <a href="<?=site_url('admin/staff'); ?>" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Back</a> 
 			
-			<h1 style="margin-top: 10px;">
-				<i class="fas fa-info-circle"></i> 
-        <strong>
-        Edit Staff Information
-      	</strong>
-      </h1>
+			<div class="row" style="margin-top: 20px;">
+				<div class="col-md-6 text-left">
+					<h3 style="margin-top: 10px;">
+						<i class="fas fa-info-circle"></i> 
+		        <strong>
+		        Edit Staff Information
+		      	</strong>
+		      </h3>
+				</div>
+				<div class="col-md-6 text-right">
+					<form class="form-horizontal" action="<?=site_url('admin/display_staff');?>" method="post">
+						<input type="hidden" name="id" value="<?=$data[2]['staff_id']; ?>">
+					<?php if($data[2]['display'] == 1){
+						echo'
+						<button type="submit" name="remove" class="btn btn-info btn-md btn-rounded"><i class="fa fa-eye"></i></button>
+						<span>DISPLAYED</span>
+						';
+					}
+					else{
+						echo'
+						<button type="submit" name="display" class="btn btn-danger btn-md btn-flat"><i class="fa fa-eye-slash"></i></button>
+						<span>NOT DISPLAYED</span>
+						';
+					}
+					?>
+					</form>
+				</div>
+			</div>
+
+			
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Edit Staff</li>
@@ -111,7 +135,7 @@
 						  	</div>
 						  	<div class="col-sm-12">
 											<hr>
-											<button type="submit" style="color: white; float: right;" class="btn btn-primary btn-md btn-flat">Save Changes <i class="fa fa-save"></i></button>
+											<button type="submit" style="color: white; float: right;" class="btn btn-primary btn-md btn-flat"><i class="fa fa-save"></i> Save Changes </button>
 						          <a href="<?=site_url('admin/staff'); ?>" class='btn btn-danger btn-md btn-flat' style="color: white; float: right;  margin-right: 5px;"> Cancel</a>
 								</div>
 								</form>

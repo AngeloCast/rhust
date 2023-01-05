@@ -339,8 +339,8 @@
 
 						      </div>
 						      <hr>
-						      <button type="submit" style="color: white; float: right;" class="btn btn-success btn-sm btn-flat">Save Changes</button>
-						      <a href="<?=site_url('patient/patient_records'); ?>" class='btn btn-danger btn-sm btn-flat' style="color: white; float: right;  margin-right: 5px;"> Cancel</a>
+						      <button type="submit" style="color: white; float: right;" class="btn btn-success btn-md btn-flat"><i class="fa fa-save"></i> Save Changes</button>
+						      <a href="<?=site_url('patient/patient_records'); ?>" class='btn btn-danger btn-md btn-flat' style="color: white; float: right;  margin-right: 5px;"> Cancel</a>
 								</form>
 							</div>
 						</div>			
