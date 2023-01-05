@@ -37,7 +37,9 @@
                   <th>Email</th>
                   <th>Cnumber</th>
                   <th>Address</th>
+                  <th>Displayed</th>
                   <th>Manage</th>
+                  
                 </thead>
                 <tbody>
                   <?php foreach ($data[2] as $row):?>
@@ -46,7 +48,7 @@
                     <td><?=$row['email']; ?></td>
                     <td><?=$row['cnumber']; ?></td>
                     <td><?=$row['address']; ?></td>
-            
+                    <td><?php if($row['display'] == 0){echo'No';}else{echo'Yes';} ?></td>
                     <td>
                       <a href="<?=site_url('admin/edit_staff/'.$row['staff_id']); ?>" style="margin-right: 10px;" class='btn btn-success btn-xs btn-flat'><i class='fa fa-edit'></i> Edit</button>
                       <a href="#delstaff_<?=$row['staff_id']?>" data-toggle="modal" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-trash"></i> Delete</a>
