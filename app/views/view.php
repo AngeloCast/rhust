@@ -3,7 +3,7 @@
 <head>
 	<title>RHUST - <?php if(!empty($data[4])) { echo $data[4]['title']; } else { echo 'Post does not exist'; }?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/x-icon" href="<?php echo BASE_URL . PUBLIC_DIR . '/images/MHOST_logo.jpg'; ?>">
+	<link rel="icon" type="image/x-icon" href="<?php echo BASE_URL . PUBLIC_DIR . '/images/MHOST_icon.png'; ?>">
 	<meta charset="utf-8">
 	<script>
 		addEventListener("load", function () {
