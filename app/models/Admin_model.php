@@ -96,9 +96,8 @@ class Admin_model extends Model{
     }
 
     public function upload(){
-        $random = 'IMG' . rand(0, 100000);
-        $target_dir = "public/images/";
-        $target_file = $random . basename($_FILES["fileToUpload"]["name"]);
+        $target_dir = "public/images/avatar/";
+        $target_file = basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
@@ -131,8 +130,9 @@ class Admin_model extends Model{
         } 
         else 
         {
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . $target_file)) {
-                return $target_file;
+            $new_img_name = uniqid('PROFILE-', true).'.'.$imageFileType;
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . $new_img_name)) {
+                return $new_img_name;
             }
         }
     }

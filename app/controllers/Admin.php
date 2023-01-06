@@ -385,10 +385,10 @@ class Admin extends Controller {
                                                         }
                                                 }
                                                 else{
-                                                        if($category = 1) { $catinput = 'announcement'; }
-                                                        elseif($category = 2) { $catinput = 'news_activities'; }
-                                                        elseif($category = 2) { $catinput = 'health_faqs'; }
-                                                        else { $catinput = 'health_info'; }
+                                                        if($category == 1) { $catinput = 'announcement'; }
+                                                        elseif($category == 2) { $catinput = 'news_activities'; }
+                                                        elseif($category == 3) { $catinput = 'health_faqs'; }
+                                                        else { $catinput == 'health_info'; }
                                                         redirect('admin/new_post/'.$catinput);
                                                         exit();
                                                 }
@@ -438,10 +438,10 @@ class Admin extends Controller {
                                                         }
                                                 }
                                                 else{
-                                                        if($category = 1) { $catinput = 'announcement'; }
-                                                        elseif($category = 2) { $catinput = 'news_activities'; }
-                                                        elseif($category = 2) { $catinput = 'health_faqs'; }
-                                                        else { $catinput = 'health_info'; }
+                                                        if($category == 1) { $catinput = 'announcement'; }
+                                                        elseif($category == 2) { $catinput = 'news_activities'; }
+                                                        elseif($category == 3) { $catinput = 'health_faqs'; }
+                                                        else { $catinput == 'health_info'; }
                                                         redirect('admin/new_post/'.$catinput);
                                                         exit();
                                                 }

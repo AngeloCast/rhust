@@ -117,7 +117,7 @@
                   '<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img id="user" src="'.site_url('public/images/'.$data[3]['photo']).'"> ' . $data[3]['fullname'] . '
+                        <img id="user" src="'.site_url('public/images/avatar/'.$data[3]['photo']).'"> ' . $data[3]['fullname'] . '
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="'.site_url('home/profile').'"><i class="fa fa-user"></i> My Profile</a>

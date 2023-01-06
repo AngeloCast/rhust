@@ -28,13 +28,13 @@
 
         <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo BASE_URL . PUBLIC_DIR . '/images/' . $data[0]['photo']; ?>" class="user-image" alt="User Image">
+              <img src="<?php echo BASE_URL . PUBLIC_DIR . '/images/avatar/' . $data[0]['photo']; ?>" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo $data[0]['fullname']; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php echo BASE_URL . PUBLIC_DIR . '/images/' . $data[0]['photo']; ?>" class="img-circle" alt="User Image">
+                <img src="<?php echo BASE_URL . PUBLIC_DIR . '/images/avatar/' . $data[0]['photo']; ?>" class="img-circle" alt="User Image">
 
                 <p>
                   <?php echo $data[0]['fullname']; ?>

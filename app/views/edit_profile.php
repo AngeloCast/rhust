@@ -101,7 +101,7 @@ body{
                   <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
                       <div class="image-cropper">
-                        <img src="<?php echo BASE_URL . PUBLIC_DIR . '/images/' . $data[3]['photo']; ?>" id="prof" alt="San Teodoro Logo">
+                        <img src="<?php echo BASE_URL . PUBLIC_DIR . '/images/avatar/' . $data[3]['photo']; ?>" id="prof" alt="User profile">
                       </div>
                       <div class="mt-3">
                         <input class="form-control" type="file" accept="image/*" id="fileToUpload" name="fileToUpload">

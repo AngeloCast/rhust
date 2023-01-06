@@ -35,7 +35,7 @@
               <div class="box-body">
                 <form class="form-horizontal" action="<?=site_url('staff/update_staff_info');?>" method="post" enctype="multipart/form-data">
                   <div class="col-sm-3">
-                    <img src="<?php echo BASE_URL . PUBLIC_DIR . '/images/' . $data[0]['photo']; ?>" style="margin-bottom: 10px; margin-top: 10px; height: 100%; width: 100%; max-height: auto; max-width: auto; border: solid 1px gray;">
+                    <img src="<?php echo BASE_URL . PUBLIC_DIR . '/images/avatar/' . $data[0]['photo']; ?>" style="margin-bottom: 10px; margin-top: 10px; height: 100%; width: 100%; max-height: auto; max-width: auto; border: solid 1px gray;">
                       <label for="photo" class="control-label">Change Photo</label>
                       <input class="form-control" type="file" accept="image/*" id="fileToUpload" name="fileToUpload">
                       <br>

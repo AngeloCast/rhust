@@ -498,7 +498,7 @@ class Home extends Controller {
                                                 }
                                                 else
                                                 {
-                                                        $upresult = $this->posts_model->upload();
+                                                        $upresult = $this->user_model->upload();
                                                         $id = $this->io->post('id');
 
                                                         if($this->user_model->update_info($id, $this->io->post('fullname'), $this->io->post('cnumber'), $this->io->post('address'), $this->io->post('notification'), $upresult)) 
