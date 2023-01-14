@@ -195,7 +195,7 @@ class Auth extends Controller {
                 $email_template = "
                         <h3>Hello, </h3>
                         <h4>You are recieving this email because there was an attempt to reset your account's password.</h4>
-                        <br><br>
+                        <br>
                         <a href='$link'>Click Here To Reset Password >></a>
                         <br><br>
                         <h4>Use the link above to change your account's password. Thank you!.</h4>

@@ -59,7 +59,7 @@
 						<h3 style="color: teal; font-style: bold">San Teodoro</h3>
 						<br>
 						
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3880.751680282488!2d121.01834281413967!3d13.427691808340674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bcf0edbd412673%3A0x962d3555f10af42d!2sSan%20Teodoro%20Rural%20Health%20Unit!5e0!3m2!1sen!2sph!4v1665657667820!5m2!1sen!2sph" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+						<img src="<?php echo BASE_URL . PUBLIC_DIR;?>/images/map.svg" alt="My Happy SVG" width="100%" height="auto"/>
 						
 						
 					</div>

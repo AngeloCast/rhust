@@ -15,7 +15,7 @@ class Patient_model extends Model{
         if($temperature == ''){$temperature = NULL;}
         if($weight == ''){$weight = NULL;}
         if($height == ''){$height = NULL;}
-
+        date_default_timezone_set('Asia/Manila');
         $date = date('Y-m-d');
         $patientdata = array(
             'firstname' => ucfirst($firstname),
@@ -101,6 +101,7 @@ class Patient_model extends Model{
         if($weight == ''){$weight = NULL;}
         if($height == ''){$height = NULL;}
         date_default_timezone_set('Asia/Manila');
+        $edited = date('Y-m-d H:i:s');
         $datetime = date('Y-m-d H:i:s');
         $data = array(
             'firstname' => ucfirst($firstname),
@@ -139,7 +140,7 @@ class Patient_model extends Model{
             'assessment' => $assessment,
             'management_plan' => $management_plan,
             'service_provider' => $service_provider,
-            'last_edited' => $datetime
+            'last_edited' => $edited
         );
         
             $result = $this->db->table('tblpatientrecords')

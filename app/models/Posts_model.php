@@ -5,7 +5,8 @@ class Posts_model extends Model{
 
     
     public function insert_post($photo, $category, $title, $content, $status, $id){
-
+        date_default_timezone_set('Asia/Manila');
+        $edited = datetime('Y-m-d h:iA');
         $date = date('Y-m-d');
 
         $data = array(
@@ -14,6 +15,7 @@ class Posts_model extends Model{
             'photo' => $photo,
             'category' => $category,
             'date' => $date,
+            'edited' => $edited,
             'status' => $status,
             'author_id' => $id
         );
