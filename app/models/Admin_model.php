@@ -63,6 +63,13 @@ class Admin_model extends Model{
         return password_hash($password, PASSWORD_BCRYPT, $options);
     }
 
+    public function get_staff_info($sid){
+        return $this->db->table('tblstaff')
+                    ->select('staff_id, fullname')
+                    ->where('staff_id', $sid)
+                    ->get();
+    }
+
     public function change_password($id, $oldpass, $newpass, $confirmpass){
 
         $data = array(

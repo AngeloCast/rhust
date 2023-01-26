@@ -60,7 +60,7 @@
         	}
         ?>
       </strong>
-      - <i style="font-size: 20px;">Last edited: <?php echo date('M j, Y h:i A', strtotime($data[2]['edited']));?></i></h1>
+      - <i style="font-size: 18px;">Last edited: <?php echo date('M j, Y h:i A', strtotime($data[2]['edited']));?></i></h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Edit Post</li>

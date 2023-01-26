@@ -6,7 +6,7 @@ class Posts_model extends Model{
     
     public function insert_post($photo, $category, $title, $content, $status, $id){
         date_default_timezone_set('Asia/Manila');
-        $edited = datetime('Y-m-d h:iA');
+        $edited = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
 
         $data = array(
@@ -58,6 +58,10 @@ class Posts_model extends Model{
         if($result){
             $_SESSION['success'] = 'Post was deleted successfully';
             return true;
+        }
+        else{
+            $_SESSION['error'] = 'An error occurred! Post was not deleted';
+            return false;
         }
     }
 
@@ -254,6 +258,13 @@ class Posts_model extends Model{
         return $this->db->table('tblgallery')
                         ->where(array('id' => $g_id))
                         ->delete();
+    }
+
+    public function get_post_info($pid){
+        return $this->db->table('rhuposts')
+                    ->select('id, title, category')
+                    ->where('id', $pid)
+                    ->get();
     }
 }
 ?>

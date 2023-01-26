@@ -234,7 +234,7 @@ class DoPDF extends Controller
 
                     <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
 
-                        Time of visit: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['visit_time']  .'&nbsp;&nbsp;</u>
+                        Time of visit: <u style="font-weight: light;">&nbsp;&nbsp;'. date('h:i A', strtotime($data['visit_time']))  .'&nbsp;&nbsp;</u>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                     </h5>

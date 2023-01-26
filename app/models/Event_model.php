@@ -65,6 +65,13 @@ class Event_model extends Model{
                     ->get();
     }
 
+    public function get_event_info($id){
+        return $this->db->table('tblevents')
+                    ->select('id, title, photo')
+                    ->where('id', $id)
+                    ->get();
+    }
+
     public function upload(){
         $target_dir = "public/images/";
         $target_file = basename($_FILES["fileToUpload"]["name"]);

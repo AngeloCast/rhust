@@ -65,11 +65,11 @@
                     <td><?=$row['email']; ?></td>
                     <td><?=$row['date']; ?></td>
                     <td>
-                      <a href="<?=site_url("admin/view_inquiry/".$row['id']); ?>" style="margin-right: 10px;" class="btn btn-primary btn-xs btn-flat"><i class="fa fa-eye"></i> View</a>
-                      <a href="#delinquiry_<?=$row['id']?>" data-toggle="modal" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-trash"></i> Delete</a>
+                      <button onclick="window.location.href='<?=site_url('admin/view_inquiry/'.$row['id']); ?>';" class="btn btn-primary btn-xs btn-flat"><i class='fa fa-eye'></i> View</button>
+                      <button data-toggle="modal" data-id="<?=$row['id'];?>" class="btn btn-danger btn-xs btn-flat delinquiry"><i class="fa fa-trash"></i> Delete</button>
                     </td>
                   </tr>
-                  <?php include 'includes/delinquiry_modal.php'; ?>
+                  
                   <?php endforeach ?>
                 </tbody>
               </table>
@@ -78,7 +78,31 @@
         </div>
       </div>
     </section>
-     
+
+<!-- DELETE INQUIRY -->
+
+<div class="modal fade" id="delinquiry">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title"><b>DELETE INQUIRY</b></h4>
+            </div>
+            <form class="form-horizontal" method="POST" action="<?=site_url('admin/delete_inquiry');?>">
+            <div class="modal-body inquiry" style="padding: 30px;">
+              
+                
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i> Confirm Delete</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
   </div>
   	<?php include 'includes/footer.php'; ?>
     <?php include 'includes/users_modal.php'; ?>
@@ -87,8 +111,22 @@
 <!-- ./wrapper -->
 
 <?php include 'includes/scripts.php'; ?>
-<script>
+<script type='text/javascript'>
+$(document).ready(function(){
 
+    $('.delinquiry').click(function(){ //button class
+        var inqid = $(this).data('id');
+        $.ajax({
+            url: '<?php echo site_url('admin/get_inq_info');?>',
+            type: 'post',
+            data: {inqid: inqid},
+            success: function(response){ 
+                $('.inquiry').html(response); //modal-body class
+                $('#delinquiry').modal('show');  //modal id
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>

@@ -22,18 +22,63 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-    	<a href="<?=site_url('patient/patient_records'); ?>" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Back</a> 
+    	<?php
+				if($data[2]['type'] == 0){
+					echo '<a href="'.site_url('patient/patient_records').'" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Back</a>';
+				}
+				else{
+					echo '<a href="'.site_url('patient/follow_up_records').'" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Back</a>';
+				}
+			?>
+    	 
 				
 			<div class="row" style="margin-top: 20px;">
-				<div class="col-md-6 text-left">
-					<h4>
-		        <b><i class="fas fa-edit"></i> Individual Treatment Record - </b><i><?php echo 'Last edited: '.date('M j, Y h:i A', strtotime($data[2]['last_edited']));?></i>
-		      </h4>
+				<div class="col-md-4 text-left">
+					<div class="dropdown">
+						<button class="btn btn-info dropdown-toggle" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-list"></i>
+						Patient's Records
+						<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="about-us">
+						<?php
+							foreach($data[3] as $records)
+							{
+								if($records['type'] == 0){
+									if($records['id'] == $data[2]['id'])
+									{
+										echo '<li><a href="'.site_url('patient/edit_patientrecord/'.$records['id']).'"><i class="fa fa-circle"></i> <b>INITIAL | '.$records['date_created'].'</b></a></li>';
+									}
+									else
+									{
+										echo '<li><a href="'.site_url('patient/edit_patientrecord/'.$records['id']).'"><i class="fa fa-circle-o"></i> INITIAL | '.$records['date_created'].'</a></li>';
+									}
+									
+								}
+								else{
+									if($records['id'] == $data[2]['id'])
+									{
+										echo '<li><a href="'.site_url('patient/edit_patientrecord/'.$records['id']).'"><i class="fa fa-circle"></i> <b>FOLLOW-UP | '.$records['date_created'].'</b></a></li>';
+									}
+									else
+									{
+										echo '<li><a href="'.site_url('patient/edit_patientrecord/'.$records['id']).'"><i class="fa fa-circle-o"></i> FOLLOW-UP | '.$records['date_created'].'</a></li>';
+									}
+								}
+
+							}
+						?>
+						</ul>
+					</div>
+					
 				</div>
-				<div class="col-md-6 text-right">
-					<a href="<?=site_url('dopdf/generate_patientrecord/'.$data[2]['id']); ?>" class="btn btn-success btn-md btn-flat"><i class="fa fa-file-pdf-o"></i> PDF</a>
+				
+				<div class="col-md-8 text-right">
+					<button onclick="window.location.href='<?=site_url('patient/follow_up/'.$data[2]['id']);?>';" class="btn btn-success btn-md btn-flat"><i class='fa fa-plus'></i> Follow Up</button>
+          <button onclick="window.location.href='<?=site_url('dopdf/generate_patientrecord/'.$data[2]['id']); ?>';" class="btn btn-warning btn-md btn-flat"><i class='fa fa-file-pdf-o'></i> PDF</button>
 					<a href="#delpatientrecords_<?=$data[2]['id']?>" data-toggle="modal" class="btn btn-danger btn-md btn-flat"><i class="fa fa-trash"></i> Delete</a>
+
 				</div>
+					
 			</div>
 
       <ol class="breadcrumb">
@@ -41,18 +86,33 @@
         <li class="active">Edit Patient Record</li>
       </ol>
     </section>
-
     <!-- Main content -->
     <section class="content" style="padding-top: 0;">
+    	<br>
       <?php include('includes/message.php')?>
       <div class="row">
         <div class="col-sm-12 mx-auto">
+        	<div class="row">
+        		<div class="col-sm-12">
+        			<h5 style="float: right; margin-bottom: 5px;"><b>Last Edited:</b> <u><?php echo date('M j, Y h:i A', strtotime($data[2]['last_edited']));?></u></h5>
+        		</div>
+        	</div>
           <div class="box" style="padding: 20px;">
+          	
+          	<div class="box-header with-border">
+          		<h4>
+				        <b><i class="fa fa-edit"></i> Individual Treatment Record - </b>
+				        <b style="background-color: #50c73a; color: white; padding: 0px 5px 0px 5px; border-radius: 5px;"><?php if($data[2]['type'] == 0){echo 'INITIAL RECORD';}else{echo 'FOLLOW-UP RECORD';}?> </b>
+				      </h4>
+          	</div>
 			      <div class="box-body">
 			        <div class= "col-lg-12">
 								<form class="form-horizontal" action="<?=site_url('patient/update_patientrecord');?>" method="post">
 									<input type="hidden" name="id" value="<?=$data[2]['id']; ?>">
+									<input type="hidden" name="p_id" value="<?=$data[2]['p_id']; ?>">
+									<input type="hidden" name="type" value="<?=$data[2]['type']; ?>">
 									<div class="form-group">
+										<br>
 											<h5 id="ptitle"><b>A. <u>Patient's Personal Profile: </u></b></h5>
 						        	
                       <div class="col-sm-4">
@@ -358,7 +418,7 @@
 			              <h4 class="modal-title"><b>DELETE PATIENT RECORD</b></h4>
 			            </div>
 			            <div class="modal-body" style="padding: 30px;">
-			              <form class="form-horizontal" method="POST" action="<?=site_url('patient/delete_patient_record/'.$data[2]['id']);?>">
+			            	<form class="form-horizontal" method="POST" action="<?=site_url('patient/delete_patient_record/'.$data[2]['type'].'/'.$data[2]['id'])?>">
 			                <h3 class="text-center">You are deleting <b><u><?=$data[2]['firstname'] . ' ' . $data[2]['lastname'];?>'s</u></b> record.</h3>
 			                <h4 class="text-center">DO YOU WANT TO CONTINUE?</h4>
 			            </div>

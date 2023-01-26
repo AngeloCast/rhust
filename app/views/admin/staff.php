@@ -28,7 +28,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header with-border">
-              <a href="#addnewstaff" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> New</a>
+              <button data-toggle="modal" data-target="#addnewstaff" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> New Staff Account</button>
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered">
@@ -50,11 +50,12 @@
                     <td><?=$row['address']; ?></td>
                     <td><?php if($row['display'] == 0){echo'No';}else{echo'Yes';} ?></td>
                     <td>
-                      <a href="<?=site_url('admin/edit_staff/'.$row['staff_id']); ?>" style="margin-right: 10px;" class='btn btn-success btn-xs btn-flat'><i class='fa fa-edit'></i> Edit</button>
-                      <a href="#delstaff_<?=$row['staff_id']?>" data-toggle="modal" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-trash"></i> Delete</a>
+                      <button onclick="window.location.href='<?=site_url('admin/edit_staff/'.$row['staff_id']); ?>';" class="btn btn-success btn-xs btn-flat"><i class='fa fa-edit'></i> Edit</button>
+                      <button data-toggle="modal" data-id="<?=$row['staff_id'];?>" class="btn btn-danger btn-xs btn-flat delstaff"><i class="fa fa-trash"></i> Delete</button>
+                      
                     </td>
                   </tr>
-                  <?php include 'includes/delstaff_modal.php'; ?>
+                  
                   <?php endforeach ?>
                 </tbody>
               </table>
@@ -63,7 +64,29 @@
         </div>
       </div>
     </section>
-     
+
+  <!-- DELETE STAFF -->
+
+  <div class="modal fade" id="delstaff">
+    <div class="modal-dialog modal-xs">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title"><b>DELETE STAFF RECORD</b></h4>
+        </div>
+        <form class="form-horizontal" method="POST" action="<?=site_url('admin/delete_staff');?>">
+        <div class="modal-body staff" style="padding: 30px;">
+        
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i> Confirm Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   </div>
     <?php include 'includes/footer.php'; ?>
     <?php include 'includes/staff_modal.php'; ?>
@@ -72,8 +95,22 @@
 <!-- ./wrapper -->
 
 <?php include 'includes/scripts.php'; ?>
-<script>
+<script type='text/javascript'>
+$(document).ready(function(){
 
+    $('.delstaff').click(function(){ //button class
+        var sid = $(this).data('id');
+        $.ajax({
+            url: '<?php echo site_url('admin/get_staff_info');?>',
+            type: 'post',
+            data: {sid: sid},
+            success: function(response){ 
+                $('.staff').html(response); //modal-body class
+                $('#delstaff').modal('show');  //modal id
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>

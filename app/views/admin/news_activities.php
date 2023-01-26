@@ -57,11 +57,11 @@
                     <td><?=$row['date']; ?></td>
                     
                     <td>
-                      <a href="<?=site_url('admin/edit_post/'.$row['id']); ?>" style="margin-right: 10px;" class="btn btn-success btn-xs btn-flat"><i class='fa fa-edit'></i> Edit</a>
-                      <a href="#delpost_<?=$row['id']?>" data-toggle="modal" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-trash"></i> Delete</a>
+                      <button onclick="window.location.href='<?=site_url('admin/edit_post/'.$row['id']); ?>';" class="btn btn-success btn-xs btn-flat"><i class='fa fa-edit'></i> Edit</button>
+                      <button data-toggle="modal" data-id="<?=$row['id'];?>" class="btn btn-danger btn-xs btn-flat delpost"><i class="fa fa-trash"></i> Delete</button>
                     </td>
                   </tr>
-                  <?php include 'includes/delpost_modal.php'; ?>
+                  
                   <?php endforeach ?>
                 </tbody>
               </table>
@@ -70,7 +70,18 @@
         </div>
       </div>
     </section>
-     
+
+<!-- DELETE COVID-->
+
+<div class="modal fade" id="delpost">
+  <div class="modal-dialog modal-xs">
+    <div class="modal-content">
+            
+    </div>
+  </div>
+</div>
+
+
   </div>
   	<?php include 'includes/footer.php'; ?>
     
@@ -79,8 +90,22 @@
 <!-- ./wrapper -->
 
 <?php include 'includes/scripts.php'; ?>
-<script>
+<script type='text/javascript'>
+$(document).ready(function(){
 
+    $('.delpost').click(function(){ //button class
+        var pid = $(this).data('id');
+        $.ajax({
+            url: '<?php echo site_url('admin/get_post_info');?>',
+            type: 'post',
+            data: {pid: pid},
+            success: function(response){ 
+                $('.modal-content').html(response); //modal-body class
+                $('#delpost').modal('show');  //modal id
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>

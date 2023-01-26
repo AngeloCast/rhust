@@ -68,8 +68,7 @@
                     </td>
                     
                     <td>
-                      <a href="<?=site_url('admin/view_user/'.$row['id']); ?>" style="margin-right: 10px;" class="btn btn-primary btn-xs btn-flat"><i class='fa fa-eye'></i> View</a>
-                        
+                      <button onclick="window.location.href='<?=site_url('admin/view_user/'.$row['id']); ?>';" class="btn btn-primary btn-xs btn-flat"><i class='fa fa-eye'></i> View</button>
                     </td>
                   </tr>
 

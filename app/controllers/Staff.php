@@ -73,7 +73,7 @@ class Staff extends Controller {
                                         
                                     if($this->staff_model->update_info($this->io->post('id'), $this->io->post('fullname'), $this->io->post('address'), $this->io->post('cnumber'), $this->io->post('photo'))) 
                                     {
-                                        $this->session->set_flashdata(array('success' => 'Successfully updated admin information!'));
+                                        $this->session->set_flashdata(array('success' => 'Successfully updated staff information!'));
                                         redirect('staff/show_profile');
                                         exit();
                                     }
@@ -89,7 +89,7 @@ class Staff extends Controller {
                                         if($upresult){
                                                 if($this->staff_model->update_info($this->io->post('id'), $this->io->post('fullname'), $this->io->post('address'), $this->io->post('cnumber'), $upresult)) 
                                                 {
-                                                    $this->session->set_flashdata(array('success' => 'Successfully updated admin information!'));
+                                                    $this->session->set_flashdata(array('success' => 'Successfully updated staff information!'));
                                                     redirect('staff/show_profile');
                                                     exit();
                                                 }
@@ -135,10 +135,6 @@ class Staff extends Controller {
 
                     }
             }
-    }
-
-    public function show_session(){
-        var_dump($_SESSION);
     }
 
     public function relog(){

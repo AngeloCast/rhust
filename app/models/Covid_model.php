@@ -3,7 +3,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 class Covid_model extends Model{
 
-    public function insert_covid($case_no, $release_date, $antigen_date, $rtpcr_date, $lastname, $firstname, $middlename, $birthday, $age, $sex, $cnumber, $contact_nature, $last_exposure, $symptoms, $isolation_place, $illness_onset, $quarantine_period, $recovery_date, $outcome, $contact_tracing, $closed_contact, $status, $vaccination_status) {
+    public function insert_covid($case_no, $release_date, $antigen_date, $rtpcr_date, $lastname, $firstname, $middlename, $birthday, $age, $sex, $address, $cnumber, $contact_nature, $last_exposure, $symptoms, $isolation_place, $illness_onset, $quarantine_period, $recovery_date, $outcome, $contact_tracing, $closed_contact, $status, $vaccination_status) {
 
         if($case_no == ''){$case_no = NULL;}
         if($release_date == ''){$release_date = NULL;}
@@ -17,9 +17,10 @@ class Covid_model extends Model{
         if($recovery_date == ''){$recovery_date = NULL;}
         if($contact_tracing == ''){$contact_tracing = NULL;}
         if($closed_contact == ''){$closed_contact = NULL;}
-
+        date_default_timezone_set('Asia/Manila');
+        $edited = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
-		$data =array(
+        $data =array(
             'case_no' => $case_no,
             'release_date' => $release_date,
             'antigen_date' => $antigen_date,
@@ -30,6 +31,7 @@ class Covid_model extends Model{
             'birthday' => $birthday,
             'age' => $age,
             'sex' => $sex,
+            'address' => $address,
             'cnumber' => $cnumber,
             'contact_nature' => $contact_nature,
             'last_exposure' => $last_exposure,
@@ -43,9 +45,10 @@ class Covid_model extends Model{
             'closed_contact' => $closed_contact,
             'status' => $status,
             'vaccination_status' => $vaccination_status,
-            'date_created' => $date
+            'date_created' => $date,
+            'last_edited' => $edited
         );   
-		$result = $this->db->table('tblcovidrecords')->insert($data);
+        $result = $this->db->table('tblcovidrecords')->insert($data);
 
         if($result){
             return true;
@@ -53,7 +56,7 @@ class Covid_model extends Model{
         else{
             return false;
         }
-	}
+    }
     
     public function delete_covid($id){
         $result = $this->db->table('tblcovidrecords')
@@ -69,7 +72,7 @@ class Covid_model extends Model{
             return false;
         }
     }
-    public function update_covid($id, $case_no, $release_date, $antigen_date, $rtpcr_date, $lastname, $firstname, $middlename, $birthday, $age, $sex, $cnumber, $contact_nature, $last_exposure, $symptoms, $isolation_place, $illness_onset, $quarantine_period, $recovery_date, $outcome, $contact_tracing, $closed_contact, $status, $vaccination_status) {
+    public function update_covid($id, $case_no, $release_date, $antigen_date, $rtpcr_date, $lastname, $firstname, $middlename, $birthday, $age, $sex, $address, $cnumber, $contact_nature, $last_exposure, $symptoms, $isolation_place, $illness_onset, $quarantine_period, $recovery_date, $outcome, $contact_tracing, $closed_contact, $status, $vaccination_status) {
         
         if($case_no == ''){$case_no = NULL;}
         if($release_date == ''){$release_date = NULL;}
@@ -96,6 +99,7 @@ class Covid_model extends Model{
             'birthday' => $birthday,
             'age' => $age,
             'sex' => $sex,
+            'address' => $address,
             'cnumber' => $cnumber,
             'contact_nature' => $contact_nature,
             'last_exposure' => $last_exposure,
@@ -131,13 +135,18 @@ class Covid_model extends Model{
     }
   
     public function get_all_tblcovidrecords(){
-		return $this->db->table('tblcovidrecords')
+        return $this->db->table('tblcovidrecords')
                     ->get_all(); 
-	}
+    }
 
     public function get_latest(){
         return $this->db->table('tblcovidrecords')->select('id')->limit(1)->order_by('id', 'DESC')->get();
     }
 
-  
+    public function get_covid_record($id){
+        return $this->db->table('tblcovidrecords')
+                    ->select('id, firstname, lastname')
+                    ->where('id', $id)
+                    ->get();
+    }
 }

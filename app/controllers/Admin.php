@@ -184,27 +184,44 @@ class Admin extends Controller {
                                 ->min_length(9, 'Password must be at least 9 characters long!');
 
                                 if ($this->form_validation->run()){
-                                        $upresult = $this->staff_model->upload();
-                                        if ($upresult) {
-                                                if($this->staff_model->insert_staff($this->io->post('fullname'), $this->io->post('password'), $this->io->post('position'), $this->io->post('birthday'), $this->io->post('gender'), $this->io->post('email'), $this->io->post('cnumber'), $this->io->post('address'), $upresult)) 
+                                        if($_FILES['fileToUpload']['name'] == '')
+                                        {
+                                                $photo = 'profile.jpg';
+                                                if($this->staff_model->insert_staff($this->io->post('fullname'), $this->io->post('password'), $this->io->post('position'), $this->io->post('birthday'), $this->io->post('gender'), $this->io->post('email'), $this->io->post('cnumber'), $this->io->post('address'), $photo)) 
                                                 {
                                                         $this->session->set_flashdata(array('success' => 'Staff was successfully added!'));
                                                         redirect('admin/staff');
                                                         exit();
                                                 }
                                                 else{
+                                                        $this->session->set_flashdata(array('error' => 'An error occurred! Staff was not added'));
                                                         redirect('admin/staff');
                                                         exit();
                                                 }
                                         }
                                         else{
-                                                redirect('admin/staff');
-                                                exit();
+                                                $upresult = $this->staff_model->upload();
+                                                if ($upresult) {
+                                                        if($this->staff_model->insert_staff($this->io->post('fullname'), $this->io->post('password'), $this->io->post('position'), $this->io->post('birthday'), $this->io->post('gender'), $this->io->post('email'), $this->io->post('cnumber'), $this->io->post('address'), $upresult)) 
+                                                        {
+                                                                $this->session->set_flashdata(array('success' => 'Staff was successfully added!'));
+                                                                redirect('admin/staff');
+                                                                exit();
+                                                        }
+                                                        else{
+                                                                redirect('admin/staff');
+                                                                exit();
+                                                        }
+                                                }
+                                                else{
+                                                        redirect('admin/staff');
+                                                        exit();
+                                                }
                                         }
                                 }
                                 else {
                                         $this->session->set_flashdata(array('error' => validation_errors()));
-                                        redirect('auth/register');
+                                        redirect('admin/staff');
                                         exit();
                                 }
                         }
@@ -248,19 +265,23 @@ class Admin extends Controller {
                 }
         }
 
-        public function delete_event($id){
+        public function delete_event(){
                 if($this->check()){
-                        $check = $this->posts_model->get_single_data($id);
-                        if($this->event_model->delete_post($id))
+                        if ($this->form_validation->submitted())
                         {
-                                $this->session->set_flashdata(array('success' => 'Event was successfully deleted!'));
-                                redirect('admin/events');
-                                exit();
-                        }
-                        else{
-                                $this->session->set_flashdata(array('error' => 'ERROR! Your event was not deleted!'));
-                                redirect('admin/events');
-                                exit();
+                                if($this->form_validation->run()){
+                                        if($this->event_model->delete_post($this->io->post('id')))
+                                        {
+                                                $this->session->set_flashdata(array('success' => 'Event was successfully deleted!'));
+                                                redirect('admin/events');
+                                                exit();
+                                        }
+                                        else{
+                                                $this->session->set_flashdata(array('error' => 'ERROR! Your event was not deleted!'));
+                                                redirect('admin/events');
+                                                exit();
+                                        }
+                                }
                         }
                 }
         }
@@ -451,25 +472,29 @@ class Admin extends Controller {
                 }
         }
 
-        public function delete_post($id) {
-                if($this->check()){
-                        $check = $this->posts_model->get_single_data($id);
-                        if($this->posts_model->delete_post($id))
-                        {
-                                if($check['category'] == 1){
-                                        redirect('admin/announcements');
-                                        exit();
-                                }
-                                else if($check['category'] == 2){
-                                        redirect('admin/news_activities');
-                                        exit();
-                                }else if($check['category'] == 3){
-                                        redirect('admin/health_faqs');
-                                        exit();
-                                }
-                                else{
-                                        redirect('admin/health_info');
-                                        exit();
+        public function delete_post() 
+        {
+                if ($this->form_validation->submitted())
+                {
+                        if ($this->form_validation->run()){
+                                $check = $this->io->post('category');
+                                if($this->posts_model->delete_post($this->io->post('id')))
+                                {
+                                        if($check == 1){
+                                                redirect('admin/announcements');
+                                                exit();
+                                        }
+                                        else if($check == 2){
+                                                redirect('admin/news_activities');
+                                                exit();
+                                        }else if($check == 3){
+                                                redirect('admin/health_faqs');
+                                                exit();
+                                        }
+                                        else{
+                                                redirect('admin/health_info');
+                                                exit();
+                                        }
                                 }
                         }
                 }
@@ -750,7 +775,7 @@ class Admin extends Controller {
                                                 $staffid = $this->io->post('staff_id');
                                                 if($this->staff_model->update_data($this->io->post('staff_id'), $this->io->post('fullname'), $this->io->post('position'), $this->io->post('birthday'), $this->io->post('gender'), $this->io->post('cnumber'), $this->io->post('address'), $this->io->post('photo'))) 
                                                 {
-                                                        $this->session->set_flashdata(array('success' => 'User was successfully updated!'));
+                                                        $this->session->set_flashdata(array('success' => 'Staff was successfully updated!'));
                                                         redirect('admin/edit_staff/' . $staffid);
                                                         exit();
                                                 }
@@ -766,7 +791,7 @@ class Admin extends Controller {
                                                 if($upresult){
                                                         if($this->staff_model->update_data($this->io->post('staff_id'), $this->io->post('fullname'), $this->io->post('position'), $this->io->post('birthday'), $this->io->post('gender'), $this->io->post('cnumber'), $this->io->post('address'), $upresult)) 
                                                         {
-                                                                $this->session->set_flashdata(array('success' => 'User was successfully updated!'));
+                                                                $this->session->set_flashdata(array('success' => 'Staff was successfully updated!'));
                                                                 redirect('admin/edit_staff/' . $staffid);
                                                                 exit();
                                                         }
@@ -781,13 +806,35 @@ class Admin extends Controller {
                 }
         }
 
-        public function delete_staff($id){
+        public function delete_staff(){
                 if($this->check()){
-                        if($this->staff_model->delete_staff($id))
+                        if ($this->form_validation->submitted())
                         {
-                            redirect('admin/staff');
-                            exit();
+                                if($this->form_validation->run()){
+                                        if($this->staff_model->delete_staff($this->io->post('id')))
+                                        {
+                                                redirect('admin/staff');
+                                                exit();
+                                        }
+                                        else{
+                                                redirect('admin/staff');
+                                                exit();
+                                        }
+                                }
                         }
+                }
+        }
+
+        public function get_staff_info(){
+                $sid = $this->io->post('sid');
+                $data['staff'] = $this->admin_model->get_staff_info($sid);
+
+                if(!empty($data)){
+
+                        $this->call->view('admin/includes/delstaff_modal', $data);
+                }
+                else{
+                        echo 'Error retrieving data';
                 }
         }
         //////////////////// INQUIRY CRUD /////////////////////////////
@@ -802,12 +849,34 @@ class Admin extends Controller {
                 }
         }
 
-        public function delete_inquiry($id){
+        public function get_inq_info(){
+                $inqid = $this->io->post('inqid');
+                $data['inq'] = $this->inquiry_model->get_inq_info($inqid);
+
+                if(!empty($data)){
+
+                        $this->call->view('admin/includes/delinquiry_modal', $data);
+                }
+                else{
+                        echo 'Error retrieving data';
+                }
+        }
+
+        public function delete_inquiry(){
                 if($this->check()){
-                        if($this->inquiry_model->delete_inquiry($id))
+                        if ($this->form_validation->submitted())
                         {
-                            redirect('admin/inquiry');
-                            exit();
+                                if($this->form_validation->run()){
+                                        if($this->inquiry_model->delete_inquiry($this->io->post('id')))
+                                        {
+                                                redirect('admin/inquiry');
+                                                exit();
+                                        }
+                                        else{
+                                               redirect('admin/inquiry');
+                                                exit(); 
+                                        }
+                                }
                         }
                 }
         }
@@ -971,6 +1040,32 @@ class Admin extends Controller {
                                         
                                 }
                         }
+                }
+        }
+
+        public function get_event_info(){
+                $eid = $this->io->post('eid');
+                $data['record'] = $this->event_model->get_event_info($eid);
+
+                if(!empty($data)){
+
+                        $this->call->view('admin/includes/delevent_modal', $data);
+                }
+                else{
+                        echo 'Error retrieving data';
+                }
+        }
+
+        public function get_post_info(){
+                $pid = $this->io->post('pid');
+                $data['record'] = $this->posts_model->get_post_info($pid);
+
+                if(!empty($data)){
+
+                        $this->call->view('admin/includes/delpost_modal', $data);
+                }
+                else{
+                        echo 'Error retrieving data';
                 }
         }
 

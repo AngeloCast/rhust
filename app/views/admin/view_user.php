@@ -31,7 +31,7 @@
           		<div class="box">
             		<div class="box-header with-border">
 									<div class="col-sm-12">
-	            			<img src="<?php echo BASE_URL . PUBLIC_DIR . '/images/' . $data[2]['photo']; ?>" style="margin-top: 10px; height: 100%; width: 100%; max-height: auto; max-width: auto;">									
+	            			<img src="<?php echo BASE_URL . PUBLIC_DIR . '/images/avatar/' . $data[2]['photo']; ?>" style="margin-top: 10px; height: 100%; width: 100%; max-height: auto; max-width: auto;">									
 	            		</div>
 								</div>
 

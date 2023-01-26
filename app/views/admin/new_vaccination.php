@@ -145,40 +145,10 @@
 						        </div>
 						    		          
 						      </div>
-						      <hr>
-
-						      <div class="form-group">
-						        <div class="col-sm-3">
-						        	<label for="vaccination_info" class="control-label">Vaccination Information</label>
-						          <select class="form-control" name="vaccination_info">
-						          	<option value="not set">Choose</option>
-							          <option value="1st Dose">1st Dose</option>
-							          <option value="2nd Dose">2nd Dose</option> 
-							          <option value="1st Booster">1st Booster</option>
-							          <option value="2nd Booster">2nd Booster</option>
-							        </select>
-						        </div>
-
-						        <div class="col-sm-3">
-						        	<label for="vaccinator" class="control-label">Vaccinator Name</label>
-						          <input type="text" class="form-control" name="vaccinator">
-						        </div>
-
-						        <div class="col-sm-3">
-						        	<label for="vaccination_date" class="control-label">Date of Vaccination</label>
-						          <input type="date" class="form-control" name="vaccination_date">
-						        </div>
-
-						        <div class="col-sm-3">
-						        	<label for="lot_number" class="control-label">Lot Number</label>
-						          <input type="text" class="form-control" name="lot_number">
-						        </div>
-   									
-						      </div>
 						     
 						      <hr>
-						      <button type="submit" style="color: white; float: right;" class="btn btn-success btn-sm btn-flat">Save Record</button>
-						      <a href="<?=site_url('vaccination/vaccination_records'); ?>" class='btn btn-danger btn-sm btn-flat' style="color: white; float: right;  margin-right: 5px;"> Cancel</a>
+						      <button type="submit" style="color: white; float: right;" class="btn btn-success btn-md btn-flat"><i class="fa fa-save"></i>Save Record</button>
+						      <a href="<?=site_url('vaccination/vaccination_records'); ?>" class='btn btn-danger btn-md btn-flat' style="color: white; float: right;  margin-right: 5px;"> Cancel</a>
 								</form>
 							</div>
 						</div>			

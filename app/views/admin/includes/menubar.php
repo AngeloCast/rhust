@@ -32,21 +32,37 @@
     else{
       echo'<ul class="sidebar-menu" data-widget="tree">
       <li><a href="'.site_url('admin').'"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-      <li class="header">MANAGE RECORDS</li>
+
+      <li class="header">MEDICAL RECORDS</li>
+
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-book"></i>
-          <span>MEDICAL RECORDS</span>
+          <i class="fa fa-wheelchair"></i>
+          <span>PATIENT RECORDS</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="'.site_url('patient/patient_records').'"><i class="fa fa-circle-o"></i><span> Patient Records </span></a></li>
+          <li><a href="'.site_url('patient/patient_records').'"><i class="fa fa-circle"></i><span>ITR </span></a></li>
+          <li><a href="'.site_url('patient/follow_up_records').'"><i class="fa fa-circle"></i><span>Follow-Up </span></a></li>
+        </ul>
+      </li>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-line-chart"></i>
+          <span>COVID19 RECORDS</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
           <li><a href="'.site_url('covid/covid_records').'"><i class="fa fa-circle-o"></i><span> COVID19 </span></a></li>
           <li><a href="'.site_url('vaccination/vaccination_records').'"><i class="fa fa-circle-o"></i><span>COVID Vaccination </span></a></li>
         </ul>
       </li>
+
       <li class="treeview">
         <a href="#">
           <i class="fa fa-bookmark"></i>

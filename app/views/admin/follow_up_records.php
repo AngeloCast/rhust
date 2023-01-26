@@ -15,7 +15,7 @@
         <strong>
         Patient Records 
         </strong>
-        <i>(Initial Records)</i>
+        <i>(Follow-up Records)</i>
       </h1>
       
       <ol class="breadcrumb">
@@ -30,9 +30,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box-header with-border">
-              <a href="<?=site_url('patient/new_patient');?>" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> New Record</a>
-            </div>
+
             <div class="box-body">
               <table id="example1" class="table table-bordered">
                 <thead>
@@ -50,7 +48,7 @@
                   <?php foreach ($data[2] as $row):?>
                   <tr>
                     <td><?=$row['id']; ?></td>
-                    <td><b style="background-color: #3fd764; padding: 0px 10px 0px 10px; color: white; border-radius: 5px;">INITIAL</b></td>
+                    <td><b style="background-color: #3fd764; padding: 0px 10px 0px 10px; color: white; border-radius: 5px">FOLLOW-UP</b></td>
                     <td><?=$row['firstname']; ?></td>
                     <td><?=$row['lastname']; ?></td>
                     <td>

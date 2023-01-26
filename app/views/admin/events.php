@@ -60,11 +60,11 @@
                     <td><?=$row['start_datetime']; ?></td>
                     <td><?=$row['end_datetime']; ?></td>
                     <td>
-                      <a href="<?=site_url('admin/edit_event/'.$row['id']); ?>" style="margin-right: 10px;" class="btn btn-success btn-xs btn-flat"><i class='fa fa-edit'></i> Edit</a>
-                      <a href="#delevent_<?=$row['id']?>" data-toggle="modal" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-trash"></i> Delete</a>
+                      <button onclick="window.location.href='<?=site_url('admin/edit_event/'.$row['id']); ?>';" class="btn btn-success btn-xs btn-flat"><i class='fa fa-edit'></i> Edit</button>
+                      <button data-toggle="modal" data-id="<?=$row['id'];?>" class="btn btn-danger btn-xs btn-flat delevent"><i class="fa fa-trash"></i> Delete</button>
                     </td>
                   </tr>
-                  <?php include 'includes/delevent_modal.php'; ?>
+                  
                   <?php endforeach ?>
                 </tbody>
               </table>
@@ -72,6 +72,30 @@
           </div>
         </div>
       </div>
+
+
+      <!-- DELETE EVENT MODAL -->
+
+      <div class="modal fade" id="delevent">
+          <div class="modal-dialog modal-xs">
+              <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><b>DELETE EVENT </b></h4>
+                  </div>
+                  <form class="form-horizontal" method="POST" action="<?=site_url('admin/delete_event');?>">
+                  <div class="modal-body event" style="padding: 30px;">
+                    
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i> Confirm Delete</button>
+                    </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+
       <div class="row">
         <div class="col-md-12">
           <?php include 'includes/events_modal.php'; ?>
@@ -153,6 +177,23 @@ foreach($schedules as $row){
 <script src="<?php echo BASE_URL . PUBLIC_DIR;?>/calendar/eventscript.js"></script>
 <script>
     var scheds = $.parseJSON('<?= json_encode($sched_res) ?>')
+</script>
+<script type='text/javascript'>
+$(document).ready(function(){
+
+    $('.delevent').click(function(){ //button class
+        var eid = $(this).data('id');
+        $.ajax({
+            url: '<?php echo site_url('admin/get_event_info');?>',
+            type: 'post',
+            data: {eid: eid},
+            success: function(response){ 
+                $('.event').html(response); //modal-body class
+                $('#delevent').modal('show');  //modal id
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>

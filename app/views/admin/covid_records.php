@@ -56,14 +56,12 @@
                     ?></td>
                     <td><?=$row['date_created']; ?></td>
                     <td>
-                      <a href="<?=site_url('covid/edit_covidcase/'.$row['id']); ?>" style="margin-right: 10px;" class='btn btn-success btn-xs btn-flat'><i class='fa fa-edit'></i> Edit</button>
-                      <a href="#delcovidrecords_<?=$row['id']?>" data-toggle="modal" class="btn btn-danger btn-xs btn-flat"><i class="fa fa-trash"></i> Delete</a>
+                      <button onclick="window.location.href='<?=site_url('covid/edit_covidcase/'.$row['id']); ?>';" class='btn btn-success btn-xs btn-flat'><i class='fa fa-edit'></i> Edit</button>
+                      <button data-toggle="modal" data-id="<?=$row['id'];?>" class="btn btn-danger btn-xs btn-flat delvaccrecord"><i class="fa fa-trash"></i> Delete</button>
                     </td>
                   </tr>
-                  <?php include 'includes/delcovid_modal.php'; ?>
-                  <?php endforeach ?>
-                <tbody>
                   
+                  <?php endforeach ?>
                 </tbody>
               </table>
             </div>
@@ -71,17 +69,51 @@
         </div>
       </div>
     </section>
-     
+
+  <!-- DELETE COVID -->
+  <div class="modal fade" id="delModal">
+    <div class="modal-dialog modal-xs">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title"><b>DELETE COVID19 RECORD</b></h4>
+        </div>
+        <form class="form-horizontal" method="POST" action="<?=site_url('covid/delete_covid');?>">
+        <div class="modal-body c_record" style="padding: 30px;">
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i> Confirm Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
+
+</div>
   	<?php include 'includes/footer.php'; ?>
-    <?php include 'includes/covid_modal.php'; ?>
 
 </div>
 <!-- ./wrapper -->
 
 <?php include 'includes/scripts.php'; ?>
-<script>
+<script type='text/javascript'>
+$(document).ready(function(){
 
+    $('.delvaccrecord').click(function(){
+        var cid = $(this).data('id');
+        $.ajax({
+            url: '<?php echo site_url('covid/get_covid_record');?>',
+            type: 'post',
+            data: {cid: cid},
+            success: function(response){ 
+                $('.c_record').html(response); 
+                $('#delModal').modal('show'); 
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>

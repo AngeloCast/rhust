@@ -65,6 +65,10 @@ class Staff_model extends Model{
             $_SESSION['success'] = 'Staff deleted successfully';
             return true;
         }
+        else{
+            $_SESSION['error'] = 'An error occurred! Staff was not deleted';
+            return false;
+        }
     }
 
 

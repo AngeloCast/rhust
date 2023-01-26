@@ -14,6 +14,35 @@
   textarea{
     resize: vertical;
   }
+  h1{
+    overflow: hidden;
+    text-align: center;
+  }
+  h1.hr-lines{
+    color: darkslategray;
+    font-size: 20px;
+  }
+  h1:before,
+  h1:after {
+    background-color: gray;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+    max-width: 100%;
+  }
+
+  h1:before {
+    right: 0.5em;
+    margin-left: -50%;
+  }
+
+  h1:after {
+    left: 0.5em;
+    margin-right: -50%;
+  }
 	</style>
   <?php include 'includes/navbar.php'; ?>
   <?php include 'includes/menubar.php'; ?>
@@ -31,7 +60,7 @@
                 </h4>
             </div>
             <div class="col-md-6 text-right">
-                <a href="#delvaccination_<?=$data[2]['id']?>" data-toggle="modal" class="btn btn-danger btn-md btn-flat"><i class="fa fa-trash"></i> Delete</a>
+                <a href="#delvaccrecord" data-toggle="modal" class="btn btn-danger btn-md btn-flat"><i class="fa fa-trash"></i> Delete</a>
             </div>
       </div>
       <ol class="breadcrumb">
@@ -189,69 +218,6 @@
 						    		          
 						      </div>
 						      <hr>
-
-						      <div class="form-group">
-						        <div class="col-sm-3">
-						        	<label for="vaccination_info" class="control-label">Vaccination Information</label>
-						          <select class="form-control" name="vaccination_info">
-						          	<?php 
-                          if($data[2]['vaccination_info'] == '1st Dose'){
-                            echo '<option value="'.$data[2]['vaccination_info'].'" selected>1st Dose</option>
-                                      <option value="2nd Dose">2nd Dose</option>
-                                      <option value="1st Booster">1st Booster</option>
-                                      <option value="2nd Booster">2nd Booster</option>
-                                      ';
-                          }
-                          else if($data[2]['vaccination_info'] == '2nd Dose'){
-                            echo '<option value="'.$data[2]['vaccination_info'].'" selected>2nd Dose</option>
-                                      <option value="1st Dose">1st Dose</option>
-                                      <option value="1st Booster">1st Booster</option>
-                                      <option value="2nd Booster">2nd Booster</option>
-                                      ';
-                          }
-                          else if($data[2]['vaccination_info'] == '1st Booster'){
-                            echo '<option value="'.$data[2]['vaccination_info'].'" selected>1st Booster</option>
-                            					<option value="1st Dose">1st Dose</option>
-                                      <option value="2nd Dose">2nd Dose</option>
-                                      <option value="2nd Booster">2nd Booster</option>
-                                      ';
-                          }
-                          else if($data[2]['vaccination_info'] == '2nd Booster'){
-                            echo '<option value="'.$data[2]['vaccination_info'].'" selected>2nd Booster</option>
-                                      <option value="1st Dose">1st Dose</option>
-                                      <option value="2nd Dose">2nd Dose</option>
-                                      <option value="1st Booster">1st Booster</option>
-                                      ';//GAWING NONE ANG OPTIOn
-                          }
-                          else{
-                            echo '<option value="'.$data[2]['vaccination_info'].'" selected>Not set</option>
-                            					<option value="1st Dose">1st Dose</option>
-                                      <option value="2nd Dose">2nd Dose</option>
-                                      <option value="1st Booster">1st Booster</option>
-                                      <option value="2nd Booster">2nd Booster</option>';
-                          }
-                        ?>
-							        </select>
-						        </div>
-
-						        <div class="col-sm-3">
-						        	<label for="vaccinator" class="control-label">Vaccinator Name</label>
-						          <input type="text" class="form-control" name="vaccinator" value="<?=$data[2]['vaccinator']; ?>">
-						        </div>
-
-						        <div class="col-sm-3">
-						        	<label for="vaccination_date" class="control-label">Date of Vaccination</label>
-						          <input type="date" class="form-control" name="vaccination_date" value="<?=$data[2]['vaccination_date']; ?>">
-						        </div>
-
-						        <div class="col-sm-3">
-						        	<label for="lot_number" class="control-label">Lot Number</label>
-						          <input type="text" class="form-control" name="lot_number" value="<?=$data[2]['lot_number']; ?>">
-						        </div>
-   									
-						      </div>
-						     
-						      <hr>
 						      <button type="submit" style="color: white; float: right;" class="btn btn-success btn-md btn-flat"><i class="fa fa-save"></i> Save Changes</button>
 						      <a href="<?=site_url('vaccination/vaccination_records'); ?>" class='btn btn-danger btn-md btn-flat' style="color: white; float: right;  margin-right: 5px;"> Cancel</a>
 								</form>
@@ -260,33 +226,86 @@
 					</div>
 				</div>
 			</div>
-    </section>
-    <!-- DELETE VACCINATION-->
 
-		<div class="modal fade" id="delvaccination_<?=$data[2]['id']?>">
-		    <div class="modal-dialog modal-xs">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                  <span aria-hidden="true">&times;</span></button>
-		              <h4 class="modal-title"><b>DELETE VACCINATION RECORD</b></h4>
-		            </div>
-		            <div class="modal-body" style="padding: 30px;">
-		              <form class="form-horizontal" method="POST" action="<?=site_url('vaccination/delete_vaccinationrecord/'.$data[2]['id']);?>">
-		                <h3 class="text-center">You are deleting <b><?=$data[2]['firstname'] . ' ' . $data[2]['lastname'];?>'s</b> record.</h3>
-		                <h4 class="text-center">DO YOU WANT TO CONTINUE?</h4>
-		            </div>
-		            <div class="modal-footer">
-		              <button type="submit" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i> Confirm Delete</button>
-		              </form>
-		            </div>
-		        </div>
-		    </div>
-		</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<h1 class="hr-lines">VACCINATION DOSE DETAILS</h1>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-12 mx-auto">
+			    <div class="box" style="padding: 20px;">
+					  <div class="box-header with-border">
+					    <button data-toggle="modal" class="btn btn-primary btn-sm btn-flat" data-target="#add_vacc_dose"><i class="fa fa-plus"></i> New Dose</button>
+					  </div>      
+					  <div class="box-body">
+					    <table id="example1" class="table table-bordered">
+					      <thead>
+					        <th>Dose</th>
+					        <th>Vaccinator</th>  
+					        <th>Vaccination Date</th>
+					        <th>Lot Number</th>
+					        <th>Manage</th>
+					      </thead>
+					      <tbody>
+					        <?php foreach ($data[3] as $row):?>
+					        <tr>
+					          <td><?=$row['vacc_info']; ?></td>
+					          <td><?=$row['vaccinator']; ?></td>
+					          <td><?=$row['date']; ?></td>
+					          <td><?=$row['lot_number'];?></td>
+					          <td>
+					            <button data-toggle="modal" data-id="<?=$row['id'];?>" class='btn btn-success btn-xs btn-flat editvaccdetail'><i class='fa fa-edit'></i> Edit</button>
+					            <button data-toggle="modal" data-id="<?=$row['id'];?>" class="btn btn-danger btn-xs btn-flat delvaccdetail"><i class="fa fa-trash"></i> Delete</button>
+					          </td>
+					        </tr>
+					        
+					        <?php endforeach ?>
+					      </tbody>
+					    </table>
+					  </div>
+					</div>
+				</div>
+			</div>
+    </section>
+
+
+  <?php include 'vaccination_details.php'; ?>
+
   </div>
   	<?php include 'includes/footer.php'; ?>
   	<?php include 'includes/scripts.php'; ?>
 </div>
+<script type='text/javascript'>
+$(document).ready(function(){
 
+    $('.delvaccdetail').click(function(){
+        var vaccid = $(this).data('id');
+        $.ajax({
+            url: '<?php echo site_url('vaccination/get_details');?>',
+            type: 'post',
+            data: {vaccid: vaccid},
+            success: function(response){ 
+                $('.vacc_detail').html(response); 
+                $('#delModal').modal('show'); 
+            }
+        });
+    });
+
+    $('.editvaccdetail').click(function(){
+        var vaccid = $(this).data('id');
+        $.ajax({
+            url: '<?php echo site_url('vaccination/get_vacc_details');?>',
+            type: 'post',
+            data: {vaccid: vaccid},
+            success: function(response){ 
+                $('.vacc_edit_detail').html(response); 
+                $('#editModal').modal('show'); 
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

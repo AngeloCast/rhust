@@ -133,11 +133,18 @@
                                     </select>
                                 </div>
 
+                            </div>
+
+                            <div class="form-group">
                                 <div class="col-sm-4">
                                     <label for="cnumber" class="control-label">Contact Number</label>
                                   <input type="tel" class="form-control" pattern="[0-9]{10}" title="Enter 10 digit number" id="cnumber" name="cnumber" placeholder="10 digit number" value="<?=$data[2]['cnumber'];?>">
                                 </div>
 
+                                <div class="col-sm-4">
+                                    <label for="address" class="control-label">Address</label>
+                                  <input type="text" class="form-control" id="address" name="address" value="<?=$data[2]['address'];?>">
+                                </div>
                             </div>
                             <hr>
                             <div class="form-group">

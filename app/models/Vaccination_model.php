@@ -3,13 +3,14 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 class Vaccination_model extends Model{
 
-    public function insert_vaccinationrecords($priority_group, $uniqueperson_id, $indigenous_member, $lastname, $firstname, $middlename, $suffix, $birthday, $sex, $cnumber, $region, $province, $municipality, $barangay, $pwd, $vaccination_info, $vaccinator, $vaccination_date, $lot_number){
+    public function insert_vaccinationrecords($priority_group, $uniqueperson_id, $indigenous_member, $lastname, $firstname, $middlename, $suffix, $birthday, $sex, $cnumber, $region, $province, $municipality, $barangay, $pwd){
 
         if($uniqueperson_id == ''){$uniqueperson_id = NULL;}
         if($birthday == ''){$birthday = NULL;}
         if($cnumber == ''){$cnumber = NULL;}
-        if($vaccination_date == ''){$vaccination_date = NULL;}
         
+        date_default_timezone_set('Asia/Manila');
+        $edited = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
         $data = array(
             'priority_group' => $priority_group,
@@ -27,11 +28,8 @@ class Vaccination_model extends Model{
             'municipality' => $municipality,
             'barangay' => $barangay,
             'pwd' => $pwd,
-            'vaccination_info' => $vaccination_info,
-            'vaccinator' => $vaccinator,
-            'vaccination_date' => $vaccination_date,
-            'lot_number' => $lot_number,
-            'date_created' => $date
+            'date_created' => $date,
+            'last_edited' => $edited
             
         );
         
@@ -62,7 +60,7 @@ class Vaccination_model extends Model{
     }
 
 
-    public function update_vaccinationrecord($id, $priority_group, $uniqueperson_id, $indigenous_member, $lastname, $firstname, $middlename, $suffix, $birthday, $sex, $cnumber, $region, $province, $municipality, $barangay, $pwd, $vaccination_info, $vaccinator, $vaccination_date, $lot_number) {
+    public function update_vaccinationrecord($id, $priority_group, $uniqueperson_id, $indigenous_member, $lastname, $firstname, $middlename, $suffix, $birthday, $sex, $cnumber, $region, $province, $municipality, $barangay, $pwd) {
 
         if($uniqueperson_id == ''){$uniqueperson_id = NULL;}
         if($birthday == ''){$birthday = NULL;}
@@ -86,10 +84,6 @@ class Vaccination_model extends Model{
             'municipality' => $municipality,
             'barangay' => $barangay,
             'pwd' => $pwd,
-            'vaccination_info' => $vaccination_info,
-            'vaccinator' => $vaccinator,
-            'vaccination_date' => $vaccination_date,
-            'lot_number' => $lot_number,
             'last_edited' => $datetime
         );
         
@@ -112,22 +106,86 @@ class Vaccination_model extends Model{
                     ->get();
     }
 
-
-
-    public function update_photo($id, $photo){
-        $data = array('photo' => $photo);
-        return $this->db->table('users')
-                        ->where('id', $id)
-                        ->update($data);
+    public function get_vacc_details($id){
+        return $this->db->table('tblvaccdetails')->where('v_id', $id)->get_all();
     }
 
-    public function get_article(){
+    public function insert_vacc_dose($id, $vaccination_info, $vaccinator, $date, $lot_number){
         
-        return $this->db->table('rhuposts')
-                    ->where('status', 'publish')
-                    ->limit(8)
-                    ->order_by('id', 'ASC')
-                    ->get_all();
+        date_default_timezone_set('Asia/Manila');
+        $date = date('Y-m-d');
+        $data = array(
+            'vacc_info' => $vaccination_info,
+            'vaccinator' => $vaccinator,
+            'date' => $date,
+            'lot_number' => $lot_number,
+            'v_id' => $id
+        );
+        
+        $result = $this->db->table('tblvaccdetails')
+                ->insert($data);
+
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function get_vacc_single($vaccid){
+        return $this->db->table('tblvaccdetails')
+                    ->select('id, vacc_info, v_id')
+                    ->where('id', $vaccid)
+                    ->get();
+    }
+
+    public function get_vacc_edit($vaccid){
+        return $this->db->table('tblvaccdetails')
+                    ->where('id', $vaccid)
+                    ->get();
+    }
+
+    public function delete_vacc_detail($vaccid){
+        $result = $this->db->table('tblvaccdetails')
+                        ->where(array('id' => $vaccid))
+                        ->delete();
+
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function get_vacc_record($vaccid){
+        return $this->db->table('tblcovidvaccinationrecords')
+                    ->select('id, firstname, lastname')
+                    ->where('id', $vaccid)
+                    ->get();
+    }
+    public function update_vacc_dose($id, $vaccination_info, $vaccinator, $date, $lot_number) {
+
+        date_default_timezone_set('Asia/Manila');
+        $data = array(
+            'vacc_info' => $vaccination_info,
+            'vaccinator' => $vaccinator,
+            'date' => $date,
+            'lot_number' => $lot_number
+        );
+        
+            $result = $this->db->table('tblvaccdetails')
+                            ->where('id', $id)
+                            ->update($data);
+
+            if($result){
+                return true;
+            }
+            else{
+                return false;
+            }
+        
     }
 
 }

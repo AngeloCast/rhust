@@ -43,6 +43,7 @@ class Inquiry_model extends Model{
             return true;
         }
         else{
+            $_SESSION['error'] = 'An error occurred! Inquiry was not deleted';
             return false;
         }
     }
@@ -96,6 +97,13 @@ class Inquiry_model extends Model{
         return $this->db->table('tblstaff')
                         ->where('staff_id', $staff_id)
                         ->update($data);
+    }
+
+    public function get_inq_info($inqid){
+        return $this->db->table('tblinquiry')
+                    ->select('id, firstname, lastname')
+                    ->where('id', $inqid)
+                    ->get();
     }
 }
 ?>

@@ -114,11 +114,20 @@
 							        </select>
 						        </div>
 
-						        <div class="col-sm-4">
+						        
+
+						      </div>
+
+						      <div class="form-group">
+						      	<div class="col-sm-4">
 						        	<label for="cnumber" class="control-label">Contact Number</label>
 						          <input type="tel" class="form-control" pattern="[0-9]{10}" title="Enter 10 digit number" id="cnumber" name="cnumber" placeholder="10 digit number">
 						        </div>
 
+						        <div class="col-sm-4">
+						        	<label for="address" class="control-label">Address</label>
+						          <input type="text" class="form-control" id="address" name="address">
+						        </div>
 						      </div>
 						     	<hr>
 						     	<div class="form-group">
@@ -201,8 +210,8 @@
 						      </div>
 
 						      <hr>
-						      <button type="submit" style="color: white; float: right;" class="btn btn-success btn-sm btn-flat">Save Record</button>
-						      <a href="<?=site_url('covid/covid_records'); ?>" class='btn btn-danger btn-sm btn-flat' style="color: white; float: right;  margin-right: 5px;"> Cancel</a>
+						      <button type="submit" style="color: white; float: right;" class="btn btn-success btn-md btn-flat"><i class="fa fa-save"></i>Save Record</button>
+						      <a href="<?=site_url('covid/covid_records'); ?>" class='btn btn-danger btn-md btn-flat' style="color: white; float: right;  margin-right: 5px;"> Cancel</a>
 								</form>
 							</div>
 						</div>			

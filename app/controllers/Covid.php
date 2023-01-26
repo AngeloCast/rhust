@@ -58,7 +58,8 @@ class Covid extends Controller {
                                                 $this->io->post('middlename'), 
                                                 $this->io->post('birthday'),
                                                 $this->io->post('age'), 
-                                                $this->io->post('sex'), 
+                                                $this->io->post('sex'),
+                                                $this->io->post('address'), 
                                                 $this->io->post('cnumber'), 
                                                 $this->io->post('contact_nature'),
                                                 $this->io->post('last_exposure'),
@@ -122,6 +123,7 @@ class Covid extends Controller {
                                                 $this->io->post('birthday'),
                                                 $this->io->post('age'), 
                                                 $this->io->post('sex'), 
+                                                $this->io->post('address'), 
                                                 $this->io->post('cnumber'), 
                                                 $this->io->post('contact_nature'),
                                                 $this->io->post('last_exposure'),
@@ -158,19 +160,37 @@ class Covid extends Controller {
                 }
         }
         
-        public function delete_covid($id) {
+        public function delete_covid() {
                 if($this->check()){
-                        if($this->covid_model->delete_covid($id))
+                        if ($this->form_validation->submitted())
                         {
-                                redirect('covid/covid_records');
-                                exit();
-                        }
-                        else{
-                                redirect('covid/covid_records');
-                                exit();
+                                if($this->form_validation->run()){
+                                        if($this->covid_model->delete_covid($this->io->post('id'))){
+                                                redirect('covid/covid_records');
+                                                exit();
+                                        }
+                                        else{
+                                                redirect('covid/covid_records');
+                                                exit();
+                                        }
+                                }
                         }
                 }
         }
+
+        public function get_covid_record(){
+                $cid = $this->io->post('cid');
+                $data['record'] = $this->covid_model->get_covid_record($cid);
+
+                if(!empty($data)){
+
+                        $this->call->view('admin/includes/delcovid_modal', $data);
+                }
+                else{
+                        echo 'Error retrieving data';
+                }
+        }
+
         public function logout(){
                 $this->session->unset_userdata(array('loggedin', 'username', 'usertype'));
                 $this->session->sess_destroy();

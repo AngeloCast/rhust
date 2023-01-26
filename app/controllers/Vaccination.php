@@ -63,11 +63,7 @@ class Vaccination extends Controller {
                                                 $this->io->post('province'),
                                                 $this->io->post('municipality'),
                                                 $this->io->post('barangay'),
-                                                $this->io->post('pwd'),
-                                                $this->io->post('vaccination_info'),
-                                                $this->io->post('vaccinator'),
-                                                $this->io->post('vaccination_date'),
-                                                $this->io->post('lot_number')
+                                                $this->io->post('pwd')
                                                 ))       
                                         {
                                                 $this->session->set_flashdata(array('success' => 'COVID Vaccination record was successfully added!'));
@@ -92,7 +88,8 @@ class Vaccination extends Controller {
                         $userdata = $this->admin_model->get_data();
                         $inquirycount = $this->admin_model->get_inquiry_count();
                         $vaccination = $this->vaccination_model->get_single_data($id);
-                        $data = array($userdata, $inquirycount, $vaccination);
+                        $details = $this->vaccination_model->get_vacc_details($id);
+                        $data = array($userdata, $inquirycount, $vaccination, $details);
                         $this->call->view('admin/edit_vaccination', $data);
                 }
         }
@@ -143,22 +140,140 @@ class Vaccination extends Controller {
                 }
         }
         
-
-         public function delete_vaccinationrecord($id){
+        public function add_vaccination_dose(){
                 if($this->check()){
-                        if($this->vaccination_model->delete_vaccination_records($id))
+                        if ($this->form_validation->submitted())
                         {
-                                redirect('vaccination/vaccination_records');
-                                exit();
-                        }
-                        else{
-                                redirect('vaccination/vaccination_records');
-                                exit();
+                                $this->form_validation
+                                ->name('vaccinator')->required();
+                                
+                                if($this->form_validation->run()){
+                                        $id = $this->io->post('id');
+                                        if($this->vaccination_model->insert_vacc_dose($id, $this->io->post('vaccination_info'), $this->io->post('vaccinator'), $this->io->post('vaccination_date'), $this->io->post('lot_number')))
+                                        {
+                                                $this->session->set_flashdata(array('success' => 'New Vaccination Dose added!'));
+                                                redirect('vaccination/edit_vaccinationrecord/' . $id);
+                                                exit();
+                                        }
+                                        else{
+                                                $this->session->set_flashdata(array('error' => 'An Error occurred! Vaccination Dose was not added!'));
+                                                redirect('vaccination/edit_vaccinationrecord/' . $id);
+                                                exit();
+                                        }
+                                }
                         }
                 }
         }
 
+
+        public function delete_vaccinationrecord(){
+                if($this->check()){
+                        if ($this->form_validation->submitted())
+                        {
+                                $id = $this->io->post('id');
+                                if($this->form_validation->run()){
+                                        if($this->vaccination_model->delete_vaccination_records($id))
+                                        {
+                                                redirect('vaccination/vaccination_records');
+                                                exit();
+                                        }
+                                        else{
+                                                $this->session->set_flashdata(array('error' => 'An Error occurred! Vaccination record was not deleted!'));
+                                                redirect('vaccination/vaccination_records');
+                                                exit();
+                                        }
+                                }
+                        }
+                }
+        }
+
+        public function delete_vacc_detail(){
+                if($this->check()){
+                        if ($this->form_validation->submitted())
+                        {
+                                $vid = $this->io->post('v_id');
+                                if($this->form_validation->run()){
+                                        if($this->vaccination_model->delete_vacc_detail($this->io->post('id'))){
+                                                $this->session->set_flashdata(array('success' => 'Vaccination Dose was successfully deleted!'));
+                                                redirect('vaccination/edit_vaccinationrecord/'.$vid);
+                                                exit();
+                                        }
+                                        else{
+                                                $this->session->set_flashdata(array('error' => 'An Error occurred! Vaccination Dose was not deleted!'));
+                                                redirect('vaccination/edit_vaccinationrecord/'.$vid);
+                                                exit();
+                                        }
+                                }
+                        }
+                }
+        }
+
+        public function update_vaccination_dose(){
+                if($this->check()){
+                        if ($this->form_validation->submitted())
+                        {
+                                $this->form_validation
+                                ->name('vaccinator')->required();
+                                
+                                if($this->form_validation->run()){
+                                        $id = $this->io->post('id');
+                                        $vid = $this->io->post('v_id');
+                                        if($this->vaccination_model->update_vacc_dose($id, $this->io->post('vaccination_info'), $this->io->post('vaccinator'), $this->io->post('date'), $this->io->post('lot_number')))
+                                        {
+                                                $this->session->set_flashdata(array('success' => 'Vaccination Dose was successfully updated!'));
+                                                redirect('vaccination/edit_vaccinationrecord/' . $vid);
+                                                exit();
+                                        }
+                                        else{
+                                                $this->session->set_flashdata(array('error' => 'An Error occurred! Vaccination Dose was not updated!'));
+                                                redirect('vaccination/edit_vaccinationrecord/' . $vid);
+                                                exit();
+                                        }
+                                }
+                        }
+                }
+        }
+
+        public function get_details(){
+                
+                $vaccid = $this->io->post('vaccid');
+                $data['detail'] = $this->vaccination_model->get_vacc_single($vaccid);
+
+                if(!empty($data)){
+
+                        $this->call->view('admin/includes/vacc_details_modal', $data);
+                }
+                else{
+                        echo 'Error retrieving data';
+                }
+        }
+
+        public function get_vacc_details(){
+                $vaccid = $this->io->post('vaccid');
+                $data['edit'] = $this->vaccination_model->get_vacc_edit($vaccid);
+
+                if(!empty($data)){
+
+                        $this->call->view('admin/includes/edit_vacc_details', $data);
+                }
+                else{
+                        echo 'Error retrieving data';
+                }
+        }
         
+        public function get_vacc_record(){
+                $vaccid = $this->io->post('vaccid');
+                $data['record'] = $this->vaccination_model->get_vacc_record($vaccid);
+
+                if(!empty($data)){
+
+                        $this->call->view('admin/includes/delvacc_modal', $data);
+                }
+                else{
+                        echo 'Error retrieving data';
+                }
+        }
+
         public function logout(){
                 $this->session->unset_userdata(array('loggedin', 'username', 'usertype'));
                 $this->session->sess_destroy();
