@@ -27,7 +27,7 @@
         <div class="row" style="margin-top: 20px;">
             <div class="col-md-6 text-left">
                 <h4>
-                <b><i class="fas fa-edit"></i> COVID Case Details - </b><i><?php echo 'Last edited: '.date('M j, Y h:i A', strtotime($data[2]['last_edited']));?></i>
+                <b><i class="fa fa-edit"></i> COVID Case Details - </b><i><?php echo 'Last edited: '.date('M j, Y h:i A', strtotime($data[2]['last_edited']));?></i>
                 </h4>
             </div>
             <div class="col-md-6 text-right">

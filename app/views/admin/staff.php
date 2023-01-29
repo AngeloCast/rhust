@@ -10,7 +10,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fas fa-user-md"></i> 
+        <i class="fa fa-user-md"></i> 
         <strong>
         Staff
         </strong>

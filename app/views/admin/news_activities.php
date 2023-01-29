@@ -11,7 +11,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fa fa-newspaper"></i> <strong>News & Activities</strong>
+        <i class="fa fa-newspaper">&#xf1ea;</i> <strong>News & Activities</strong>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -25,7 +25,7 @@
       <div class="row">
         <div class="col-xs-12">
           <div style="text-align: center; margin-bottom: 20px;">
-            <a style="width: 200px;" href="<?=site_url('admin/new_post/news_activities'); ?>" class="btn btn-primary btn-md btn-flat"> NEW POST <i class="fa fa-pencil"></i></a>
+            <a style="width: 200px;" href="<?=site_url('admin/new_post/news_activities'); ?>" class="btn btn-primary btn-md btn-flat"> NEW POST <i class="fa fa-plus"></i></a>
           </div>
           <div class="box">
 
@@ -83,7 +83,7 @@
 
 
   </div>
-  	<?php include 'includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>
     
 
 </div>

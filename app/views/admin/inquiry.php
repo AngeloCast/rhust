@@ -10,7 +10,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fas fa-envelope"></i> 
+        <i class="fa fa-envelope"></i> 
         <strong>
         Inquiries
         </strong>

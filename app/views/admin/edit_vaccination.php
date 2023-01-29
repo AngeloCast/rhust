@@ -56,7 +56,7 @@
 			<div class="row" style="margin-top: 20px;">
             <div class="col-md-6 text-left">
                 <h4>
-                <b><i class="fas fa-edit"></i> COVID Vaccination Record- </b><i><?php echo 'Last edited: '.date('M j, Y h:i A', strtotime($data[2]['last_edited']));?></i>
+                <b><i class="fa fa-edit"></i> COVID Vaccination Record- </b><i><?php echo 'Last edited: '.date('M j, Y h:i A', strtotime($data[2]['last_edited']));?></i>
                 </h4>
             </div>
             <div class="col-md-6 text-right">
@@ -251,7 +251,22 @@
 					      <tbody>
 					        <?php foreach ($data[3] as $row):?>
 					        <tr>
-					          <td><?=$row['vacc_info']; ?></td>
+					          <td>
+					          	<?php
+					          	if($row['vacc_info'] == 1){
+					          		echo '1st Dose';
+					          	}
+					          	else if($row['vacc_info'] == 2){
+					          		echo '2nd Dose';
+					          	}
+					          	else if($row['vacc_info'] == 3){
+					          		echo '1st Booster';
+					          	}
+					          	else{
+					          		echo '2nd Booster';
+					          	}
+					          	;?>
+					          </td>
 					          <td><?=$row['vaccinator']; ?></td>
 					          <td><?=$row['date']; ?></td>
 					          <td><?=$row['lot_number'];?></td>

@@ -14,7 +14,7 @@
 			<div class="row" style="margin-top: 20px;">
 				<div class="col-md-6 text-left">
 					<h3 style="margin-top: 10px;">
-						<i class="fas fa-info-circle"></i> 
+						<i class="fa fa-info-circle"></i> 
 		        <strong>
 		        Edit Staff Information
 		      	</strong>

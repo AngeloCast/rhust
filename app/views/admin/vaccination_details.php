@@ -70,17 +70,17 @@
 
                     <div class="col-sm-12">
                       <label for="vaccinator" class="control-label">Vaccinator Name</label>
-                      <input type="text" class="form-control" name="vaccinator">
+                      <input type="text" class="form-control" name="vaccinator" required>
                     </div>
 
                     <div class="col-sm-12">
                       <label for="vaccination_date" class="control-label">Date of Vaccination</label>
-                      <input type="date" class="form-control" name="vaccination_date">
+                      <input type="date" class="form-control" name="vaccination_date" required>
                     </div>
 
                     <div class="col-sm-12">
                       <label for="lot_number" class="control-label">Lot Number</label>
-                      <input type="text" class="form-control" name="lot_number">
+                      <input type="text" class="form-control" name="lot_number" required>
                     </div>
                 </div>
             </div>

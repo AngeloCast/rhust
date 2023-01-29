@@ -43,7 +43,7 @@
 		   }
 		  ?>
       <h1 style="margin-top: 20px;">
-      	<i class="fas fa-edit"></i> 
+      	<i class="fa fa-edit"></i> 
       	<strong>
       	<?php
         	if($data[2]['category'] == 1){

@@ -433,13 +433,18 @@ class Admin extends Controller {
                                                 }
                                                 $status = 'publish';
                                                 $catinput = '';
+                                                $title = $this->io->post('title');
+                                                $content = $this->io->post('content');
                                                 if ($upresult) {
-                                                        if($this->posts_model->insert_post($upresult, $category, $this->io->post('title'), $this->io->post('content'), $status, $this->io->post('userid'))) 
+                                                        if($this->posts_model->insert_post($upresult, $category, $title, $content, $status, $this->io->post('userid'))) 
                                                         {
+
                                                                 if($category == 1){
+                                                                        
                                                                         $this->session->set_flashdata(array('success' => 'Announcement was successfully published!'));
                                                                         redirect('admin/announcements');
                                                                         exit();
+                                                                        
                                                                 }
                                                                 else if($category == 2){
                                                                         $this->session->set_flashdata(array('success' => 'News and Activities was successfully published!'));
@@ -471,6 +476,7 @@ class Admin extends Controller {
                         }
                 }
         }
+
 
         public function delete_post() 
         {

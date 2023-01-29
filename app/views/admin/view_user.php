@@ -12,7 +12,7 @@
       <a href="<?=site_url('admin/users'); ?>" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-arrow-left"></i> Back</a> 
 			
 			<h1 style="margin-top: 10px;">
-				<i class="fas fa-info-circle"></i> 
+				<i class="fa fa-info-circle"></i> 
         <strong>
         User Information
       	</strong>
