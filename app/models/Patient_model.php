@@ -5,6 +5,10 @@ class Patient_model extends Model{
 
     
     public function insert_patient($firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $management_plan, $service_provider){
+        date_default_timezone_set('Asia/Manila');
+        $edited = date('Y-m-d H:i:s');
+        $date = date('Y-m-d');
+        $unique = mt_rand();
         if($age == ''){$age = NULL;}
         if($birthday == ''){$birthday = NULL;}
         if($cnumber == ''){$cnumber = NULL;}
@@ -15,10 +19,7 @@ class Patient_model extends Model{
         if($temperature == ''){$temperature = NULL;}
         if($weight == ''){$weight = NULL;}
         if($height == ''){$height = NULL;}
-        date_default_timezone_set('Asia/Manila');
-        $edited = date('Y-m-d H:i:s');
-        $date = date('Y-m-d');
-        $unique = mt_rand();
+        
 
         $patientdata = array(
             'firstname' => ucfirst($firstname),

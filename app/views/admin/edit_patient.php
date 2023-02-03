@@ -269,7 +269,7 @@
 						    		          
 						        <div class="col-sm-12">
 						        	<label for="history_presentillness" class="control-label">History of Present Illness</label>
-						         <textarea row="3" class="form-control" name="history_presentillness" value="<?=$data[2]['history_presentillness']; ?>" ></textarea>
+						         <textarea row="3" class="form-control" name="history_presentillness"><?=$data[2]['history_presentillness']; ?></textarea>
 						        </div>
 
 						      </div>
@@ -363,7 +363,7 @@
 						    		          
 						        <div class="col-sm-12">
 						        	<label for="physical_exam" class="control-label">Physical Examination</label>
-						         <textarea row="3" class="form-control" name="physical_exam" value="<?=$data[2]['physical_exam']; ?>" ></textarea>
+						         <textarea row="3" class="form-control" name="physical_exam"><?=$data[2]['physical_exam']; ?></textarea>
 						        </div>
 
 						      </div>
@@ -374,7 +374,7 @@
 						      <div class="form-group">
 						    		          
 						        <div class="col-sm-12">
-						         <textarea row="3" class="form-control" name="assessment" value="<?=$data[2]['assessment']; ?>" ></textarea>
+						         <textarea row="3" class="form-control" name="assessment"><?=$data[2]['assessment']; ?></textarea>
 						        </div>
 
 						      </div>
@@ -385,7 +385,7 @@
 						      <div class="form-group">
 						    		          
 						        <div class="col-sm-12">
-						         <textarea row="3" class="form-control" name="management_plan" value="<?=$data[2]['management_plan']; ?>" ></textarea>
+						         <textarea row="3" class="form-control" name="management_plan"><?=$data[2]['management_plan']; ?></textarea>
 						        </div>
 
 						      </div>
