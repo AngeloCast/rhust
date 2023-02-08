@@ -18,7 +18,7 @@
     echo
     '<ul class="sidebar-menu" data-widget="tree">
       <li><a href="'.site_url('staff').'"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-      <li class="header">MEDICAL RECORDS</li>
+      <li class="header">MANAGE RECORDS</li>
 
       <li class="treeview">
         <a href="#">
@@ -31,6 +31,7 @@
         <ul class="treeview-menu">
           <li><a href="'.site_url('patient/patient_records').'"><i class="fa fa-circle"></i><span>ITR </span></a></li>
           <li><a href="'.site_url('patient/follow_up_records').'"><i class="fa fa-circle"></i><span>Follow-Up </span></a></li>
+          <li><a href="'.site_url('patient/classification').'"><i class="fa fa-plus"></i><span>Add Classification </span></a></li>
         </ul>
       </li>
 
@@ -43,14 +44,14 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="'.site_url('covid/covid_records').'"><i class="fa fa-circle-o"></i><span> COVID19 </span></a></li>
-          <li><a href="'.site_url('vaccination/vaccination_records').'"><i class="fa fa-circle-o"></i><span>COVID Vaccination </span></a></li>
+          <li><a href="'.site_url('covid/covid_records').'"><i class="fa fa-circle"></i><span> COVID19 </span></a></li>
+          <li><a href="'.site_url('vaccination/vaccination_records').'"><i class="fa fa-circle"></i><span>COVID Vaccination </span></a></li>
         </ul>
       </li>
       
-      <li class="header">OTHERS</li>
       
-      <li><a href="#"><i class="fa fa-pie-chart"></i><span> DATA </span></a></li>
+      
+      
       <li><a href="'.site_url('staff/logout').'"><i class="fa fa-sign-out"></i><span> Logout </span></a></li>
       
     </ul>';
@@ -59,7 +60,7 @@
       echo'<ul class="sidebar-menu" data-widget="tree">
       <li><a href="'.site_url('admin').'"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
 
-      <li class="header">MEDICAL RECORDS</li>
+      <li class="header">MANAGE RECORDS</li>
 
       <li class="treeview">
         <a href="#">
@@ -72,6 +73,7 @@
         <ul class="treeview-menu">
           <li><a href="'.site_url('patient/patient_records').'"><i class="fa fa-circle"></i><span>ITR </span></a></li>
           <li><a href="'.site_url('patient/follow_up_records').'"><i class="fa fa-circle"></i><span>Follow-Up </span></a></li>
+          <li><a href="'.site_url('patient/classification').'"><i class="fa fa-plus"></i><span>Add Classification </span></a></li>
         </ul>
       </li>
 
@@ -84,8 +86,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="'.site_url('covid/covid_records').'"><i class="fa fa-circle-o"></i><span> COVID19 </span></a></li>
-          <li><a href="'.site_url('vaccination/vaccination_records').'"><i class="fa fa-circle-o"></i><span>COVID Vaccination </span></a></li>
+          <li><a href="'.site_url('covid/covid_records').'"><i class="fa fa-circle"></i><span> COVID19 </span></a></li>
+          <li><a href="'.site_url('vaccination/vaccination_records').'"><i class="fa fa-circle"></i><span>COVID Vaccination </span></a></li>
         </ul>
       </li>
 
@@ -106,6 +108,8 @@
         </ul>
       </li>
 
+      <li class="header">OTHERS</li>
+
       <li><a href="'.site_url('admin/users').'"><i class="fa fa-users"></i> <span>Users</span></a></li>
       <li><a href="'.site_url('admin/staff').'"><i class="fa fa-user-md"></i><span> Staff</span></a></li>
       
@@ -119,9 +123,7 @@
           
       echo'
       </a></li>
-      <li class="header">OTHERS</li>
       
-      <li><a href="'.site_url('#').'"><i class="fa fa-pie-chart"></i><span> DATA </span></a></li>
       <li><a href="'.site_url('admin/logout').'"><i class="fa fa-sign-out"></i><span> Logout </span></a></li>
       
     </ul>';

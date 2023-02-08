@@ -287,9 +287,9 @@ class Home extends Controller {
                 $newsdata = $this->home_model->get_news(); //[0]
                 $articledata = $this->home_model->get_article(); //[1]
                 $sidebar = $this->home_model->get_announcement(); //[3]
+                
 
                 if($this->auth_model->is_loggedin()){
-                    
                         $userdata = $this->home_model->get_data(); //[4]
                         $data = array($newsdata, $articledata, $sidebar, $userdata);
 
@@ -305,20 +305,8 @@ class Home extends Controller {
                                 $this->call->view('contact', $data);
                         }
                 } else {
-                        $x  = 1;
-                        $data = array($newsdata, $articledata, $sidebar, $x);
-
-                        if($this->session->userdata('usertype') === 0){
-                                redirect('admin/');
-                                exit();
-                        }
-                        else if($this->session->userdata('usertype') === 2){
-                                redirect('staff/');
-                                exit();
-                        }
-                        else{
-                                $this->call->view('contact', $data);
-                        }
+                        $this->session->set_flashdata(array('error' => 'You to log in first to send an inquiry!'));
+                        $this->call->view('login');
                 }
         }
 
@@ -394,6 +382,62 @@ class Home extends Controller {
                 $newsdata = $this->home_model->get_news(); //[0]
                 $articledata = $this->home_model->get_article(); //[1]
                 $sidebar = $this->home_model->get_announcement(); //[2]
+                $classifications = $this->admin_model->get_classification_names();
+                
+                $bigaan = 'Bigaan';
+                $calangatan = 'Calangatan';
+                $calsapa = 'Calsapa';
+                $ilag = 'Ilag';
+                $lumangbayan = 'Lumangbayan';
+                $tacligan = 'Tacligan';
+                $poblacion = 'Poblacion';
+                $caagutayan = 'Caagutayan';
+
+                //bigaan charts
+                $barangaychart= $this->home_model->barangayChart($bigaan);
+                $barangayagechart = $this->home_model->barangayagechart($bigaan);
+                $barangaypie = $this->home_model->barangaypiechart($bigaan);
+
+                //count per barangay
+                $Bigaanrecords = $this->home_model->AllrecordBigaan();
+                $Calangatanrecords = $this->home_model->AllrecordCalangatan();
+                $Calsaparecords = $this->home_model->AllrecordCalsapa();
+                $Ilagrecords = $this->home_model->AllrecordIlag();
+                $Lumangbayanrecords = $this->home_model->AllrecordLumangbayan();
+                $Tacliganrecords = $this->home_model->AllrecordTacligan();
+                $Poblacionrecords = $this->home_model->AllrecordPoblacion();
+                $Caagutayanrecords = $this->home_model->AllrecordCaagutayan();
+
+                //calangatan charts
+                $barangaychart1= $this->home_model->barangayChart($calangatan);
+                $barangayagechart1 = $this->home_model->barangayagechart($calangatan);
+                $barangaypie1 = $this->home_model->barangaypiechart($calangatan);
+                //calsapa charts
+                $barangaychart2 = $this->home_model->barangayChart($calsapa);
+                $barangayagechart2 = $this->home_model->barangayagechart($calsapa);
+                $barangaypie2 = $this->home_model->barangaypiechart($calsapa);
+                //ilag charts
+                $barangaychart3= $this->home_model->barangayChart($ilag);
+                $barangayagechart3 = $this->home_model->barangayagechart($ilag);
+                $barangaypie3 = $this->home_model->barangaypiechart($ilag);
+                //lumangbayan charts
+                $barangaychart4= $this->home_model->barangayChart($lumangbayan);
+                $barangayagechart4 = $this->home_model->barangayagechart($lumangbayan);
+                $barangaypie4 = $this->home_model->barangaypiechart($lumangbayan);
+                //tacligan charts
+                $barangaychart5= $this->home_model->barangayChart($tacligan);
+                $barangayagechart5 = $this->home_model->barangayagechart($tacligan);
+                $barangaypie5 = $this->home_model->barangaypiechart($tacligan);
+                //poblacion charts
+                $barangaychart6= $this->home_model->barangayChart($poblacion);
+                $barangayagechart6 = $this->home_model->barangayagechart($poblacion);
+                $barangaypie6 = $this->home_model->barangaypiechart($poblacion);
+                //caagutayan charts
+                $barangaychart7= $this->home_model->barangayChart($caagutayan);
+                $barangayagechart7 = $this->home_model->barangayagechart($caagutayan);
+                $barangaypie7 = $this->home_model->barangaypiechart($caagutayan);
+
+
                 if($this->auth_model->is_loggedin()){
                         if($this->session->userdata('usertype') === 0){
                                 redirect('admin/');
@@ -406,13 +450,13 @@ class Home extends Controller {
                         else{
                                 $userdata = $this->home_model->get_data(); //[3]
                                 
-                                $data = array($newsdata, $articledata, $sidebar, $userdata);
+                                $data = array($newsdata, $articledata, $sidebar, $userdata, $classifications, $barangaychart, $barangayagechart, $barangaypie, $Bigaanrecords, $Calangatanrecords, $Calsaparecords, $Ilagrecords, $Lumangbayanrecords, $Tacliganrecords, $Poblacionrecords, $Caagutayanrecords, $barangaychart1, $barangayagechart1, $barangaypie1, $barangaychart2, $barangayagechart2, $barangaypie2, $barangaychart3, $barangayagechart3, $barangaypie3, $barangaychart4, $barangayagechart4, $barangaypie4, $barangaychart5, $barangayagechart5, $barangaypie5, $barangaychart6, $barangayagechart6, $barangaypie6, $barangaychart7, $barangayagechart7, $barangaypie7);
                                 $this->call->view('clustering', $data);
                         }
                 }
                 else{
-                        $this->call->view('clustering');
-                        exit();
+                        $this->session->set_flashdata(array('error' => 'You need to log in first to access the clustering page!'));
+                        $this->call->view('login');
                 }
         }
         

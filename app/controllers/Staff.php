@@ -13,7 +13,9 @@ class Staff extends Controller {
             $userscount = $this->admin_model->get_userscount();
             $inqcount = $this->admin_model->get_inquirycount();
             $eventscount = $this->admin_model->get_eventscount();
-            $data = array($userdata, $inquirycount, $patientrecords, $userscount, $inqcount, $eventscount);
+            $patientchart = $this->admin_model->patientChart();
+            $barangaychart = $this->admin_model->barangayChart();
+            $data = array($userdata, $inquirycount, $patientrecords, $userscount, $inqcount, $eventscount, $patientchart, $barangaychart);
             if($this->session->userdata('usertype') === 2){
                 $this->call->view('admin/home', $data);
                 exit();

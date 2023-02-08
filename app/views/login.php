@@ -25,7 +25,7 @@
       <img class="card-img-top" src="<?php echo BASE_URL . PUBLIC_DIR . '/images/MHOST_logo.jpg'; ?>" style="width: 60px;" alt="Card image cap">
       <h6 style="font-weight: 900; color: maroon;"> RURAL HEALTH UNIT OF SAN TEODORO</h6>
     </div>
-    <div class="card-body">
+    <div class="card-body" style="padding-bottom: 0px;">
             
       <h5 class="hr-lines">Log in </h5><br>
       <?php include 'includes/message.php'; ?>
@@ -50,13 +50,13 @@
               <button class="btn btn-outline-secondary" id="icon-click" type="button"><i class="fa fa-eye-slash" id="icon"></i></button>
             </div>
           </div>
-
-          <div class="input-group  mr-sm-2" >
+          <br>
+          <!-- <div class="input-group  mr-sm-2" >
             <label style="font-size: 14px;">
               <input type="checkbox" checked="checked" name="remember"> Remember me
               
             </label>
-          </div>
+          </div> -->
           
         </div>
 

@@ -25,6 +25,10 @@ class Covid extends Controller {
                         $userdata = $this->admin_model->get_data();
                         $inquirycount = $this->admin_model->get_inquiry_count();
                         $coviddata = $this->covid_model->get_all_tblcovidrecords();
+                        // $patientchart = $this->covid_model->patientChart();
+                        // $patientagechart = $this->covid_model->patientChart();
+                        // $patientbarangay = $this->covid_model->barangayChart();
+
                         $data = array($userdata, $inquirycount, $coviddata);
                         $this->call->view('admin/covid_records', $data);
                 }

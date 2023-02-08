@@ -42,9 +42,17 @@
 			      <div class="box-body">
 			        <div class= "col-lg-12">
 								<form class="form-horizontal" action="<?=site_url('patient/add_patientrecord');?>" method="post">
-
+									
 									<div class="form-group">
-											<h5 id="ptitle"><b>A. <u>Patient's Personal Profile: </u></b></h5>
+										<h5 id="ptitle"><b>A. <u>Patient's Personal Profile: </u></b></h5>
+                      <div class="col-sm-4">
+                          <label for="serial_no" class="control-label">Serial Number:</label>
+                        <input type="text" class="form-control" name="serial_no" required>
+                      </div>
+
+						     	</div>
+									<div class="form-group">
+											
 						        	
                       <div class="col-sm-4">
                           <label for="lastname" class="control-label">Last Name</label>
@@ -103,7 +111,12 @@
 
 						        <div class="col-sm-6">
 						        	<label for="address" class="control-label">Address</label>
-						          <input type="text" placeholder="Barangay, Municipality" class="form-control" name="address">
+						          
+						          	<select class="form-control" id="address" name="address">
+									<?php foreach ($data[2] as $datum) : ?>
+										<option value="<?=$datum['name']?>"><?=$datum['name']?></option>
+									<?php endforeach; ?>
+									</select>
 						        </div>
    
 						      </div>
@@ -111,7 +124,7 @@
 						      	
 						      	<div class="col-sm-6">
 						        	<label for="cnumber" class="control-label">Contact Number</label>
-						          <input type="tel" class="form-control" pattern="[0-9]{10}" title="Enter 10 digit number" id="cnumber" name="cnumber" placeholder="10 digit number">
+						          <input type="tel" class="form-control" pattern="[0-9]{10}" title="Enter 10 digit number" id="cnumber" name="cnumber" placeholder="XXX-XXX-XXXX">
 						        </div>
 						        
 						        <div class="col-sm-6">
@@ -261,17 +274,17 @@
 
 						        <div class="col-sm-4">
 						        	<label for="temperature" class="control-label">Temperature °C</label>
-						          <input type="number" class="form-control" name="temperature" placeholder="°C">
+						          <input type="number" class="form-control" name="temperature" placeholder="°C" step=".01">
 						        </div>
 
 						        <div class="col-sm-4">
 						        	<label for="weight" class="control-label">Weight</label>
-						          <input type="number" class="form-control" name="weight" placeholder="kg">
+						          <input type="number" class="form-control" name="weight" placeholder="kg" step=".01">
 						        </div>
 
 						        <div class="col-sm-4">
 						        	<label for="height" class="control-label">Height</label>
-						          <input type="number" class="form-control" name="height" placeholder="cm">
+						          <input type="number" class="form-control" name="height" placeholder="cm" step=".01">
 						        </div>
 						    		          
 						      </div>
@@ -287,6 +300,20 @@
 
 						      <hr>
 						      <h5 id="ptitle2"><b>III. <u>Assessment/Classification: </u></b></h5>
+
+						      <div class="form-group">
+						    		          
+						        <div class="col-sm-4">
+						         	<label for="classification" class="control-label">Classification</label>
+						        	<select class="form-control" id="classification" name="classification">
+						        		<option value="" selected>Not set</option>
+							          	<?php foreach($data[3] as $datum)
+											echo "<option value='".$datum['name']."'>".$datum['name']."</option>";
+										?>
+									</select>
+						        </div>
+
+						      </div>
 
 						      <div class="form-group">
 						    		          

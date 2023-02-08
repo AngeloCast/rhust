@@ -111,10 +111,19 @@
 									<input type="hidden" name="id" value="<?=$data[2]['id']; ?>">
 									<input type="hidden" name="p_id" value="<?=$data[2]['p_id']; ?>">
 									<input type="hidden" name="type" value="<?=$data[2]['type']; ?>">
+
+									
 									<div class="form-group">
-										<br>
-											<h5 id="ptitle"><b>A. <u>Patient's Personal Profile: </u></b></h5>
-						        	
+										<h5 id="ptitle"><b>A. <u>Patient's Personal Profile: </u></b></h5>
+                      <div class="col-sm-4">
+                          <label for="serial_no" class="control-label">Serial Number:</label>
+                        <input type="text" class="form-control" name="serial_no" value="<?=$data[2]['serial_no']; ?>" required>
+                      </div>
+
+						     	</div>
+
+									<div class="form-group">
+
                       <div class="col-sm-4">
                           <label for="lastname" class="control-label">Last Name</label>
                         <input type="text" class="form-control" name="lastname" value="<?=$data[2]['lastname']; ?>"  pattern="[a-zA-Z, ]+" title="Only letters are allowed!" required>
@@ -186,7 +195,19 @@
 
 						        <div class="col-sm-6">
 						        	<label for="address" class="control-label">Address</label>
-						          <input type="text" placeholder="Barangay, Municipality" class="form-control" name="address" value="<?=$data[2]['address']; ?>" >
+						        	<select class="form-control" id="address" name="address">
+							          	<?php foreach($data[4] as $datum)
+							          		{
+												if($datum['name'] == $data[2]['address']){
+													echo "<option value='".$datum['name']."' selected>".$datum['name']."</option>";
+												}
+												else{
+													echo "<option value='".$datum['name']."'>".$datum['name']."</option>";
+												}
+											}
+											
+										?>
+									</select>
 						        </div>
    
 						      </div>
@@ -194,7 +215,7 @@
 						      	
 						      	<div class="col-sm-6">
 						        	<label for="cnumber" class="control-label">Contact Number</label>
-						          <input type="tel" class="form-control" pattern="[0-9]{10}" title="Enter 10 digit number" id="cnumber" name="cnumber" value="<?=$data[2]['cnumber']; ?>"  placeholder="10 digit number">
+						          <input type="tel" class="form-control" pattern="[0-9]{10}" title="Enter 10 digit number" id="cnumber" name="cnumber" value="<?=$data[2]['cnumber']; ?>"  placeholder="XXX-XXX-XXXX">
 						        </div>
 						        
 						        <div class="col-sm-6">
@@ -344,17 +365,17 @@
 
 						        <div class="col-sm-4">
 						        	<label for="temperature" class="control-label">Temperature °C</label>
-						          <input type="number" class="form-control" name="temperature" value="<?=$data[2]['temperature']; ?>"  placeholder="°C">
+						          <input type="number" class="form-control" name="temperature" value="<?=$data[2]['temperature']; ?>"  placeholder="°C" step=".01">
 						        </div>
 
 						        <div class="col-sm-4">
 						        	<label for="weight" class="control-label">Weight</label>
-						          <input type="number" class="form-control" name="weight" value="<?=$data[2]['weight']; ?>"  placeholder="kg">
+						          <input type="number" class="form-control" name="weight" value="<?=$data[2]['weight']; ?>"  placeholder="kg" step=".01">
 						        </div>
 
 						        <div class="col-sm-4">
 						        	<label for="height" class="control-label">Height</label>
-						          <input type="number" class="form-control" name="height" value="<?=$data[2]['height']; ?>"  placeholder="cm">
+						          <input type="number" class="form-control" name="height" value="<?=$data[2]['height']; ?>"  placeholder="cm" step=".01">
 						        </div>
 						    		          
 						      </div>
@@ -370,7 +391,35 @@
 
 						      <hr>
 						      <h5 id="ptitle2"><b>III. <u>Assessment/Classification: </u></b></h5>
+						      	<div class="form-group">
+							      	<div class="col-sm-4">
+							         	<label for="classification" class="control-label">Classification</label>
+							        	<select class="form-control" id="classification" name="classification">
+								          	<?php 
 
+								          		if($data[2]['classification'] == ''){
+								          			echo "<option value='' selected>Not set</option>";
+								          			foreach($data[5] as $datum)
+									          		{
+														echo "<option value='".$datum['name']."'>".$datum['name']."</option>";
+													}
+								          		}
+								          		else{
+								          			foreach($data[5] as $datum)
+									          		{
+														if($datum['name'] == $data[2]['classification']){
+															echo "<option value='".$datum['name']."' selected>".$datum['name']."</option>";
+														}
+														else{
+															echo "<option value='".$datum['name']."'>".$datum['name']."</option>";
+														}
+													}
+								          		}
+								          		
+											?>
+										</select>
+							        </div>
+						    	</div>
 						      <div class="form-group">
 						    		          
 						        <div class="col-sm-12">

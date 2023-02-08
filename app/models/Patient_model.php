@@ -4,7 +4,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 class Patient_model extends Model{
 
     
-    public function insert_patient($firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $management_plan, $service_provider){
+    public function insert_patient($serial_no, $firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $classification, $management_plan, $service_provider){
         date_default_timezone_set('Asia/Manila');
         $edited = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
@@ -20,8 +20,8 @@ class Patient_model extends Model{
         if($weight == ''){$weight = NULL;}
         if($height == ''){$height = NULL;}
         
-
         $patientdata = array(
+            'serial_no' => $serial_no,
             'firstname' => ucfirst($firstname),
             'lastname' => ucfirst($lastname),
             'middlename' => ucfirst($middlename),
@@ -56,6 +56,7 @@ class Patient_model extends Model{
             'height' => $height,
             'physical_exam' => $physical_exam,
             'assessment' => $assessment,
+            'classification' => $classification,
             'management_plan' => $management_plan,
             'service_provider' => $service_provider,
             'date_created' => $date,
@@ -114,7 +115,7 @@ class Patient_model extends Model{
     }
 
 
-    public function update_patientrecord($id, $firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $management_plan, $service_provider, $p_id) {
+    public function update_patientrecord($id, $serial_no, $firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $classification, $management_plan, $service_provider, $p_id) {
         
         if($age == ''){$age = NULL;}
         if($birthday == ''){$birthday = NULL;}
@@ -129,6 +130,7 @@ class Patient_model extends Model{
         date_default_timezone_set('Asia/Manila');
         $datetime = date('Y-m-d H:i:s');
         $data = array(
+            'serial_no' => $serial_no,
             'firstname' => ucfirst($firstname),
             'lastname' => ucfirst($lastname),
             'middlename' => ucfirst($middlename),
@@ -163,6 +165,7 @@ class Patient_model extends Model{
             'height' => $height,
             'physical_exam' => $physical_exam,
             'assessment' => $assessment,
+            'classification' => $classification,
             'management_plan' => $management_plan,
             'service_provider' => $service_provider,
             'last_edited' => $datetime,
@@ -196,7 +199,7 @@ class Patient_model extends Model{
         return $this->db->table('tblpatientrecords')->select('id, date_created, type')->where('p_id', $pid)->get_all();
     }
 
-    public function insert_follow_up($firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $management_plan, $service_provider, $uniqueid){
+    public function insert_follow_up($serial_no, $firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $classification, $management_plan, $service_provider, $uniqueid){
         if($age == ''){$age = NULL;}
         if($birthday == ''){$birthday = NULL;}
         if($cnumber == ''){$cnumber = NULL;}
@@ -212,6 +215,7 @@ class Patient_model extends Model{
         $date = date('Y-m-d');
 
         $patientdata = array(
+            'serial_no' => $serial_no,
             'firstname' => ucfirst($firstname),
             'lastname' => ucfirst($lastname),
             'middlename' => ucfirst($middlename),
@@ -246,6 +250,7 @@ class Patient_model extends Model{
             'height' => $height,
             'physical_exam' => $physical_exam,
             'assessment' => $assessment,
+            'classification' => $classification,
             'management_plan' => $management_plan,
             'service_provider' => $service_provider,
             'date_created' => $date,
@@ -267,6 +272,83 @@ class Patient_model extends Model{
 
     public function getpatientrecord($id){
         return $this->db->table('tblpatientrecords')->where('id', $id)->get_all();
+    }
+
+    public function get_class($id){
+        return $this->db->table('classification')->where('id', $id)->get();
+    }
+
+    public function insert_class($name){
+        
+        $data = ['name' => $name];
+        $result = $this->db->table('classification')
+                ->insert($data);
+
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function delete_class($id){
+        
+        $result = $this->db->table('classification')->where('id', $id)
+                ->delete();
+
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function update_class_name($id, $name){
+        
+        $data = ['name' => $name];
+        $result = $this->db->table('classification')->where('id', $id)
+                ->update($data);
+
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function initial_gender_m(){
+        return $this->db->table('tblpatientrecords')->select_count('*', 'mrow')->where('gender', 'M')->where('type', 0)->get();
+    }
+
+    public function initial_gender_f(){
+        return $this->db->table('tblpatientrecords')->select_count('*', 'frow')->where('gender', 'F')->where('type', 0)->get();
+    }
+
+    public function initial_gender_o(){
+        return $this->db->table('tblpatientrecords')->select_count('*', 'orow')->where('gender', 'O')->where('type', 0)->get();
+    }
+    public function initial_gender_n(){
+        return $this->db->table('tblpatientrecords')->select_count('*', 'notrow')->where('gender', 'N')->where('type', 0)->get();
+    }
+
+
+    public function follow_gender_m(){
+        return $this->db->table('tblpatientrecords')->select_count('*', 'mrow')->where('gender', 'M')->where('type', 1)->get();
+    }
+
+    public function follow_gender_f(){
+        return $this->db->table('tblpatientrecords')->select_count('*', 'frow')->where('gender', 'F')->where('type', 1)->get();
+    }
+
+    public function follow_gender_o(){
+        return $this->db->table('tblpatientrecords')->select_count('*', 'orow')->where('gender', 'O')->where('gender', 'N')->where('type', 1)->where('gender', 'N')->get();
+    }
+
+    public function follow_gender_n(){
+        return $this->db->table('tblpatientrecords')->select_count('*', 'notrow')->where('gender', 'N')->where('type', 0)->get();
     }
 }
 ?>

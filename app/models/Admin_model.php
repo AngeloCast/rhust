@@ -17,12 +17,49 @@ class Admin_model extends Model{
         }
     }
 
+    public function patientChart()
+    {
+        return $this->db->raw("SELECT DATE(visit_date) AS dayCreation, COUNT(id) AS perDayPatient FROM `tblpatientrecords` GROUP BY DATE(visit_date)");
+    }
+
+    public function patientinitialChart()
+    {
+        return $this->db->raw("SELECT DATE(visit_date) AS dayCreation, COUNT(id) AS perDayPatient FROM `tblpatientrecords` WHERE type=0 GROUP BY DATE(visit_date)");
+    }
+
+    public function patientfollowChart(){
+        return $this->db->raw("SELECT DATE(visit_date) AS dayCreation, COUNT(id) AS perDayPatient FROM `tblpatientrecords` WHERE type=1 GROUP BY DATE(visit_date)");
+    }
+
+    public function barangayChart()
+    {
+        return $this->db->table('tblpatientrecords')->select('address')->select_count('id', 'numPerPatient')->group_by('address')->get_all();
+    }
+
+    public function barangayinitialChart()
+    {
+        return $this->db->table('tblpatientrecords')->select('address')->select_count('id', 'numPerPatient')->where('type', 0)->group_by('address')->get_all();
+    }
+
+    public function barangayfollowChart()
+    {
+        return $this->db->table('tblpatientrecords')->select('address')->select_count('id', 'numPerPatient')->where('type', 1)->group_by('address')->get_all();
+    }
+
+    public function get_barangay(){
+        return $this->db->table('barangay')->get_all();
+    }
+
+    public function get_classification_names(){
+        return $this->db->table('classification')->select('name')->get_all();
+    }
+
     public function get_inquiry_count(){
     	return $this->db->table('tblinquiry')->select_count('*', 'crows')->where('status', 'unread')->get();
     }
 
     public function get_patient_records(){
-    	return $this->db->table('tblpatientrecords')->select_count('*', 'prows')->get();
+    	return $this->db->table('tblpatientrecords')->select_count('*', 'prows')->where('type', 0)->get();
     }
 
     public function get_userscount(){
@@ -35,6 +72,10 @@ class Admin_model extends Model{
 
     public function get_eventscount(){
         return $this->db->table('tblevents')->select_count('*', 'erows')->get();
+    }
+
+    public function get_classifications(){
+        return $this->db->table('classification')->get_all();
     }
 
     public function update_info($id, $fullname, $address, $cnumber, $photo) {
@@ -142,6 +183,60 @@ class Admin_model extends Model{
                 return $new_img_name;
             }
         }
+    }
+
+
+    public function patientageChart(){
+        return $this->db->raw("SELECT 
+              IF(age BETWEEN 0 AND 14, '0-14',
+                IF(age BETWEEN 15 AND 24, '15-24',
+                    IF(age BETWEEN 25 AND 44, '25-44',
+                        IF(age BETWEEN 45 AND 64, '45-64',
+                            IF(age BETWEEN 65 AND 74, '65-74',
+                                IF(age >= 75, '75-80+', '')
+                                )
+                            )
+                        )
+                    )
+                ) AS patientAge,
+              SUM(1) AS numPerPatient
+            FROM 
+              tblpatientrecords
+            WHERE
+                type=0
+            GROUP BY 
+              patientAge
+            ORDER BY 
+              patientAge;");
+    }
+
+    public function patientbarangayChart(){
+        return $this->db->raw("SELECT address AS patientAdd, COUNT(id) AS numPerPatient FROM `tblpatientrecords` WHERE address IS NOT NULL GROUP BY address");
+    }
+
+
+    public function patientagefollowageChart(){
+        return $this->db->raw("SELECT 
+              IF(age BETWEEN 0 AND 14, '0-14',
+                IF(age BETWEEN 15 AND 24, '15-24',
+                    IF(age BETWEEN 25 AND 44, '25-44',
+                        IF(age BETWEEN 45 AND 64, '45-64',
+                            IF(age BETWEEN 65 AND 74, '65-74',
+                                IF(age >= 75, '75-80+', '')
+                                )
+                            )
+                        )
+                    )
+                ) AS patientAge,
+              SUM(1) AS numPerPatient
+            FROM 
+              tblpatientrecords
+            WHERE
+                type=1
+            GROUP BY 
+              patientAge
+            ORDER BY 
+              patientAge;");
     }
 }
 ?>

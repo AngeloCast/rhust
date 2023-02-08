@@ -87,6 +87,9 @@ class DoPDF extends Controller
                 if(empty($data['civil_status'])){
                     $data['civil_status'] = $line2;
                 }
+                if(empty($data['contact_person'])){
+                    $data['contact_person'] = $line2;
+                }
                 if(empty($data['address'])){
                     $data['address'] = $line;
                 }
@@ -201,7 +204,7 @@ class DoPDF extends Controller
                     </h5>
 
                     <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-                        Parent/Guardian/Contact Person: <u style="font-weight: light">&nbsp;&nbsp;Angelo M. Castillo&nbsp;&nbsp;</u>
+                        Parent/Guardian/Contact Person: <u style="font-weight: light">&nbsp;&nbsp;' . $data['contact_person']  . '&nbsp;&nbsp;</u>
                     </h5>
 
                     <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">

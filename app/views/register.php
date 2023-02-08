@@ -25,7 +25,7 @@
       <img class="card-img-top" src="<?php echo BASE_URL . PUBLIC_DIR . '/images/MHOST_logo.jpg'; ?>" style="width: 60px;" alt="Card image cap">
       <h6 style="font-weight: 900; color: maroon;"> RURAL HEALTH UNIT OF SAN TEODORO</b></h6>
     </div>
-    <div class="card-body">
+    <div class="card-body" style="padding-bottom: 0px;">
       <h5 class="hr-lines">Sign Up</h5><br>
       <?php include 'includes/message.php'; ?>
       

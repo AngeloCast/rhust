@@ -56,8 +56,14 @@
 									<input type="hidden" name="id" value="<?=$data[2]['id']; ?>">
 									<input type="hidden" name="p_id" value="<?=$data[2]['p_id']; ?>">
 									<div class="form-group">
-										<br>
-											<h5 id="ptitle"><b>A. <u>Patient's Personal Profile: </u></b></h5>
+										<h5 id="ptitle"><b>A. <u>Patient's Personal Profile: </u></b></h5>
+                      <div class="col-sm-4">
+                          <label for="serial_no" class="control-label">Serial Number:</label>
+                        <input type="text" class="form-control" name="serial_no" value="<?=$data[2]['serial_no']; ?>" required>
+                      </div>
+
+						     	</div>
+									<div class="form-group">
 						        	
                       <div class="col-sm-4">
                           <label for="lastname" class="control-label">Last Name</label>
@@ -213,7 +219,7 @@
 						    		          
 						        <div class="col-sm-12">
 						        	<label for="history_presentillness" class="control-label">History of Present Illness</label>
-						         <textarea row="3" class="form-control" name="history_presentillness" value="<?=$data[2]['history_presentillness']; ?>" ></textarea>
+						         <textarea row="3" class="form-control" name="history_presentillness"><?=$data[2]['history_presentillness']; ?></textarea>
 						        </div>
 
 						      </div>
@@ -307,18 +313,46 @@
 						    		          
 						        <div class="col-sm-12">
 						        	<label for="physical_exam" class="control-label">Physical Examination</label>
-						         <textarea row="3" class="form-control" name="physical_exam" value="<?=$data[2]['physical_exam']; ?>" ></textarea>
+						         <textarea row="3" class="form-control" name="physical_exam"><?=$data[2]['physical_exam']; ?></textarea>
 						        </div>
 
 						      </div>
 
 						      <hr>
 						      <h5 id="ptitle2"><b>III. <u>Assessment/Classification: </u></b></h5>
+						      <div class="form-group">
+							      	<div class="col-sm-4">
+							         	<label for="classification" class="control-label">Classification</label>
+							        	<select class="form-control" id="classification" name="classification">
+								          	<?php 
 
+								          		if($data[2]['classification'] == ''){
+								          			echo "<option value='' selected>Not set</option>";
+								          			foreach($data[3] as $datum)
+									          		{
+														echo "<option value='".$datum['name']."'>".$datum['name']."</option>";
+													}
+								          		}
+								          		else{
+								          			foreach($data[3] as $datum)
+									          		{
+														if($datum['name'] == $data[2]['classification']){
+															echo "<option value='".$datum['name']."' selected>".$datum['name']."</option>";
+														}
+														else{
+															echo "<option value='".$datum['name']."'>".$datum['name']."</option>";
+														}
+													}
+								          		}
+								          		
+											?>
+										</select>
+							        </div>
+						    	</div>
 						      <div class="form-group">
 						    		          
 						        <div class="col-sm-12">
-						         <textarea row="3" class="form-control" name="assessment" value="<?=$data[2]['assessment']; ?>" ></textarea>
+						         <textarea row="3" class="form-control" name="assessment"><?=$data[2]['assessment']; ?></textarea>
 						        </div>
 
 						      </div>
@@ -329,7 +363,7 @@
 						      <div class="form-group">
 						    		          
 						        <div class="col-sm-12">
-						         <textarea row="3" class="form-control" name="management_plan" value="<?=$data[2]['management_plan']; ?>" ></textarea>
+						         <textarea row="3" class="form-control" name="management_plan"><?=$data[2]['management_plan']; ?></textarea>
 						        </div>
 
 						      </div>

@@ -98,17 +98,17 @@
         <div class="col-lg-6">
           <div class="box">
             <div class="box-body">
-              <h6><b>RHUST PATIENTS</b></h6>
+              <h6><b>DAILY RHUST PATIENTS</b></h6>
               <!-- <canvas id="barChart"></canvas> -->
-              <canvas id="lineChart"></canvas>
+              <canvas id="mylineChart"></canvas>
             </div>
           </div>  
         </div>
         <div class="col-lg-6">
           <div class="box">
             <div class="box-body">
-              <h6><b>DISEASES</b></h6>
-              <canvas id="doughnutChart"></canvas>
+              <h6><b>PATIENT RECORDS PER BARANGAY</b></h6>
+              <canvas id="mydoughChart"></canvas>
             </div>
           </div>  
         </div>
@@ -122,5 +122,91 @@
 <?php include 'includes/scripts.php'; ?>
 <?php include 'includes/graphs.php'; ?>
 </div>
+<?php
+  
+  foreach ($data[6] as $datum) {
+      $label1[] = $datum['dayCreation'];
+      $dataset1[] = $datum['perDayPatient'];
+  }
+  foreach ($data[7] as $datum) {
+      $label[] = $datum['address'];
+      $dataset[] = $datum['numPerPatient'];
+  }
+
+?>
+<script>
+        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#292b2c';
+        const labels1 = <?php echo json_encode($label1) ?>;
+        const num1 = <?php echo json_encode($dataset1) ?>;
+        var ctx = document.getElementById("mylineChart");
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels1,
+                datasets: [{
+                    label: "Records",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(73,163,140,0.71)",
+                    borderColor: "rgba(2,117,216,1)",
+                    pointRadius: 5,
+                    pointBackgroundColor: "rgba(2,117,216,1)",
+                    pointBorderColor: "rgba(255,255,255,0.8)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                    pointHitRadius: 50,
+                    pointBorderWidth: 2,
+                    data: num1,
+                }],
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 7
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: num1.max,
+                            maxTicksLimit: 5
+                        },
+                        gridLines: {
+                            color: "rgba(0, 0, 0, .125)",
+                        }
+                    }],
+                },
+                legend: {
+                    display: true
+                }
+            }
+        });
+
+    </script>
+<script>
+    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#292b2c';
+    const labels = <?php echo json_encode($label) ?>;
+    const num = <?php echo json_encode($dataset) ?>;
+    var ctx = document.getElementById("mydoughChart");
+    var myPieChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: num,
+                backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#008080', '#800000','#20c997', '#008080', '#805c00'],
+            }],
+        },
+    });
+</script>
+
 </body>
 </html>
