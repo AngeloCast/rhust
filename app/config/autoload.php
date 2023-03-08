@@ -92,5 +92,5 @@ $autoload['helpers'] = array('url', 'form');
 |
 |	$autoload['model'] = array('model1', 'model2')
 */
-$autoload['models'] = array('auth_model', 'home_model', 'admin_model', 'patient_model', 'covid_model', 'vaccination_model', 'posts_model', 'user_model', 'staff_model', 'inquiry_model', 'event_model');
+$autoload['models'] = array('auth_model', 'home_model', 'admin_model', 'patient_model', 'covid_model', 'vaccination_model', 'posts_model', 'user_model', 'staff_model', 'inquiry_model', 'event_model', 'cluster_model');
 ?>

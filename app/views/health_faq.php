@@ -71,10 +71,21 @@
 			<div class="row">
 				<!--left-->
 				<div class="col-lg-8 left-blog-info-w3layouts-agileits text-left" style="border: 1px solid #ced4da;">
+					<br>
+					<form class="form-inline" action="<?=site_url('home/search_article');?>" method="post">
+						<div class="form-group mb-2">
+							<h3 style="text-align: left;"><i class="fa fa-list"></i> HEALTH FAQS</h3>
+						</div>
+						<div class="form-group mx-sm-2 mb-2">
+							<label for="inputsearch" class="sr-only">Search</label>
+							<input type="hidden" name="category" value="3">
+							<input type="text" class="form-control" id="inputsearch" name="title" placeholder="Search">
+						</div>
+						<button type="submit" class="btn btn-primary mb-2">Search</button>
+					</form>
 					
-					<br>
-					<h3 style="text-align: left;"><i class="fa fa-list"></i> HEALTH FAQs</h3><br>
-					<br>
+					
+					<br><hr>
 					<?php 
 						if(empty($data[0])){
 				                echo '<div class="blog-grids row mt-3">

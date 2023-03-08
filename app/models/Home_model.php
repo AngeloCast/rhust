@@ -165,13 +165,17 @@ class Home_model extends Model{
         return $this->db->table('tblpatientrecords')->select_count('*', 'Caagutayanrecords')->where('address', 'Caagutayan')->get();
     }
 
-    //BIGAAN
-    public function barangayChart($name)
-    {
-        return $this->db->raw("SELECT date_format(visit_date,'%Y-%m') AS dayCreation, COUNT(id) AS perDayPatient FROM `tblpatientrecords` WHERE address='$name' GROUP BY date_format(visit_date,'%Y-%m')");
+    public function Allrecordsakit($sakit, $barangay){
+        return $this->db->table('tblpatientrecords')->select_count('*', $barangay)->where('address', $barangay)->where('classification', $sakit)->get();
     }
 
-    public function barangayagechart($name){
+    //BIGAAN
+    public function barangayChart()
+    {
+        return $this->db->raw("SELECT date_format(visit_date,'%Y-%m') AS dayCreation, COUNT(id) AS perDayPatient FROM `tblpatientrecords` WHERE address='Bigaan' GROUP BY date_format(visit_date,'%Y-%m')");
+    }
+
+    public function barangayagechart(){
         return $this->db->raw("SELECT 
               IF(age BETWEEN 0 AND 14, '0-14',
                 IF(age BETWEEN 15 AND 24, '15-24',
@@ -188,15 +192,15 @@ class Home_model extends Model{
             FROM 
               tblpatientrecords
             WHERE
-                address='$name'
+                address='Bigaan'
             GROUP BY 
               patientAge
             ORDER BY 
               patientAge;");
     }
 
-    public function barangaypiechart($name){
-        return $this->db->raw("SELECT classification AS patientClass, COUNT(id) AS numPerPatient FROM `tblpatientrecords` WHERE address='$name' AND classification IS NOT NULL GROUP BY classification");
+    public function barangaypiechart(){
+        return $this->db->raw("SELECT classification AS patientClass, COUNT(id) AS numPerPatient FROM `tblpatientrecords` WHERE address='Bigaan' AND classification IS NOT NULL GROUP BY classification");
     }
 
     

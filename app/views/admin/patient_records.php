@@ -44,7 +44,7 @@
                   <th>Last name</th>
                   <th>Address</th>
                   <th>Contact #</th>
-                  <th>Visit Date</th>
+                  <th>Date Created</th>
                   <th>Action</th>
 
                 </thead>
@@ -73,13 +73,12 @@
                         echo $row['cnumber'];
                       }
                     ?></td>
-                    <td><?=$row['visit_date']; ?></td>
+                    <td><?=$row['date_created']; ?></td>
             
                     <td>
-                      <button onclick="window.location.href='<?=site_url('patient/edit_patientrecord/'.$row['id']); ?>';" class="btn btn-success btn-xs btn-flat"><i class='fa fa-edit'></i> Edit</button>
-                      <button onclick="window.location.href='<?=site_url('dopdf/generate_patientrecord/'.$row['id']); ?>';" class="btn btn-danger btn-xs btn-flat"><i class='fa fa-file-pdf-o'></i> PDF</button>
-                      <button onclick="window.location.href='<?=site_url('patient/follow_up/'.$row['id']); ?>';" class="btn btn-primary btn-xs btn-flat"><i class='fa fa-plus'></i> Follow Up</button>
-                      
+                      <button onclick="window.location.href='<?=site_url('patient/edit_patientrecord/'.$row['id']); ?>';" class="btn btn-primary btn-xs btn-flat"><i class='fa fa-edit'></i> Edit</button>
+                      <button onclick="window.location.href='<?=site_url('patient/follow_up/'.$row['id']); ?>';" class="btn btn-warning btn-xs btn-flat"><i class='fa fa-plus'></i> Follow Up</button>
+                      <a href="<?=site_url('dopdf/generate_patientrecord/'.$row['id']); ?>" class="btn btn-success btn-xs btn-flat" target="_blank"><i class="fa fa-download"></i></a>
                     </td>
                   </tr>
                   <?php include 'includes/delpatientrecord_modal.php'; ?>
@@ -111,11 +110,8 @@
                   </div>
                 </div>
                 
-                <div class="row" style="border: solid 1px dimgray; border-radius: 5px;">
-                  <div class="col-sm-12">
-                  <h4 class="modal-title text-center" style="margin-top: 10px;"><b>GENDER GROUP</b></h4>
-                </div>
-                  <div class="col-sm-4" style="margin-top: 20px;">
+                <div class="row">
+                  <div class="col-sm-4">
                     <!-- small box -->
                       <div class="small-box bg-teal">
                         <div class="inner">
@@ -132,7 +128,7 @@
 
                   <div class="col-sm-4">
                     <!-- small box -->
-                      <div class="small-box bg-red" style="margin-top: 20px;">
+                      <div class="small-box bg-red">
                         <div class="inner">
                           <?php 
                             echo "<h3>".$data[7]['frow']."</h3>"; 
@@ -147,7 +143,7 @@
 
                   <div class="col-sm-4">
                     <!-- small box -->
-                      <div class="small-box bg-yellow" style="margin-top: 20px;">
+                      <div class="small-box bg-yellow">
                         <div class="inner">
                           <?php 
                             echo "<h3>".$data[8]['orow']."</h3>"; 
@@ -160,7 +156,7 @@
                       </div>
                   </div>
                 </div>
-                <br>
+                
                 <div class="row" style="margin-bottom: 30px;">
                   
                   <div class="col-sm-6" style="border: solid 1px dimgray; padding: 20px;">

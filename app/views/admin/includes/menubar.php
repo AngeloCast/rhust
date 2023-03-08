@@ -51,7 +51,7 @@
       
       
       
-      
+      <li class="header">OTHERS</li>
       <li><a href="'.site_url('staff/logout').'"><i class="fa fa-sign-out"></i><span> Logout </span></a></li>
       
     </ul>';
@@ -107,9 +107,7 @@
           <li><a href="'.site_url('admin/health_info').'"><i class="fa fa-circle-o"></i><span> Health Information </span></a></li>
         </ul>
       </li>
-
       <li class="header">OTHERS</li>
-
       <li><a href="'.site_url('admin/users').'"><i class="fa fa-users"></i> <span>Users</span></a></li>
       <li><a href="'.site_url('admin/staff').'"><i class="fa fa-user-md"></i><span> Staff</span></a></li>
       
@@ -124,6 +122,7 @@
       echo'
       </a></li>
       
+    
       <li><a href="'.site_url('admin/logout').'"><i class="fa fa-sign-out"></i><span> Logout </span></a></li>
       
     </ul>';

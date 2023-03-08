@@ -35,7 +35,7 @@
 			   }
     	?>
       <h1 style="margin-top: 10px;">
-      	<i class="fas fa-edit"></i> 
+      	<i class="fa fa-edit"></i> 
       	<strong>
         CREATE 
         <?php

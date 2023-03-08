@@ -24,6 +24,7 @@ class Pdf
 		$dompdf->setPaper(array(0,0,612,935.433), 'portrait');
 	    $dompdf->render();
 	    $dompdf->stream($filename.'.pdf',array( 'Attachment'=>false ));
+        exit(0);
     }
 }
 ?>

@@ -117,6 +117,7 @@
             }
           ?>
           <hr>
+
           <div class="contact-map">
             <br><h3 style="color: teal; font-style: bold">San Teodoro</h3><br>
             <p>San Teodoro, officially the Municipality of San Teodoro, is a 4th class municipality in the province of Oriental Mindoro, Philippines.</p>
@@ -130,6 +131,9 @@
               <?php include("includes/article_carousel.php");?>
             </div>
           </div>
+
+          
+
         </div>
 
         <?php if(!empty($data[2])){include("includes/details_modal.php");} ?>

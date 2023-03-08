@@ -72,7 +72,54 @@
 					<br>
 					<h6><i class="fa fa-facebook-official"></i><a href="https://www.facebook.com/RHUSanTeodoro"> www.facebook.com/RHUSanTeodoro</a></h6>
 
+					<hr>
+					<br>
+					<h3 style="color: teal; font-style: bold">Services and Schedules</h3><br>
+					<div class="row" style="padding: 10px 50px 10px 50px;">
+						<div class="col-sm-8">
+							<div class="card">
+								<div id="demo" class="carousel slide" data-ride="carousel">
 
+								  <!-- Indicators -->
+								  <ul class="carousel-indicators">
+								    <li data-target="#demo" data-slide-to="0" class="active"></li>
+								    <li data-target="#demo" data-slide-to="1"></li>
+								    <li data-target="#demo" data-slide-to="2"></li>
+								  </ul>
+
+								  <!-- The slideshow -->
+								  <div class="carousel-inner">
+								    <div class="carousel-item active">
+								      <img class="card-img-top" src="<?=site_url('public/images/services.jpg');?>" alt="Card image">
+								    </div>
+								    <div class="carousel-item">
+								      <img class="card-img-top" src="<?=site_url('public/images/schedule.jpg');?>" alt="Card image">
+								    </div>
+								    <div class="carousel-item">
+								      <img class="card-img-top" src="<?=site_url('public/images/logo_schedule.jpg');?>" alt="Card image">
+								    </div>
+								  </div>
+
+								  <!-- Left and right controls -->
+								  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+								    <span class="carousel-control-prev-icon"></span>
+								  </a>
+								  <a class="carousel-control-next" href="#demo" data-slide="next">
+								    <span class="carousel-control-next-icon"></span>
+								  </a>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+			              <div class="card" style="width:100%;">
+			                <img class="card-img-top" src="<?=site_url('public/images/hotline2.jpg');?>" alt="Card image">
+			                
+			              </div>
+			            </div>
+					</div>
+
+					
 				</div>
 
 				<!-- include("includes/sidebar.php"); -->

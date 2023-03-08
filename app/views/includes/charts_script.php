@@ -99,7 +99,7 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 const labels11 = <?php echo json_encode($label11) ?>;
 const num11 = <?php echo json_encode($dataset11) ?>;
 var ctx = document.getElementById("mylineChartcalangatan");
-var myLineChart = new Chart(ctx, {
+var myLineChart2 = new Chart(ctx, {
     type: 'line',
     data: {
         labels: labels11,
@@ -155,7 +155,7 @@ var myLineChart = new Chart(ctx, {
   const labels12 = <?php echo json_encode($label12) ?>;
   const num12 = <?php echo json_encode($dataset12) ?>;
   var ctx = document.getElementById("mydoughChartcalangatan");
-  var myPieChart = new Chart(ctx, {
+  var myPieChart2 = new Chart(ctx, {
       type: 'doughnut',
       data: {
           labels: labels12,
@@ -172,7 +172,7 @@ var myLineChart = new Chart(ctx, {
   const labels13 = <?php echo json_encode($label13) ?>;
   const num13 = <?php echo json_encode($dataset13) ?>;
   var ctx = document.getElementById("myPieChartcalangatan");
-  var myPieChart = new Chart(ctx, {
+  var myPieChart2 = new Chart(ctx, {
       type: 'pie',
       data: {
           labels: labels13,
@@ -193,7 +193,7 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 const labels21 = <?php echo json_encode($label21) ?>;
 const num21 = <?php echo json_encode($dataset21) ?>;
 var ctx = document.getElementById("mylineChartcalsapa");
-var myLineChart = new Chart(ctx, {
+var myLineChart3 = new Chart(ctx, {
     type: 'line',
     data: {
         labels: labels21,
@@ -249,7 +249,7 @@ var myLineChart = new Chart(ctx, {
   const labels22 = <?php echo json_encode($label22) ?>;
   const num22 = <?php echo json_encode($dataset22) ?>;
   var ctx = document.getElementById("mydoughChartcalsapa");
-  var myPieChart = new Chart(ctx, {
+  var myPieChart3 = new Chart(ctx, {
       type: 'doughnut',
       data: {
           labels: labels22,
@@ -266,7 +266,7 @@ var myLineChart = new Chart(ctx, {
   const labels23 = <?php echo json_encode($label23) ?>;
   const num23 = <?php echo json_encode($dataset23) ?>;
   var ctx = document.getElementById("myPieChartcalsapa");
-  var myPieChart = new Chart(ctx, {
+  var myPieChart3 = new Chart(ctx, {
       type: 'pie',
       data: {
           labels: labels23,

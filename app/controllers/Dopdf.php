@@ -33,8 +33,7 @@ class DoPDF extends Controller
         if($this->check()){
             $this->call->library('pdf');
             $filename = "RHUST Patient Record PDF";
-
-
+            
             $pdata = $this->patient_model->getpatientrecord($pID);
 
             // var_dump($data);
@@ -43,8 +42,15 @@ class DoPDF extends Controller
             // $right_imagePath = BASE_URL . PUBLIC_DIR . '/right.png';
             // $right_imageSrc = base64_encode(file_get_contents($right_imagePath));
             
-            // $doc_e_signPath = BASE_URL . PUBLIC_DIR . '/doc_e_sign.webp';
-            // $doc_e_signSrc = base64_encode(file_get_contents($doc_e_signPath));
+            $exist = 'public/images/signature/' . $pdata[0]['signature'];
+            if(!file_exists($exist) or $pdata[0]['signature'] == NULL or $pdata[0]['signature'] == '') {
+                $doc_e_signPath = BASE_URL . PUBLIC_DIR . '/images/signature/sample_signature.png';
+                $signature = base64_encode(file_get_contents($doc_e_signPath));
+            }
+            else{
+                $doc_e_signPath = BASE_URL .PUBLIC_DIR . '/images/signature/' . $pdata[0]['signature'];
+                $signature = base64_encode(file_get_contents($doc_e_signPath));
+            }
          
             // var_dump($imageSrc);
 
@@ -56,7 +62,7 @@ class DoPDF extends Controller
 
             $output = '
             <title>RHUST Patient Record</title>
-            <div align="left" style="">
+            <div align="left" style="font-family: arial">
                 <img src="data:image/png;base64,' . $mho_logo . '"  width="95" 
                 height="95" style="float: left; margin-right: 20px;">
             
@@ -72,12 +78,12 @@ class DoPDF extends Controller
                 ';
 
             foreach ($pdata as $data) {
-                $line = '_______________________________________________________________';
-                $line2 = '_______';
-                $line3 = '___';
-                $line4 = '__________________________________________________________';
-                $line5 = '___________________________________________________________________________________';
-                $line6 = '________________________________________________________';
+                $line = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                $line2 = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                $line3 = '&nbsp;&nbsp;&nbsp;';
+                $line4 = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                $line5 = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                $line6 = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                 if(empty($data['age'])){
                     $data['age'] = $line3;
                 }
@@ -106,10 +112,10 @@ class DoPDF extends Controller
                     $data['blood_type'] = $line2;
                 }
                 if(empty($data['chief_complaints'])){
-                    $data['chief_complaints'] = $line . '__';
+                    $data['chief_complaints'] = $line . '' .$line;
                 }
                 if(empty($data['history_presentillness'])){
-                    $data['history_presentillness'] = $line5 . '<br>' . $line5;
+                    $data['history_presentillness'] = $line5.''.$line2.''.$line2;
                 }
                 if(empty($data['food_allergy'])){
                     $data['food_allergy'] = $line;
@@ -124,7 +130,7 @@ class DoPDF extends Controller
                     $data['visit_date'] = $line2;
                 }
                 if(empty($data['visit_time'])){
-                    $data['visit_time'] = $line2 . '__';
+                    $data['visit_time'] = $line2;
                 }
                 if(empty($data['hypertension_meds'])){
                     $data['hypertension_meds'] = $line6;
@@ -163,206 +169,285 @@ class DoPDF extends Controller
                     $data['height'] = $line3.''.$line3;
                 }
                 if(empty($data['physical_exam'])){
-                    $data['physical_exam'] = $line5 . '<br>' . $line5;
+                    $data['physical_exam'] = $line6.''.$line5.''.$line2;
                 }
                 if(empty($data['assessment'])){
-                    $data['assessment'] = $line5 . '<br>' . $line5;
+                    $data['assessment'] = $line6.''.$line5.''.$line2;
                 }
                 if(empty($data['management_plan'])){
-                    $data['management_plan'] = $line5 . '<br>' . $line5 . '<br>' .$line5 . '<br>' . $line5;
+                    $data['management_plan'] = $line6.''.$line5.''.$line2;
                 }
                 if(empty($data['service_provider'])){
-                    $data['service_provider'] = $line2 . '____';
+                    $data['service_provider'] = $line2 .''. $line2;
                 }
 
                 $output .= '
-                <div style="margin-left: 80px; margin-right: 50px;">
-                    <h5 align="left" style="margin-bottom: 0px;">A. <u>Patient\'s Personal Profile:</u></h5>
-                    <p align="left" style="margin-top: 5px; margin-left: 16px;margin-bottom: 0px; font-size: 13px; font-weight: bold">Patient\'s Name:
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u style="font-weight: light;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    ' . $data['lastname']  . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    ' . $data['firstname']  . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    ' . $data['middlename'] . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
+                <div style="margin: 0px 20px 0px 40px; font-family: Arial">
 
-                    </p>
-                    <p align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 190px; font-size: 13px; font-weight: bold">
-                        Last Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        First Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        Middle Name
-                    </p>
+                    <div class="row">
+                        <h5 align="left" style="margin-bottom: 0px;">A. <u>Patient\'s Personal Profile:</u></h5>
+                    </div>
 
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
+                    <div class="row">
+                        <p align="left" style="margin-top: 5px; margin-left: 16px;margin-bottom: 0px; font-size: 13px;"><b>Patient\'s Name:</b>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u style="font-weight: light;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        ' . $data['lastname']  . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        ' . $data['firstname']  . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        ' . $data['middlename'] . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>
 
-                        Age/Gender: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u style="font-weight: light">&nbsp;&nbsp;' . $data['age']  . ' / ' . $data['gender']  . '&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </p>
 
-                        Birthdate: <u style="font-weight: light;">&nbsp;&nbsp;'. date('d/m/Y', strtotime($data['birthday'])) . '&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <p align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 190px; font-size: 13px; font-weight: bold;">
+                            Last Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            First Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            Middle Name
+                        </p>
+                    </div>
 
-                        Civil Status: &nbsp;&nbsp;<u style="font-weight: light;">&nbsp;&nbsp;' . $data['civil_status']  . '&nbsp;&nbsp;</u>
+                    <div class="row">
+                        <b align="left" style="margin: 0px 80px 0px 16px; font-size: 13px;">Age/Gender: </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;
+                            ' . $data['age']  . ' / ' . $data['gender']  . '&nbsp;&nbsp;</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                    </h5>
+                        <b style="font-size: 13px;">Birthdate:</b> 
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. date('d/m/Y', strtotime($data['birthday'])) . '&nbsp;&nbsp;</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-                        Parent/Guardian/Contact Person: <u style="font-weight: light">&nbsp;&nbsp;' . $data['contact_person']  . '&nbsp;&nbsp;</u>
-                    </h5>
+                        <b style="font-size: 13px;">Civil Status:</b> &nbsp;&nbsp;
+                            <u style="font-size: 13px;">&nbsp;&nbsp;' . $data['civil_status']  . '&nbsp;&nbsp;</u>
+                    </div> 
 
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-                        Address: <u style="font-weight: light;">&nbsp;&nbsp;' . $data['address']  . '&nbsp;&nbsp;</u>
-                    </h5>
 
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-                        Contact Number: <u style="font-weight: light">&nbsp;&nbsp;' . $data['cnumber']  . '&nbsp;&nbsp;</u>
-                        Health Insurance Membership: <u style="font-weight: light">&nbsp;&nbsp;' . $data['health_insurance']  . '&nbsp;&nbsp;</u>
-                    </h5>
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Parent/Guardian/Contact Person: 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;' . $data['contact_person']  . '&nbsp;&nbsp;</u>
+                    </div>
 
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 10px; margin-left: 16px;">
-                        Religion: <u style="font-weight: light">&nbsp;&nbsp;'. $data['religion']  .'&nbsp;&nbsp;</u>
-                        Blood type: <u style="font-weight: light">&nbsp;&nbsp;' . $data['blood_type']  . '&nbsp;&nbsp;</u>
-                    </h5>
-                
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Address: 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;' . $data['address']  . '&nbsp;&nbsp;</u>
+                    </div>
+
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Contact Number:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;' . $data['cnumber']  . '&nbsp;&nbsp;</u>
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Health Insurance Membership:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;' . $data['health_insurance']  . '&nbsp;&nbsp;</u>
+                    </div>
+
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Religion: 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['religion']  .'&nbsp;&nbsp;</u>
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Blood type: 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;' . $data['blood_type']  . '&nbsp;&nbsp;</u>
+                    </div>
                     <br>
 
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px;">B. <u>Patient Case Summary:</u></h5>
+                    <div class="row">
+                        <h5 align="left" style="margin-top: 0px;margin-bottom: 0px;">B. <u>Patient Case Summary:</u></h5>
+                    </div>
 
-                    <h5 align="left" style="margin-top: 5px;margin-bottom: 0px; margin-left: 16px;">
+                    <div class="row">
+                        <b align="left" style="margin: 5px 0px 0px 16px; font-size: 13px;">
+                            Date of visit: 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. date('d/m/Y', strtotime($data['visit_date'])) . '&nbsp;&nbsp;</u>
+                        <b align="left" style="margin: 5px 0px 0px 30px; font-size: 13px;">
+                            Age in months (if under 5 years old):
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['age_months'] .'&nbsp;&nbsp;</u>
+                    </div>
 
-                        Date of visit: <u style="font-weight: light;">&nbsp;&nbsp;'. date('d/m/Y', strtotime($data['visit_date'])) . '&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="row">
+                        <b align="left" style="margin: 5px 0px 0px 16px; font-size: 13px;">
+                            Time of visit: 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. date('h:i A', strtotime($data['visit_time']))  .'&nbsp;&nbsp;</u>
+                    </div>
 
-                        Age in months (if under 5 years old): <u style="font-weight: light">&nbsp;&nbsp;'. $data['age_months'] .'&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="row">
+                        <b align="left" style="margin: 5px 0px 0px 16px; font-size: 13px;">
+                            ( ) Allergy to Food/s: 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['food_allergy']  .'&nbsp;&nbsp;</u>
+                    </div>
 
-                    </h5>
+                    <div class="row">
+                        <b align="left" style="margin: 5px 0px 0px 16px; font-size: 13px;">
+                            ( ) Allergy to Medication/s:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['medicine_allergy']  .'&nbsp;&nbsp;</u>
+                    </div>
 
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
+                    <br>
 
-                        Time of visit: <u style="font-weight: light;">&nbsp;&nbsp;'. date('h:i A', strtotime($data['visit_time']))  .'&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="row">
+                        <h5 align="left" style="margin-top: 0px;margin-bottom: 0px;">I. <u>Subjective Complaint/s:</u></h5>
+                    </div>
+                    
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Chief Complaint/s:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['chief_complaints']  .'&nbsp;&nbsp;</u>
+                    </div>
 
-                    </h5>
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            History of Present Illness: 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['history_presentillness']  .'&nbsp;&nbsp;</u>
+                    </div>
 
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
+                    <br>
 
-                        ( ) Allergy to Food/s: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['food_allergy']  .'&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Pass Medical History:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['history_presentillness']  .'&nbsp;&nbsp;</u>
+                    </div>
 
-                    </h5>
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-
-                        ( ) Allergy to Medication/s: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['medicine_allergy']  .'&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            ( ) Hypertension meds: 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['hypertension_meds']  .'&nbsp;&nbsp;</u>
                         
-                    </h5>
+                    </div>
 
-                    <br>
-
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px;">I. <u>Subjective Complaint/s:</u></h5>
-
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-
-                        Chief Complaint/s: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['chief_complaints']  .'&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                    </h5>
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-
-                        History of Present Illness: <u style="font-weight: light;">
-                        <br>
-                        &nbsp;&nbsp;'. $data['history_presentillness']  .'&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                    </h5>
-
-                    <br>
-
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-                        Pass Medical History:
-                    </h5>
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-
-                        ( ) Hypertension &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;meds: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['hypertension_meds']  .'&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            ( ) Diabetes Mellitus meds: 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['diabetes_meds']  .'&nbsp;&nbsp;</u>
                         
-                    </h5>
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
+                    </div>
 
-                        ( ) Diabetes Mellitus&nbsp;&nbsp;&nbsp;&nbsp;meds: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['diabetes_meds'] .'&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        
-                    </h5>
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            ( ) Bronchial Asthma meds: 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['bronchial_meds']  .'&nbsp;&nbsp;</u>
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Last Attack:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['last_attack']  .'&nbsp;&nbsp;</u>
+                    </div>
 
-                        ( ) Bronchial Asthma&nbsp;&nbsp; meds: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['bronchial_meds'] .'&nbsp;&nbsp;</u>
-                        Last Attack: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['last_attack'] .'&nbsp;&nbsp;</u>
-                        
-                    </h5>
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-
-                        ( ) Other Heart/Lung Dse. &nbsp;&nbsp;<u style="font-weight: light;">&nbsp;&nbsp;'. $data['other_hldse'] .'&nbsp;&nbsp;</u> 
-                        ( ) Operation: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['operation'] .'&nbsp;&nbsp;</u>
-                        
-                    </h5>
-
-                    <br>
-
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px;">II. <u>Objective Findings:</u></h5>
-
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-
-                        Vital Signs: BP: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['bp']  .'&nbsp;&nbsp;</u>mmhg
-                            &nbsp;&nbsp;&nbsp;
-                        Heart Rate: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['heart_rate']  .'&nbsp;&nbsp;</u>bpm
-                            &nbsp;&nbsp;&nbsp;
-                        Respiratory Rate: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['respiratory_rate']  .'&nbsp;&nbsp;</u>/min.
-                            &nbsp;&nbsp;&nbsp;
-                        <br>
-                        Temperature: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['temperature']  .'&nbsp;&nbsp;</u>°C
-                            &nbsp;&nbsp;&nbsp;
-                        Weight: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['weight']  .'&nbsp;&nbsp;</u>Kg
-                            &nbsp;&nbsp;&nbsp;
-                        Height: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['height']  .'&nbsp;&nbsp;</u>cm
-                            &nbsp;&nbsp;&nbsp;
-                    </h5>
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            ( ) Other Heart/Lung Dse. 
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['other_hldse']  .'&nbsp;&nbsp;</u>
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            ( ) Operation:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['operation']  .'&nbsp;&nbsp;</u>
+                    </div>
 
                     <br>
 
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
+                    <div class="row">
+                        <h5 align="left" style="margin-top: 0px;margin-bottom: 0px;">II. <u>Objective Findings:</u></h5>
+                    </div>
 
-                        Physical Examination: <u style="font-weight: light;">&nbsp;&nbsp;'. $data['physical_exam']  .'&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Vital Signs: BP:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['bp']  .'&nbsp;&nbsp;</u>
 
-                    </h5>
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Heart Rate:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['heart_rate']  .'&nbsp;&nbsp;</u>
+
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Respiratory Rate:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['respiratory_rate']  .'&nbsp;&nbsp;</u>
+                    </div>
+
+                    <div class="row">
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Temperature:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['temperature']  .'&nbsp;&nbsp;</u>
+
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Weight:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['weight']  .'&nbsp;&nbsp;</u>
+
+                        <b align="left" style="margin: 0px 0px 0px 16px; font-size: 13px;">
+                            Height
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['height']  .'&nbsp;&nbsp;</u>
+                    </div>
 
                     <br>
 
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px;">III. <u>Assessment/Classification:</u></h5>
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
-
-                        <u style="font-weight: light;">'. $data['assessment']  .'&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                    </h5>
+                    <div class="row" style="margin: 0px 0px 0px 16px;font-size: 13px;">
+                        <b align="left" style="font-size: 13px;">
+                            Physical Examination:
+                        </b>
+                            <u style="font-size: 13px;">&nbsp;&nbsp;'. $data['physical_exam']  .'&nbsp;&nbsp;</u>
+                    </div>
 
                     <br>
 
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px;">IV. <u>Plan of Management: (Treat/Refer/Health Educate)</u></h5>
-                    <h5 align="left" style="margin-top: 0px;margin-bottom: 0px; margin-left: 16px;">
+                    <div class="row">
+                        <h5 align="left" style="margin-top: 0px;margin-bottom: 0px;">III. <u>Assessment/Classification:</u></h5>
+                    </div>
 
-                        <u style="font-weight: light;">'. $data['management_plan']  .'&nbsp;&nbsp;</u>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    
+                    <div class="row" style="margin-left: 16px;">
+                        <u style="font-size: 13px;">'. $data['assessment']  .'&nbsp;&nbsp;</u>
+                    </div>
+                    <br>
 
-                    </h5>
+
+                    <div class="row">
+                        <h5 align="left" style="margin-top: 0px;margin-bottom: 0px;">IV. <u>Plan of Management: (Treat/Refer/Health Educate)</u></h5>
+                    </div>
+
+                    
+                    <div class="row" style="margin-left: 16px;">
+                        <u style="font-size: 13px;">'. $data['management_plan']  .'&nbsp;&nbsp;</u>
+                    </div>
 
                     <br><br><br><br>
-
-                    <h5 align="right" style="margin-top: 0px;margin-bottom: 0px;"><u style="font-weight: light; font-size: 14px;">_____________'. $data['service_provider']  .'_____________</u></h5>
-                    <h5 align="right" style="margin-top: 0px;margin-bottom: 0px; margin-right: 15px;">Name and Signature of Service Provider</h5>
-                ';
+                    <div style="position: absolute; bottom: 30px;right: 80;">
+                        <img src="data:image/png;base64,' . $signature . '" width="100" height="100" style="">
+                    </div>
+                    <div style="position: absolute; bottom: 20px;right: 0;">
+                        <h5 align="right" style="margin-top: 0px;margin-bottom: 0px;"><u style="font-weight: light; font-size: 14px;">'.$line2.$line2.$data['service_provider'].$line2.$line2.'</u></h5>
+                        <h5 align="right" style="margin-top: 0px;margin-bottom: 0px; margin-right: 15px;">Name and Signature of Service Provider</h5>
+                    </div>
+                </div>';
             }
 
-
+            // $userdata = $this->admin_model->get_data();
+            // $inquirycount = $this->admin_model->get_inquiry_count();
+            // $data = array($userdata, $inquirycount, $output);
             $this->pdf->create($output, $filename);
+
+            // $this->call->view('admin/pdf', $data);
+
+            // <img src="data:image/png;base64,' . $signature . '"  width="95" 
+            //     height="95" style="position: absolute; right: 100px; bottom: 220px">
         }
         //$html = $this->call->view('test_pdf', $data, TRUE);
     }
@@ -501,6 +586,8 @@ class DoPDF extends Controller
     //     $this->pdf->create($output, $filename);
 
     //     //$html = $this->call->view('test_pdf', $data, TRUE);
+
+
     // }
 
 }

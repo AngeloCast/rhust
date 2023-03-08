@@ -41,7 +41,7 @@
           <div class="box" style="padding: 20px;">
 			      <div class="box-body">
 			        <div class= "col-lg-12">
-								<form class="form-horizontal" action="<?=site_url('patient/add_patientrecord');?>" method="post">
+								<form class="form-horizontal" action="<?=site_url('patient/add_patientrecord');?>" method="post" enctype="multipart/form-data">
 									
 									<div class="form-group">
 										<h5 id="ptitle"><b>A. <u>Patient's Personal Profile: </u></b></h5>
@@ -334,13 +334,17 @@
 
 						      </div>
 
+						      <hr>
+
 						      <div class="form-group">
-
-						        <div class="col-sm-4">
+						      	<div class="col-sm-4">
 						        	<label for="service_provider" class="control-label">Name of Service Provider</label>
-						          <input type="text" class="form-control" name="service_provider">
+						          <input type="text" class="form-control" name="service_provider" value="<?=$data[0]['fullname'];?>">
 						        </div>
-
+						      	<div class="col-sm-4">
+	                		<label for="photo" class="control-label">Signature</label>
+	                    <input class="form-control" type="file" accept="image/*" id="fileToUpload" name="fileToUpload">
+				            </div>
 						      </div>
 						      <hr>
 						      <button type="submit" style="color: white; float: right;" class="btn btn-success btn-md btn-flat"><i class="fa fa-save"></i> Save Record</button>
@@ -357,6 +361,10 @@
   	<?php include 'includes/footer.php'; ?>
   	<?php include 'includes/scripts.php'; ?>
 </div>
-
+<script type="text/javascript">
+    function preview() {
+		   thumb.src=URL.createObjectURL(event.target.files[0]);
+		}
+</script>
 </body>
 </html>

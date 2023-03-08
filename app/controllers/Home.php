@@ -47,7 +47,7 @@ class Home extends Controller {
                 $where = array('status' => 'publish',
                         'category' => '2'
                 );
-                $newsdata = $this->db->table('rhuposts')->where($where)->limit($offset, $records_per_page)->order_by('id', 'ASC')->get_all();
+                $newsdata = $this->db->table('rhuposts')->where($where)->limit($offset, $records_per_page)->order_by('id', 'DESC')->get_all();
                 $count = $this->db->table('rhuposts')->select_count('id', 'count')->where($where)->get_all()[0];
                 $this->pagination->initialize($count['count'], $records_per_page, $page, 'home/news');
                 $linkpage = $this->pagination->paginate();
@@ -116,7 +116,7 @@ class Home extends Controller {
                 $where = array('status' => 'publish',
                         'category' => '4'
                 );
-                $hinfodata = $this->db->table('rhuposts')->where($where)->limit($offset, $records_per_page)->order_by('id', 'ASC')->get_all();
+                $hinfodata = $this->db->table('rhuposts')->where($where)->limit($offset, $records_per_page)->order_by('id', 'DESC')->get_all();
                 $count = $this->db->table('rhuposts')->select_count('id', 'count')->where($where)->get_all()[0];
                 $this->pagination->initialize($count['count'], $records_per_page, $page, 'home/news');
                 $linkpage = $this->pagination->paginate();
@@ -156,7 +156,7 @@ class Home extends Controller {
                 $where = array('status' => 'publish',
                         'category' => '3'
                 );
-                $faqsdata = $this->db->table('rhuposts')->where($where)->limit($offset, $records_per_page)->order_by('id', 'ASC')->get_all();
+                $faqsdata = $this->db->table('rhuposts')->where($where)->limit($offset, $records_per_page)->order_by('id', 'DESC')->get_all();
                 $count = $this->db->table('rhuposts')->select_count('id', 'count')->where($where)->get_all()[0];
                 $this->pagination->initialize($count['count'], $records_per_page, $page, 'home/news');
                 $linkpage = $this->pagination->paginate();
@@ -378,26 +378,41 @@ class Home extends Controller {
                 }
         }
 
+        public function services_schedules(){
+                $newsdata = $this->home_model->get_news(); //[1]
+                $articledata = $this->home_model->get_article(); //[2]
+                $sidebar = $this->home_model->get_announcement(); //[3]
+                $staff = $this->home_model->get_staff(); //[3]
+                $x = 1;
+                if($this->auth_model->is_loggedin()){
+                    
+                        $userdata = $this->home_model->get_data(); //[0]
+                        
+                        $data = array($newsdata, $articledata, $sidebar, $userdata, $staff);
+
+                        if($this->session->userdata('usertype') === 0){
+                                redirect('admin/');
+                                exit();
+                        }
+                        else if($this->session->userdata('usertype') === 2){
+                                redirect('staff/');
+                                exit();
+                        }
+                        else{
+                                $this->call->view('about', $data);
+                        }
+                } else {
+                        $data = array($newsdata, $articledata, $sidebar, $x, $staff);
+                        $this->call->view('services_schedules', $data);
+                        exit();
+                }
+        }
+
         public function clustering(){
                 $newsdata = $this->home_model->get_news(); //[0]
                 $articledata = $this->home_model->get_article(); //[1]
                 $sidebar = $this->home_model->get_announcement(); //[2]
                 $classifications = $this->admin_model->get_classification_names();
-                
-                $bigaan = 'Bigaan';
-                $calangatan = 'Calangatan';
-                $calsapa = 'Calsapa';
-                $ilag = 'Ilag';
-                $lumangbayan = 'Lumangbayan';
-                $tacligan = 'Tacligan';
-                $poblacion = 'Poblacion';
-                $caagutayan = 'Caagutayan';
-
-                //bigaan charts
-                $barangaychart= $this->home_model->barangayChart($bigaan);
-                $barangayagechart = $this->home_model->barangayagechart($bigaan);
-                $barangaypie = $this->home_model->barangaypiechart($bigaan);
-
                 //count per barangay
                 $Bigaanrecords = $this->home_model->AllrecordBigaan();
                 $Calangatanrecords = $this->home_model->AllrecordCalangatan();
@@ -408,35 +423,64 @@ class Home extends Controller {
                 $Poblacionrecords = $this->home_model->AllrecordPoblacion();
                 $Caagutayanrecords = $this->home_model->AllrecordCaagutayan();
 
-                //calangatan charts
-                $barangaychart1= $this->home_model->barangayChart($calangatan);
-                $barangayagechart1 = $this->home_model->barangayagechart($calangatan);
-                $barangaypie1 = $this->home_model->barangaypiechart($calangatan);
-                //calsapa charts
-                $barangaychart2 = $this->home_model->barangayChart($calsapa);
-                $barangayagechart2 = $this->home_model->barangayagechart($calsapa);
-                $barangaypie2 = $this->home_model->barangaypiechart($calsapa);
-                //ilag charts
-                $barangaychart3= $this->home_model->barangayChart($ilag);
-                $barangayagechart3 = $this->home_model->barangayagechart($ilag);
-                $barangaypie3 = $this->home_model->barangaypiechart($ilag);
-                //lumangbayan charts
-                $barangaychart4= $this->home_model->barangayChart($lumangbayan);
-                $barangayagechart4 = $this->home_model->barangayagechart($lumangbayan);
-                $barangaypie4 = $this->home_model->barangaypiechart($lumangbayan);
-                //tacligan charts
-                $barangaychart5= $this->home_model->barangayChart($tacligan);
-                $barangayagechart5 = $this->home_model->barangayagechart($tacligan);
-                $barangaypie5 = $this->home_model->barangaypiechart($tacligan);
-                //poblacion charts
-                $barangaychart6= $this->home_model->barangayChart($poblacion);
-                $barangayagechart6 = $this->home_model->barangayagechart($poblacion);
-                $barangaypie6 = $this->home_model->barangaypiechart($poblacion);
-                //caagutayan charts
-                $barangaychart7= $this->home_model->barangayChart($caagutayan);
-                $barangayagechart7 = $this->home_model->barangayagechart($caagutayan);
-                $barangaypie7 = $this->home_model->barangaypiechart($caagutayan);
+                
 
+                $barangayGender = [
+                        'bigaanmale' => $this->cluster_model->get_male('Bigaan'),
+                        'bigaanfemale' => $this->cluster_model->get_female('Bigaan'),
+                        'bigaanother' => $this->cluster_model->get_other('Bigaan'),
+
+                        'calangatanmale' => $this->cluster_model->get_male('Calangatan'),
+                        'calangatanfemale' => $this->cluster_model->get_female('Calangatan'),
+                        'calangatanother' => $this->cluster_model->get_other('Calangatan'),
+
+                        'calsapamale' => $this->cluster_model->get_male('Calsapa'),
+                        'calsapafemale' => $this->cluster_model->get_female('Calsapa'),
+                        'calsapaother' => $this->cluster_model->get_other('Calsapa'),
+
+                        'ilagmale' => $this->cluster_model->get_male('Ilag'),
+                        'ilagfemale' => $this->cluster_model->get_female('Ilag'),
+                        'ilagother' => $this->cluster_model->get_other('Ilag'),
+
+                        'lumangbayanmale' => $this->cluster_model->get_male('Lumangbayan'),
+                        'lumangbayanfemale' => $this->cluster_model->get_female('Lumangbayan'),
+                        'lumangbayanother' => $this->cluster_model->get_other('Lumangbayan'),
+
+                        'tacliganmale' => $this->cluster_model->get_male('Tacligan'),
+                        'tacliganfemale' => $this->cluster_model->get_female('Tacligan'),
+                        'tacliganother' => $this->cluster_model->get_other('Tacligan'),
+
+                        'poblacionmale' => $this->cluster_model->get_male('Poblacion'),
+                        'poblacionfemale' => $this->cluster_model->get_female('Poblacion'),
+                        'poblacionother' => $this->cluster_model->get_other('Poblacion'),
+
+                        'caagutayanmale' => $this->cluster_model->get_male('Caagutayan'),
+                        'caagutayanfemale' => $this->cluster_model->get_female('Caagutayan'),
+                        'caagutayanother' => $this->cluster_model->get_other('Caagutayan'),
+
+                ];
+
+                $barangaypieCharts = [
+                        'bigaandough' => $this->cluster_model->get_classification('Bigaan'),
+                        'calangatandough' => $this->cluster_model->get_classification('Calangatan'),
+                        'calsapadough' => $this->cluster_model->get_classification('Calsapa'),
+                        'ilagdough' => $this->cluster_model->get_classification('Ilag'),
+                        'lumangbayandough' => $this->cluster_model->get_classification('Lumangbayan'),
+                        'tacligandough' => $this->cluster_model->get_classification('Tacligan'),
+                        'poblaciondough' => $this->cluster_model->get_classification('Poblacion'),
+                        'caagutayandough' => $this->cluster_model->get_classification('Caagutayan'),
+                ];
+
+                $barangayageCharts = [
+                        'bigaanpie' => $this->cluster_model->get_age('Bigaan'),
+                        'calangatanpie' => $this->cluster_model->get_age('Calangatan'),
+                        'calsapapie' => $this->cluster_model->get_age('Calsapa'),
+                        'ilagpie' => $this->cluster_model->get_age('Ilag'),
+                        'lumangbayanpie' => $this->cluster_model->get_age('Lumangbayan'),
+                        'tacliganpie' => $this->cluster_model->get_age('Tacligan'),
+                        'poblacionpie' => $this->cluster_model->get_age('Poblacion'),
+                        'caagutayanpie' => $this->cluster_model->get_age('Caagutayan'),
+                ];
 
                 if($this->auth_model->is_loggedin()){
                         if($this->session->userdata('usertype') === 0){
@@ -450,8 +494,96 @@ class Home extends Controller {
                         else{
                                 $userdata = $this->home_model->get_data(); //[3]
                                 
-                                $data = array($newsdata, $articledata, $sidebar, $userdata, $classifications, $barangaychart, $barangayagechart, $barangaypie, $Bigaanrecords, $Calangatanrecords, $Calsaparecords, $Ilagrecords, $Lumangbayanrecords, $Tacliganrecords, $Poblacionrecords, $Caagutayanrecords, $barangaychart1, $barangayagechart1, $barangaypie1, $barangaychart2, $barangayagechart2, $barangaypie2, $barangaychart3, $barangayagechart3, $barangaypie3, $barangaychart4, $barangayagechart4, $barangaypie4, $barangaychart5, $barangayagechart5, $barangaypie5, $barangaychart6, $barangayagechart6, $barangaypie6, $barangaychart7, $barangayagechart7, $barangaypie7);
+                                $data = array($newsdata, $articledata, $sidebar, $userdata, $classifications, $Bigaanrecords, $Calangatanrecords, $Calsaparecords, $Ilagrecords, $Lumangbayanrecords, $Tacliganrecords, $Poblacionrecords, $Caagutayanrecords, $barangayGender, $barangaypieCharts, $barangayageCharts);
+
+
                                 $this->call->view('clustering', $data);
+                        }
+                }
+                else{
+                        $this->session->set_flashdata(array('error' => 'You need to log in first to access the clustering page!'));
+                        $this->call->view('login');
+                }
+        }
+
+        public function classification(){
+                $sakit = $this->io->post('classification');
+                $newsdata = $this->home_model->get_news(); //[0]
+                $articledata = $this->home_model->get_article(); //[1]
+                $sidebar = $this->home_model->get_announcement(); //[2]
+                $classifications = $this->admin_model->get_classification_names();
+                //count per barangay
+                $Bigaanrecords = $this->home_model->Allrecordsakit($sakit, 'Bigaan');
+                $Calangatanrecords = $this->home_model->Allrecordsakit($sakit, 'Calangatan');
+                $Calsaparecords = $this->home_model->Allrecordsakit($sakit, 'Calsapa');
+                $Ilagrecords = $this->home_model->Allrecordsakit($sakit, 'Ilag');
+                $Lumangbayanrecords = $this->home_model->Allrecordsakit($sakit, 'Lumangbayan');
+                $Tacliganrecords = $this->home_model->Allrecordsakit($sakit, 'Tacligan');
+                $Poblacionrecords = $this->home_model->Allrecordsakit($sakit, 'Poblacion');
+                $Caagutayanrecords = $this->home_model->Allrecordsakit($sakit, 'Caagutayan');
+                
+                $barangayGender = [
+                        'bigaanmale' => $this->cluster_model->get_malesakit('Bigaan', $sakit),
+                        'bigaanfemale' => $this->cluster_model->get_femalesakit('Bigaan', $sakit),
+                        'bigaanother' => $this->cluster_model->get_othersakit('Bigaan', $sakit),
+
+                        'calangatanmale' => $this->cluster_model->get_male('Calangatan', $sakit),
+                        'calangatanfemale' => $this->cluster_model->get_female('Calangatan', $sakit),
+                        'calangatanother' => $this->cluster_model->get_other('Calangatan', $sakit),
+
+                        'calsapamale' => $this->cluster_model->get_malesakit('Calsapa', $sakit),
+                        'calsapafemale' => $this->cluster_model->get_femalesakit('Calsapa', $sakit),
+                        'calsapaother' => $this->cluster_model->get_othersakit('Calsapa', $sakit),
+
+                        'ilagmale' => $this->cluster_model->get_malesakit('Ilag', $sakit),
+                        'ilagfemale' => $this->cluster_model->get_femalesakit('Ilag', $sakit),
+                        'ilagother' => $this->cluster_model->get_othersakit('Ilag', $sakit),
+
+                        'lumangbayanmale' => $this->cluster_model->get_malesakit('Lumangbayan', $sakit),
+                        'lumangbayanfemale' => $this->cluster_model->get_femalesakit('Lumangbayan', $sakit),
+                        'lumangbayanother' => $this->cluster_model->get_othersakit('Lumangbayan', $sakit),
+
+                        'tacliganmale' => $this->cluster_model->get_malesakit('Tacligan', $sakit),
+                        'tacliganfemale' => $this->cluster_model->get_femalesakit('Tacligan', $sakit),
+                        'tacliganother' => $this->cluster_model->get_othersakit('Tacligan', $sakit),
+
+                        'poblacionmale' => $this->cluster_model->get_malesakit('Poblacion', $sakit),
+                        'poblacionfemale' => $this->cluster_model->get_femalesakit('Poblacion', $sakit),
+                        'poblacionother' => $this->cluster_model->get_othersakit('Poblacion', $sakit),
+
+                        'caagutayanmale' => $this->cluster_model->get_malesakit('Caagutayan', $sakit),
+                        'caagutayanfemale' => $this->cluster_model->get_femalesakit('Caagutayan', $sakit),
+                        'caagutayanother' => $this->cluster_model->get_othersakit('Caagutayan', $sakit),
+
+                ];
+
+                $barangayageCharts = [
+                        'bigaanpie' => $this->cluster_model->get_agesakit('Bigaan', $sakit),
+                        'calangatanpie' => $this->cluster_model->get_agesakit('Calangatan', $sakit),
+                        'calsapapie' => $this->cluster_model->get_agesakit('Calsapa', $sakit),
+                        'ilagpie' => $this->cluster_model->get_agesakit('Ilag', $sakit),
+                        'lumangbayanpie' => $this->cluster_model->get_agesakit('Lumangbayan', $sakit),
+                        'tacliganpie' => $this->cluster_model->get_agesakit('Tacligan', $sakit),
+                        'poblacionpie' => $this->cluster_model->get_agesakit('Poblacion', $sakit),
+                        'caagutayanpie' => $this->cluster_model->get_agesakit('Caagutayan', $sakit),
+                ];
+
+                if($this->auth_model->is_loggedin()){
+                        if($this->session->userdata('usertype') === 0){
+                                redirect('admin/');
+                                exit();
+                        }
+                        else if($this->session->userdata('usertype') === 2){
+                                redirect('staff/');
+                                exit();
+                        }
+                        else{
+                                $userdata = $this->home_model->get_data(); //[3]
+                                
+                                $data = array($newsdata, $articledata, $sidebar, $userdata, $classifications, $Bigaanrecords, $Calangatanrecords, $Calsaparecords, $Ilagrecords, $Lumangbayanrecords, $Tacliganrecords, $Poblacionrecords, $Caagutayanrecords, $barangayGender, $barangayageCharts, $sakit);
+
+                                $this->session->set_flashdata(array('success' => 'Showing clustering of patients records with the health disease | classification: '.$sakit));
+                                $this->call->view('classification', $data);
                         }
                 }
                 else{
@@ -630,6 +762,18 @@ class Home extends Controller {
                 
         }
 
+        public function get_barangay_data() {
+                $bid = $this->io->post('bid');
+                $data['record'] = $this->home_model->get_barangay_data($bid);
+
+                if(!empty($data)){
+                    $this->call->view('includes/clustering_modal', $data);
+                }
+                else{
+                        echo 'Error retrieving data';
+                }
+        }
+
         public function get_event(){
                 $eID = $this->io->post('eid');
                 $data = $this->home_model->get_event_single($eID);
@@ -662,12 +806,160 @@ class Home extends Controller {
                         echo 'Error retrieving data';
                 }
         }
+
+        public function search($title){
+                
+                if (!isset ($_GET['page']) ) {  $page = 1;  } else {  $page = $_GET['page']; }
+                $records_per_page = 5;
+                $offset = ($page - 1) * $records_per_page;
+                
+                
+                $hinfodata = $this->db->table('rhuposts')->where('category = ? OR category = ?', [3, 4])->where('status', 'publish')->like('title', '%'.$title.'%')->limit($offset, $records_per_page)->order_by('id', 'ASC')->get_all();
+                $count = $this->db->table('rhuposts')->select_count('id', 'count')->where('category = ? OR category = ?', [3, 4])->where('status', 'publish')->like('title', '%'.$title.'%')->get_all()[0];
+                $this->pagination->initialize($count['count'], $records_per_page, $page, 'home/news');
+
+                $linkpage = $this->pagination->paginate();
+                $events = $this->home_model->get_events(); //[4]
+                $newsdata = $this->home_model->get_news(); //[0]
+                $sidebar = $this->home_model->get_announcement(); //[2]
+                $x = 1; //[3]
+                if($this->auth_model->is_loggedin()){
+                       
+                        $userdata = $this->home_model->get_data(); //[3]
+                        $data = array($hinfodata, $newsdata, $sidebar, $userdata, $linkpage, $events, $title);
+
+                        if($this->session->userdata('usertype') === 0){
+                                redirect('admin/');
+                                exit();
+                        }
+                        else if($this->session->userdata('usertype') === 2){
+                                redirect('staff/');
+                                exit();
+                        }
+                        else{
+                                if($count['count'] > 0){
+                                        $this->session->set_flashdata(array('success' => 'We found article/s with the keyword: '.$title));
+                                }
+                                else{
+                                        $this->session->set_flashdata(array('error' => 'No article/s were found with the keyword: '.$title));
+                                }
+                                $this->call->view('cluster_article', $data);
+                        }
+                } else {
+                        
+                        $this->session->set_flashdata(array('success' => 'We found article/s with the keyword: '.$title));
+                        $data = array($hinfodata, $newsdata, $sidebar, $x, $linkpage, $events, $title);
+                        $this->call->view('cluster_article', $data);
+                        exit();
+                }
+        }
+
+        public function search_article(){
+                $title = $this->io->post('title');
+                $category = $this->io->post('category');
+                if (!isset ($_GET['page']) ) {  $page = 1;  } else {  $page = $_GET['page']; }
+                $records_per_page = 5;
+                $offset = ($page - 1) * $records_per_page;
+                
+                
+                $hinfodata = $this->db->table('rhuposts')->where('category', $category)->where('status', 'publish')->like('title', '%'.$title.'%')->limit($offset, $records_per_page)->order_by('id', 'ASC')->get_all();
+                $count = $this->db->table('rhuposts')->select_count('id', 'count')->where('category', $category)->where('status', 'publish')->like('title', '%'.$title.'%')->get_all()[0];
+                $this->pagination->initialize($count['count'], $records_per_page, $page, 'home/news');
+
+                $linkpage = $this->pagination->paginate();
+                $events = $this->home_model->get_events(); //[4]
+                $newsdata = $this->home_model->get_news(); //[0]
+                $sidebar = $this->home_model->get_announcement(); //[2]
+                $x = 1; //[3]
+                if($this->auth_model->is_loggedin()){
+                       
+                        $userdata = $this->home_model->get_data(); //[3]
+                        $data = array($hinfodata, $newsdata, $sidebar, $userdata, $linkpage, $events, $title, $category);
+
+                        if($this->session->userdata('usertype') === 0){
+                                redirect('admin/');
+                                exit();
+                        }
+                        else if($this->session->userdata('usertype') === 2){
+                                redirect('staff/');
+                                exit();
+                        }
+                        else{
+                                if(!empty($hinfodata)){
+                                        $this->session->set_flashdata(array('success' => 'We found article/s with the keyword: '.$title));
+                                }
+                                else{
+                                        $this->session->set_flashdata(array('error' => 'No article/s were found with the keyword: '.$title));
+                                }
+                                $this->call->view('read_article', $data);
+                        }
+                } else {
+                        if(!empty($hinfodata)){
+                                $this->session->set_flashdata(array('success' => 'We found article/s with the keyword: '.$title));
+                        }
+                        else{
+                                $this->session->set_flashdata(array('error' => 'No article/s were found with the keyword: '.$title));
+                        }
+                        $data = array($hinfodata, $newsdata, $sidebar, $x, $linkpage, $events, $title, $category);
+                        $this->call->view('read_article', $data);
+                        exit();
+                }
+        }
+
+        public function search_cluster(){
+                $title = $this->io->post('title');
+                if (!isset ($_GET['page']) ) {  $page = 1;  } else {  $page = $_GET['page']; }
+                $records_per_page = 5;
+                $offset = ($page - 1) * $records_per_page;
+                
+                
+                $hinfodata = $this->db->table('rhuposts')->where('category = ? OR category = ?', [3, 4])->where('status', 'publish')->like('title', '%'.$title.'%')->limit($offset, $records_per_page)->order_by('id', 'ASC')->get_all();
+                $count = $this->db->table('rhuposts')->select_count('id', 'count')->where('category = ? OR category = ?', [3, 4])->where('status', 'publish')->like('title', '%'.$title.'%')->get_all()[0];
+                $this->pagination->initialize($count['count'], $records_per_page, $page, 'home/news');
+
+                $linkpage = $this->pagination->paginate();
+                $events = $this->home_model->get_events(); //[4]
+                $newsdata = $this->home_model->get_news(); //[0]
+                $sidebar = $this->home_model->get_announcement(); //[2]
+                $x = 1; //[3]
+                if($this->auth_model->is_loggedin()){
+                       
+                        $userdata = $this->home_model->get_data(); //[3]
+                        $data = array($hinfodata, $newsdata, $sidebar, $userdata, $linkpage, $events, $title);
+
+                        if($this->session->userdata('usertype') === 0){
+                                redirect('admin/');
+                                exit();
+                        }
+                        else if($this->session->userdata('usertype') === 2){
+                                redirect('staff/');
+                                exit();
+                        }
+                        else{
+                                if($count['count'] > 0){
+                                        $this->session->set_flashdata(array('success' => 'We found article/s with the keyword: '.$title));
+                                }
+                                else{
+                                        $this->session->set_flashdata(array('error' => 'No article/s were found with the keyword: '.$title));
+                                }
+                                $this->call->view('cluster_article', $data);
+                        }
+                } else {
+                        
+                        $this->session->set_flashdata(array('success' => 'We found article/s with the keyword: '.$title));
+                        $data = array($hinfodata, $newsdata, $sidebar, $x, $linkpage, $events, $title);
+                        $this->call->view('cluster_article', $data);
+                        exit();
+                }
+        }
+        
         public function logout(){
                 $this->session->unset_userdata(array('loggedin', 'email', 'usertype'));
                 $this->session->sess_destroy();
                 redirect('home');
         }
 
+        
         
 }
 ?>

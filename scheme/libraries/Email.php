@@ -315,6 +315,69 @@ class Email {
         return mail($recipients, $this->subject, $contents, implode($out, $headers), '-f'.$this->sender);
 	}
 
+		/**
+	 * Initialize the Email Data
+	 *
+	 * @param    bool $clear_attachments = false    whether to clear attachments
+	 * @return    CI_Email
+	 */
+	public function clear($clear_attachments = false)
+	{
+	    $this->_subject = '';
+	    $this->_body = '';
+	    $this->_finalbody = '';
+	    $this->_header_str = '';
+	    $this->_replyto_flag = false;
+	    $this->_debug_msg = array();
+	    $this->_recipients = array();
+	    $this->_cc_array = array();
+	    $this->_bcc_array = array();
+	    $this->_headers = array();
+	    $this->_attach_name = array();
+	    $this->_attach_type = array();
+	    $this->_attach_disp = array();
+	    $this->_attach_content = array();
+	    $this->_protocols = null;
+	    $this->_base_charsets = array('us-ascii', 'iso-2022-'); // High ASCII support
+	    $this->_bit_depth = 7; // Bit depth
+	    $this->_encoding = '8bit'; // Non-ASCII default encoding
+	    $this->_smtp_auth = false;
+	    $this->_replyto_email = $this->_replyto_name = '';
+	    $this->_priorities = array();
+	    $this->_newlines = "\n";
+	    $this->_content_type = 'text/plain';
+	    
+	    $this->_multipart = 'mixed';
+	    $this->_validate = false;
+	    $this->_priority = 3; // default priority (3 = normal)
+	    $this->_wordwrap = true;
+	    $this->_wrapchars = 76;
+	    $this->_wrap = "\n";
+	    $this->_smtp_crypto = '';
+	    $this->_starttls = true;
+	    $this->_smtp_keepalive = false;
+	    $this->_dkim_set = false;
+	    $this->_dkim_domain = '';
+	    $this->_dkim_private = '';
+	    $this->_dkim_selector = 'default';
+	    $this->_dkim_passphrase = '';
+	    $this->_attachments = array();
+	    $this->_zlib_encode = false;
+	    $this->_send_multipart = true;
+	    $this->_bcc_batch_mode = false;
+	    $this->_bcc_batch_size = 200;
+	    $this->_enable_linebreaks = false;
+
+	    if ($clear_attachments) {
+	        $this->_attach_name = array();
+	        $this->_attach_type = array();
+	        $this->_attach_disp = array();
+	        $this->_attach_content = array();
+	        $this->_attachments = array();
+	    }
+
+	    return $this;
+	}
 }
 
 ?>

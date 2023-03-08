@@ -1,4 +1,5 @@
 <?php include 'includes/header.php'; ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 	<style>
@@ -35,7 +36,7 @@
 			<div class="row" style="margin-top: 20px;">
 				<div class="col-md-4 text-left">
 					<div class="dropdown">
-						<button class="btn btn-info dropdown-toggle" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-list"></i>
+						<button class="btn btn-info dropdown-toggle btn-flat" type="button" id="about-us" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-list"></i>
 						Patient's Records
 						<span class="caret"></span>
 						</button>
@@ -73,8 +74,9 @@
 				</div>
 				
 				<div class="col-md-8 text-right">
-					<button onclick="window.location.href='<?=site_url('patient/follow_up/'.$data[2]['id']);?>';" class="btn btn-success btn-md btn-flat"><i class='fa fa-plus'></i> Follow Up</button>
-          <button onclick="window.location.href='<?=site_url('dopdf/generate_patientrecord/'.$data[2]['id']); ?>';" class="btn btn-warning btn-md btn-flat"><i class='fa fa-file-pdf-o'></i> PDF</button>
+					<a href="<?=site_url('patient/follow_up/'.$data[2]['id']);?>" class="btn btn-primary btn-md btn-flat"><i class='fa fa-plus'></i> Follow Up</a>
+          <a id="button" class="btn btn-warning btn-md btn-flat"><i class='fa fa-file-pdf-o'></i> PDF</a>
+          <a href="<?=site_url('dopdf/generate_patientrecord/'.$data[2]['id']); ?>" class="btn btn-success btn-md btn-flat" target="_blank"><i class="fa fa-download"></i> Download</a>
 					<a href="#delpatientrecords_<?=$data[2]['id']?>" data-toggle="modal" class="btn btn-danger btn-md btn-flat"><i class="fa fa-trash"></i> Delete</a>
 
 				</div>
@@ -107,11 +109,11 @@
           	</div>
 			      <div class="box-body">
 			        <div class= "col-lg-12">
-								<form class="form-horizontal" action="<?=site_url('patient/update_patientrecord');?>" method="post">
+								<form class="form-horizontal" action="<?=site_url('patient/update_patientrecord');?>" method="post" enctype="multipart/form-data">
 									<input type="hidden" name="id" value="<?=$data[2]['id']; ?>">
 									<input type="hidden" name="p_id" value="<?=$data[2]['p_id']; ?>">
 									<input type="hidden" name="type" value="<?=$data[2]['type']; ?>">
-
+									<input type="hidden" name="signature" value="<?=$data[2]['signature']; ?>">
 									
 									<div class="form-group">
 										<h5 id="ptitle"><b>A. <u>Patient's Personal Profile: </u></b></h5>
@@ -432,20 +434,23 @@
 						      <h5 id="ptitle2"><b>III. <u>Plan of Management: (Treat/Refer/Health Educate) </u></b></h5>
 
 						      <div class="form-group">
-						    		          
+						    		
 						        <div class="col-sm-12">
 						         <textarea row="3" class="form-control" name="management_plan"><?=$data[2]['management_plan']; ?></textarea>
 						        </div>
+						        
 
 						      </div>
-
+						      <hr>
 						      <div class="form-group">
-
 						        <div class="col-sm-4">
 						        	<label for="service_provider" class="control-label">Name of Service Provider</label>
 						          <input type="text" class="form-control" name="service_provider" value="<?=$data[2]['service_provider']; ?>" >
 						        </div>
-
+						        <div class="col-sm-4">
+	                		<label for="photo" class="control-label">Update Signature</label>
+	                    <input class="form-control" type="file" accept="image/*" id="fileToUpload" name="fileToUpload">
+				            </div>
 						      </div>
 						      <hr>
 						      <button type="submit" style="color: white; float: right;" class="btn btn-success btn-md btn-flat"><i class="fa fa-save"></i> Save Changes</button>
@@ -478,12 +483,45 @@
 			        </div>
 			    </div>
 			</div>
+
+			<div class="modal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog modal-lg" role="document">
+		    <div class="modal-content">
+		      <div class="modal-body">
+		        <div class="row">
+      				<div class="col-sm-12" id="makepdf">
+      				<?php echo $data[6]; ?>
+      				</div>
+      			</div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
     </section>
      
   </div>
   	<?php include 'includes/footer.php'; ?>
   	<?php include 'includes/scripts.php'; ?>
 </div>
-
+<script>
+    var button = document.getElementById("button");
+    var makepdf = document.getElementById("makepdf");
+  
+    button.addEventListener("click", function () {
+        var mywindow = window.open("", "PRINT", 
+                "height=650,width=900, top=100,left=200");
+  
+        mywindow.document.write(makepdf.innerHTML);
+  
+        mywindow.document.close();
+        mywindow.focus();
+  
+        mywindow.print();
+        mywindow.close();
+  
+        return true;
+    });
+</script>
 </body>
 </html>

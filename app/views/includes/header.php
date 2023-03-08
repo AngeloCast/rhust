@@ -100,9 +100,13 @@
               <li class="nav-item active">
                 <a class="nav-link" id="navlink" href="<?=site_url('home/clustering'); ?>">Clustering</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" id="navlink" href="<?=site_url('home/about'); ?>">About</a>
+
+              <li class="nav-item active">
+                <a class="nav-link" id="navlink" href="<?=site_url('home/about'); ?>">About Us</a>
               </li>
+
+
+              
               <li class="nav-item">
                 <a class="nav-link" id="navlink" href="<?=site_url('home/contact_us'); ?>">Contact Us</a>
               </li>

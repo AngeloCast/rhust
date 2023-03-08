@@ -382,6 +382,7 @@ class Admin extends Controller {
                                                         if($this->posts_model->insert_post($upresult, $category, $this->io->post('title'), $this->io->post('content'), $status, $this->io->post('userid'))) 
                                                         {
                                                                 if($category == 1){
+
                                                                         $this->session->set_flashdata(array('success' => 'Announcement draft was successfully saved!'));
                                                                         redirect('admin/announcements');
                                                                         exit();
@@ -442,7 +443,7 @@ class Admin extends Controller {
                                                         {
 
                                                                 if($category == 1){
-                                                                        
+                                                                        $this->send_notification($title, $content);
                                                                         $this->session->set_flashdata(array('success' => 'Announcement was successfully published!'));
                                                                         redirect('admin/announcements');
                                                                         exit();
@@ -479,6 +480,23 @@ class Admin extends Controller {
                 }
         }
 
+        public function send_notification($subject, $content){
+                $users = $this->db->table('users')->select('email')->where('notification', 1)->get_all();
+
+                $this->email->sender('rhusanteodoro@gmail.com');
+                $this->email->subject($subject);
+                $this->email->email_content($content);
+
+                foreach ($users as $email) {
+                    // Set the recipient email address
+                    $this->email->recipient($email['email']);
+                }
+                 // Send the email
+                $this->email->send();
+
+                 // Clear the email properties
+                $this->email->clear();
+        }
 
         public function delete_post() 
         {
@@ -623,6 +641,7 @@ class Admin extends Controller {
                                                         $status = 'publish';
                                                         if($this->posts_model->update_post($id, $category, $this->io->post('title'), $this->io->post('content'), $status, $this->io->post('photo')))
                                                         {
+                                                                $this->send_notification($this->io->post('title'), $this->io->post('content'));
                                                                 $this->session->set_flashdata(array('success' => 'Announcement was successfully published!'));
                                                                 redirect('admin/edit_post/' . $id);
                                                                 exit();

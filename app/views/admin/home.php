@@ -190,23 +190,22 @@
         });
 
     </script>
-<script>
-    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    Chart.defaults.global.defaultFontColor = '#292b2c';
-    const labels = <?php echo json_encode($label) ?>;
-    const num = <?php echo json_encode($dataset) ?>;
-    var ctx = document.getElementById("mydoughChart");
-    var myPieChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: labels,
-            datasets: [{
-                data: num,
-                backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#008080', '#800000','#20c997', '#008080', '#805c00'],
-            }],
-        },
-    });
-</script>
-
+    <script>
+        Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#292b2c';
+        const labels = <?php echo json_encode($label) ?>;
+        const num = <?php echo json_encode($dataset) ?>;
+        var ctx = document.getElementById("mydoughChart");
+        var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: num,
+                    backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745', '#008080', '#800000', '#00008B', '#805c00'],
+                }],
+            },
+        });
+    </script>
 </body>
 </html>

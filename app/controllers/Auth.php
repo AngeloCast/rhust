@@ -188,20 +188,28 @@ class Auth extends Controller {
         }
 
         public function send_reset_code($recipient, $code){
-                $this->email->subject('Reset Password Link');
-                $this->email->sender('rhusanteodoro@gmail.com');
-                $this->email->recipient($recipient);
-                $link = (BASE_URL . '/auth/change_password/'.$recipient.'/'.$code);
+                $users = $this->db->table('users')->select('email')->where('notification', 1)->get_all();
                 $email_template = "
-                        <h3>Hello, </h3>
-                        <h4>You are recieving this email because there was an attempt to reset your account's password.</h4>
+                        <h4>Hello, This is an announcement from RHU San Teodoro!.</h4>
                         <br>
-                        <a href='$link'>Click Here To Reset Password >></a>
-                        <br><br>
-                        <h4>Use the link above to change your account's password. Thank you!.</h4>
+                        <h4>'$subject'</h4>
+                        <p>$content</p>
                 ";
+
+                $newsubject = 'RHU San Teodoro Announcement: ' . $subject;
+                $this->email->sender('rhusanteodoro@gmail.com');
+                $this->email->subject($newsubject);
                 $this->email->email_content($email_template, 'html');
+
+                foreach ($users as $email) {
+                    // Set the recipient email address
+                    $this->email->recipient($email['email']);
+                }
+                 // Send the email
                 $this->email->send();
+
+                 // Clear the email properties
+                $this->email->clear();
         }
 
         public function change_password($email, $code){

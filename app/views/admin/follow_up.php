@@ -52,9 +52,10 @@
           	</div>
 			      <div class="box-body">
 			        <div class= "col-lg-12">
-								<form class="form-horizontal" action="<?=site_url('patient/add_follow_up');?>" method="post">
+								<form class="form-horizontal" action="<?=site_url('patient/add_follow_up');?>" method="post" enctype="multipart/form-data">
 									<input type="hidden" name="id" value="<?=$data[2]['id']; ?>">
 									<input type="hidden" name="p_id" value="<?=$data[2]['p_id']; ?>">
+									<input type="hidden" name="signature" value="<?=$data[2]['signature']; ?>">
 									<div class="form-group">
 										<h5 id="ptitle"><b>A. <u>Patient's Personal Profile: </u></b></h5>
                       <div class="col-sm-4">
@@ -374,7 +375,11 @@
 						        	<label for="service_provider" class="control-label">Name of Service Provider</label>
 						          <input type="text" class="form-control" name="service_provider" value="<?=$data[2]['service_provider']; ?>" >
 						        </div>
-
+						        <div class="col-sm-4">
+	                		<label for="photo" class="control-label">Update Signature</label>
+	                    <input class="form-control" type="file" accept="image/*" id="fileToUpload" name="fileToUpload">
+				            </div>
+				            
 						      </div>
 						      <hr>
 						      <button type="submit" style="color: white; float: right;" class="btn btn-success btn-md btn-flat"><i class="fa fa-save"></i> Save Record</button>

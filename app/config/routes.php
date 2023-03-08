@@ -62,4 +62,3 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 */
 $route['404_override']       	= '';
 $route['translate_uri_dashes'] 	= FALSE;
-$route['home/view_post/(:num)'] = 'home/view_post/$1';

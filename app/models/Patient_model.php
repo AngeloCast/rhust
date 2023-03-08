@@ -4,7 +4,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 class Patient_model extends Model{
 
     
-    public function insert_patient($serial_no, $firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $classification, $management_plan, $service_provider){
+    public function insert_patient($serial_no, $firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $classification, $management_plan, $service_provider, $signature){
         date_default_timezone_set('Asia/Manila');
         $edited = date('Y-m-d H:i:s');
         $date = date('Y-m-d');
@@ -59,6 +59,7 @@ class Patient_model extends Model{
             'classification' => $classification,
             'management_plan' => $management_plan,
             'service_provider' => $service_provider,
+            'signature' => $signature,
             'date_created' => $date,
             'last_edited' => $edited,
             'type' => 0,
@@ -115,7 +116,7 @@ class Patient_model extends Model{
     }
 
 
-    public function update_patientrecord($id, $serial_no, $firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $classification, $management_plan, $service_provider, $p_id) {
+    public function update_patientrecord($id, $serial_no, $firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $classification, $management_plan, $service_provider, $p_id, $signature) {
         
         if($age == ''){$age = NULL;}
         if($birthday == ''){$birthday = NULL;}
@@ -168,6 +169,7 @@ class Patient_model extends Model{
             'classification' => $classification,
             'management_plan' => $management_plan,
             'service_provider' => $service_provider,
+            'signature' => $signature,
             'last_edited' => $datetime,
             'p_id' => $p_id
         );
@@ -199,7 +201,7 @@ class Patient_model extends Model{
         return $this->db->table('tblpatientrecords')->select('id, date_created, type')->where('p_id', $pid)->get_all();
     }
 
-    public function insert_follow_up($serial_no, $firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $classification, $management_plan, $service_provider, $uniqueid){
+    public function insert_follow_up($serial_no, $firstname, $lastname, $middlename, $age, $gender, $birthday, $civil_status, $contact_person, $address, $cnumber, $health_insurance, $religion, $blood_type, $visit_date, $visit_time, $age_months, $food_allergy, $medicine_allergy, $chief_complaints, $history_presentillness, $hypertension_meds, $diabetes_meds, $bronchial_meds, $last_attack, $other_hldse, $operation, $bp, $heart_rate, $respiratory_rate, $temperature, $weight, $height, $physical_exam, $assessment, $classification, $management_plan, $service_provider, $uniqueid, $signature){
         if($age == ''){$age = NULL;}
         if($birthday == ''){$birthday = NULL;}
         if($cnumber == ''){$cnumber = NULL;}
@@ -253,6 +255,7 @@ class Patient_model extends Model{
             'classification' => $classification,
             'management_plan' => $management_plan,
             'service_provider' => $service_provider,
+            'signature' => $signature,
             'date_created' => $date,
             'last_edited' => $edited,
             'type' => 1,
@@ -350,5 +353,54 @@ class Patient_model extends Model{
     public function follow_gender_n(){
         return $this->db->table('tblpatientrecords')->select_count('*', 'notrow')->where('gender', 'N')->where('type', 0)->get();
     }
+
+    public function upload($oldfile=''){
+        $target_dir = "public/images/signature/";
+        $target_file = basename($_FILES["fileToUpload"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+                  // Check if image file is a actual image or fake image
+        if(isset($_POST["submit"])) {
+            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+            if($check !== false) {
+                echo "File is an image - " . $check["mime"] . ".";
+                $uploadOk = 1;
+            } else {
+                $this->session->set_flashdata(array('error' => 'An error occured! Uploaded file is not an image!'));
+                $uploadOk = 0;
+            }
+        }
+        
+        // Check file size
+        if ($_FILES["fileToUpload"]["size"] > 10000000) {
+            $this->session->set_flashdata(array('error' => 'An error occured! File is too large!'));
+            $uploadOk = 0;
+        }
+                            // Allow certain file formats
+        if($imageFileType != "png") {
+            $this->session->set_flashdata(array('error' => 'An error occured! Sorry, only png/transparent files are allowed!'));
+            $uploadOk = 0;
+        }
+                            // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            return 0;
+                            // if everything is ok, try to upload file
+        } 
+        else 
+        {
+            if($oldfile != ''){
+            $file_path = 'public/images/signature/'.$oldfile; // DELETE OLD IMAGE
+                if(file_exists($file_path)) {
+                    unlink($file_path);
+                }
+            } 
+            $new_img_name = uniqid('esign-', true).'.'.$imageFileType;
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . $new_img_name)) {
+                return $new_img_name;
+            }
+        }
+    }
+
 }
 ?>
